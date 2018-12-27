@@ -1,6 +1,14 @@
 <template>
   <div style="padding-top:0.5em;">
-    <div class="columns is-centered">
+    <div v-if="agendaList && agendaList.length <= 0" class="columns is-centered spinner">
+
+    <atom-spinner
+          :animation-duration="1000"
+          :size="60"
+          :color="'rgb(255,255,255)'"
+     />
+    </div>
+    <div v-if="agendaList && agendaList.length > 0" class="columns is-centered">
       <div class="column is-narrow has-text-centered">
         <tag
           :b-color="category.color"
@@ -10,7 +18,7 @@
         >{{category.name}}</tag>
       </div>
     </div>
-    <div class="columns is-multiline is-3">
+    <div v-if="agendaList && agendaList.length > 0" class="columns is-multiline is-3">
       <div
         class="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
         v-for="(agenda, i) in agendaList"
@@ -23,12 +31,14 @@
 </template>
 
 <script>
+import { AtomSpinner } from 'epic-spinners';
 import AgendaItem from './AgendaItem.vue';
 import { AgendaAPI, PostCategoryAPI } from '@/api/api.index';
 
 export default {
   components: {
-    AgendaItem
+    AgendaItem,
+    AtomSpinner
   },
   name: 'Agendas',
   data() {
@@ -59,4 +69,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.spinner {
+  margin-top: 200px;
+}
 </style>

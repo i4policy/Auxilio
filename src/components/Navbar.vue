@@ -35,8 +35,11 @@
               <div class="column"></div>
           <div class="column is-narrow">
             <div class="navbar-item">
+              <VAvatar class="mb-3" size="40px">
+                <img class="user-avatar" :src="userProfile.profilePicture" alt="Avatar" />
+              </VAvatar>
               <span class="has-text-white is-size-7">
-                {{userProfile.title}} {{userProfile.fullName}}
+                {{userProfile.fullName}} {{userProfile.fullName}}
                  &nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
               <a class="button is-primary " href="#" @click="logout">
@@ -53,6 +56,7 @@
 import { mapMutations } from 'vuex';
 import { AuthService } from '@/services/services.index';
 import NewAgenda from './NewAgenda.vue';
+import { API_ROOT } from '@/api/api.index';
 
 export default {
   name: 'Navbar',
@@ -112,5 +116,10 @@ export default {
   width: 100%;
   padding: 5px 10px;
   position: relative;
+}
+.user-avatar {
+  border-radius: 30px;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 </style>

@@ -14,6 +14,7 @@
     "buefy": "^0.7.1",
     "bulma-badge": "^2.0.0",
     "bulma-divider": "^2.0.1",
+    "epic-spinners": "^1.0.4",
     "v-img-fallback": "^0.1.4",
     "vee-validate": "^2.1.4",
     "vue": "^2.5.17",

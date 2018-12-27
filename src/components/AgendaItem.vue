@@ -4,21 +4,17 @@
       <div
         class="is-badge-primary is-badge-large"
         :class="{ badge: content.newFeedbacks>0 }"
-        :data-badge="content.newFeedbacks"
+        :data-badge="'+' + content.newFeedbacks"
       ></div>
       <div class="site-card-header is-marginless">
         <h3 class="card-title">{{content.title | limitTo(80, '...')}}</h3>
       </div>
       <div class="card-body">
-        <div class="has-text-centered">
-          <small>{{content.createdAt | formatDate}}</small>
-        </div>
-        <p class="subtitle has-text-centered">
-          <tag
-            :b-color="content.category&&content.category.color"
-          >{{content.category&&content.category.name}}</tag>
-        </p>
         <p class="card-description">{{content.description | limitTo(120,'...')}}.</p>
+        <div class="has-text-centered">
+          <small>{{content.startDate | formatDate}}</small>
+          - <small>{{content.endDate | formatDate}}</small>
+        </div>
       </div>
       <div class="level">
         <div class="level-item"></div>
@@ -28,7 +24,7 @@
       <div class="site-card-footer level">
         <div class="level-item">
           <b-icon icon="thumb-up" type="is-primary" size="is-small"></b-icon>&nbsp;
-          <span class="site-card-footer-item">7.5k</span>
+          <span class="site-card-footer-item">{{(content.upVote - content.downVote) | formatVote}}</span>
           &nbsp;
           <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"></b-icon>
         </div>
@@ -113,5 +109,17 @@ export default {
 .site-card-footer-item {
   font-size: 12;
   color: #aaa;
+}
+.has-text-centered {
+  color: #593c79;
+  padding-top: 15px;
+}
+.card-description {
+  color: #8c8990;
+  font-size: 14px;
+}
+.mdi, .site-card-footer-item{
+  color: #8c8990 !important;
+  cursor: default
 }
 </style>
