@@ -38,9 +38,6 @@
                     ></b-icon>
                   </b-tooltip>
                 </div>
-                <!-- <div class="is-block has-text-centered">
-                    <span class="is-size-7">Down vote</span>
-                </div>-->
               </div>
             </div>
           </div>
@@ -134,10 +131,14 @@ export default {
       this.agenda = await AgendaAPI.detail(id);
     },
     async upVote() {
-      await AgendaVoteAPI.vote({
+      const result = await AgendaVoteAPI.vote({
         postId: this.agenda.id,
         vote: 1
       });
+      if (result) {
+        this.agenda.upVote = result.upVote;
+        this.agenda.downVote = result.downVote;
+      }
       this.$toast.open({
         message: 'Up votted',
         type: 'is-primary',
@@ -145,10 +146,14 @@ export default {
       });
     },
     async downVote() {
-      await AgendaVoteAPI.vote({
+      const result = await AgendaVoteAPI.vote({
         postId: this.agenda.id,
         vote: -1
       });
+      if (result) {
+        this.agenda.upVote = result.upVote;
+        this.agenda.downVote = result.downVote;
+      }
       this.$toast.open({
         message: 'Down votted',
         type: 'is-info',
