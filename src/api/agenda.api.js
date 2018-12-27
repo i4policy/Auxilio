@@ -20,7 +20,7 @@ const AgendaAPI = {
   },
   all(filter) {
     return Request.get(`${API_ROOT}${PATH}/list`, {
-      params: filter
+      params: { filter }
     });
   },
   create(data) {

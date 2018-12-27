@@ -4,9 +4,9 @@
       <div class="column is-narrow has-text-centered">
         <tag
           :b-color="category.color"
-          f-color="#fff"
           v-for="(category, i) in categoryList"
           :key="i"
+          @click.native="filterByCategory(category.id)"
         >{{category.name}}</tag>
       </div>
     </div>
@@ -46,10 +46,14 @@ export default {
       const categories = await PostCategoryAPI.all();
       this.categoryList = categories.rows;
     },
-    async getAgendas() {
-      const agendas = await AgendaAPI.all();
-      console.log(agendas);
+    async getAgendas(filter = {}) {
+      const agendas = await AgendaAPI.all(filter);
       this.agendaList = agendas.rows;
+    },
+    async filterByCategory(categoryId) {
+      if (categoryId) {
+        await this.getAgendas({ categoryId });
+      }
     }
   }
 };
