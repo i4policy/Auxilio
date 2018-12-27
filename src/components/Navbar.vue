@@ -35,9 +35,9 @@
               <div class="column"></div>
           <div class="column is-narrow">
             <div class="navbar-item">
-              <VAvatar class="mb-3" size="40px">
+              <div class="mb-3" size="40px">
                 <img class="user-avatar" :src="userProfile.profilePicture" alt="Avatar" />
-              </VAvatar>
+              </div>
               <span class="has-text-white is-size-7">
                 {{userProfile.fullName}}
                  &nbsp;&nbsp;&nbsp;&nbsp;

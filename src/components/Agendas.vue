@@ -1,6 +1,6 @@
 <template>
   <div style="padding-top:0.5em;">
-    <div v-if="agendaList && agendaList.length <= 0" class="columns is-centered spinner">
+    <div v-if="isLoading" class="columns is-centered spinner">
 
     <atom-spinner
           :animation-duration="1000"
@@ -8,7 +8,7 @@
           :color="'rgb(255,255,255)'"
      />
     </div>
-    <div v-if="agendaList && agendaList.length > 0" class="columns is-centered">
+    <div v-if="!isLoading" class="columns is-centered">
       <div class="column is-narrow has-text-centered">
         <tag
           :b-color="category.color"
@@ -18,7 +18,10 @@
         >{{category.name}}</tag>
       </div>
     </div>
-    <div v-if="agendaList && agendaList.length > 0" class="columns is-multiline is-3">
+    <div v-if="!isLoading && agendaList.length == 0" class="columns is-centered no-found">
+      <p>No agenda found.</p>
+    </div>
+    <div v-if="!isLoading" class="columns is-multiline is-3">
       <div
         class="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
         v-for="(agenda, i) in agendaList"
@@ -45,15 +48,16 @@ export default {
   data() {
     return {
       agendaList: [],
-      categoryList: []
+      categoryList: [],
+      isLoading: true
     };
   },
   computed: {
     ...mapState('core', ['newAgenda'])
   },
   created() {
-    this.getAgendas();
     this.getCategories();
+    this.getAgendas();
   },
   methods: {
     async getCategories() {
@@ -63,6 +67,7 @@ export default {
     async getAgendas(filter = {}) {
       const agendas = await AgendaAPI.all(filter);
       this.agendaList = agendas.rows;
+      this.isLoading = false;
     },
     async filterByCategory(categoryId) {
       if (categoryId) {
@@ -79,6 +84,11 @@ export default {
 </script>
 <style scoped lang="scss">
 .spinner {
+  margin-top: 200px;
+}
+.no-found {
+  font-size: 20px;
+  color: rgb(255,255,255);
   margin-top: 200px;
 }
 </style>
