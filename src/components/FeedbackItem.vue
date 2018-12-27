@@ -6,9 +6,9 @@
       </p>
     </figure>
     <div class="media-content">
-      <div class="content">
+      <div class="content" v-if="!editMode">
           <div class="columns">
-              <div class="column">
+              <div class="column" >
                     <p>
                     <strong> {{feedback.createdBy.title}} {{feedback.createdBy.fullName}}</strong>
                     <br>
@@ -31,6 +31,10 @@
                         <small>12</small>
                         &nbsp;·&nbsp;
                          {{feedback.createdAt | formatDate}}
+                         &nbsp;&nbsp;
+                        <small class="has-text-link pointer" @click="editFeedback()">EDIT</small>
+                         &nbsp;&nbsp;
+                        <small class="has-text-danger pointer" @click="deleteFeedback()">DELETE</small>
                     </small>
                     </p>
               </div>
@@ -64,6 +68,9 @@
                 </div>
           </div>
       </div>
+      <div v-if="editMode">
+        <feedback-edit :feedback-id="feedback.id" :body="feedback.body" />
+      </div>
       <comment-item v-for="(comment, i) in feedback.feedbackReplays" :key="i" :comment="comment"/>
       <comment-input :feedback-id="feedback.id"/>
     </div>
@@ -72,12 +79,14 @@
 <script>
 import CommentItem from './CommentItem.vue';
 import CommentInput from './CommentInput.vue';
+import FeedbackEdit from './FeedbackEdit.vue';
 
 export default {
   name: 'FeedbackItem',
   components: {
     CommentItem,
-    CommentInput
+    CommentInput,
+    FeedbackEdit
   },
   props: {
     feedback: {
@@ -86,7 +95,17 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      editMode: false
+    };
+  },
+  methods: {
+    editFeedback() {
+      this.editMode = true;
+    },
+    deleteFeedback() {
+
+    }
   }
 };
 </script>
