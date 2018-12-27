@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: 0 */
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -7,15 +8,17 @@ Vue.use(Vuex);
 const core = {
   namespaced: true,
   state: {
+    newAgenda: null,
     pendingNetworkRequest: 0
   },
   mutations: {
+    newAgendaCreated(state, agenda) {
+      state.newAgenda = agenda;
+    },
     addPendingRequest(state) {
-      // eslint-disable-next-line
       state.pendingNetworkRequest += 1;
     },
     removePendingRequest(state) {
-      // eslint-disable-next-line
       state.pendingNetworkRequest -= 1;
     }
   },

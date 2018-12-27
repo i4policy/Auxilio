@@ -32,6 +32,7 @@
 
 <script>
 import { AtomSpinner } from 'epic-spinners';
+import { mapState } from 'vuex';
 import AgendaItem from './AgendaItem.vue';
 import { AgendaAPI, PostCategoryAPI } from '@/api/api.index';
 
@@ -46,6 +47,9 @@ export default {
       agendaList: [],
       categoryList: []
     };
+  },
+  computed: {
+    ...mapState('core', ['newAgenda'])
   },
   created() {
     this.getAgendas();
@@ -64,6 +68,11 @@ export default {
       if (categoryId) {
         await this.getAgendas({ categoryId });
       }
+    }
+  },
+  watch: {
+    newAgenda(val) {
+      this.agendaList.unshift(val);
     }
   }
 };

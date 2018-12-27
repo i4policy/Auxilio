@@ -92,12 +92,13 @@ export default {
         Object.keys(item).forEach((key) => {
           formData.append(key, item[key]);
         });
-        await AgendaAPI.create(formData);
+        const result = await AgendaAPI.create(formData);
         this.$toast.open({
           message: 'Agenda created successfully.',
           type: 'is-success',
           position: 'is-top'
         });
+        this.$store.commit('core/newAgendaCreated', result);
         this.$parent.close();
       } else {
         this.$toast.open({
