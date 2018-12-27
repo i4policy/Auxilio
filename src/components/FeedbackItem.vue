@@ -18,10 +18,10 @@
               <br>
               <small>
                 <b-icon icon="thumb-up" type="is-primary" size="is-small"></b-icon>
-                <small>203</small>
+                <small>{{feedback.upVote}}</small>
                 &nbsp;·&nbsp;
                 <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"></b-icon>
-                <small>12</small>
+                <small>{{feedback.downVote}}</small>
                 &nbsp;·&nbsp;
                 {{feedback.createdAt | formatDate}}
                 &nbsp;&nbsp;
@@ -41,7 +41,13 @@
             <div class="is-block">
               <div class="is-block has-text-centered">
                 <b-tooltip label="Up Vote">
-                  <b-icon icon="thumb-up" type="is-primary" size="is-small" custom-class="pointer"></b-icon>
+                  <b-icon
+                    @click.native="vote(1)"
+                    icon="thumb-up"
+                    type="is-primary"
+                    size="is-small"
+                    custom-class="pointer"
+                  ></b-icon>
                 </b-tooltip>
               </div>
               <div class="is-block">
@@ -50,6 +56,7 @@
               <div class="is-block has-text-centered">
                 <b-tooltip label="Down Vote" position="is-bottom" type="is-dark">
                   <b-icon
+                    @click.native="vote(-1)"
                     icon="thumb-down"
                     type="is-grey-lighter"
                     size="is-small"
@@ -65,7 +72,7 @@
         <feedback-edit :feedback-id="feedback.id" :body="feedback.body"/>
       </div>
       <comment-item v-for="(comment, i) in feedback.replies" :key="i" :comment="comment"/>
-      <comment-input @success='handleNewComment($event)' :feedback-id="feedback.id"/>
+      <comment-input @success="handleNewComment($event)" :feedback-id="feedback.id"/>
     </div>
   </article>
 </template>
@@ -73,7 +80,7 @@
 import CommentItem from './CommentItem.vue';
 import CommentInput from './CommentInput.vue';
 import FeedbackEdit from './FeedbackEdit.vue';
-import { FeedbackAPI } from '@/api/api.index';
+import { FeedbackAPI, FeedbackVoteAPI } from '@/api/api.index';
 
 export default {
   name: 'FeedbackItem',
@@ -94,6 +101,21 @@ export default {
     };
   },
   methods: {
+    async vote(vote) {
+      const result = await FeedbackVoteAPI.vote({
+        feedbackId: this.feedback.id,
+        vote
+      });
+      if (result) {
+        this.feedback.upVote = result.upVote;
+        this.feedback.downVote = result.downVote;
+      }
+      this.$toast.open({
+        message: vote === 1 ? 'Up votted' : 'Down votted',
+        type: 'is-primary',
+        position: 'is-top'
+      });
+    },
     handleNewComment(comment) {
       if (!comment || !this.feedback.replies) return;
       this.feedback.replies.push(comment);
