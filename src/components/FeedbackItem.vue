@@ -80,6 +80,7 @@
 import CommentItem from './CommentItem.vue';
 import CommentInput from './CommentInput.vue';
 import FeedbackEdit from './FeedbackEdit.vue';
+import { FeedbackAPI } from '@/api/api.index';
 
 export default {
   name: 'FeedbackItem',
@@ -104,7 +105,19 @@ export default {
       this.editMode = true;
     },
     deleteFeedback() {
-
+      this.$dialog.confirm({
+        title: 'Deleting feedback',
+        message: 'Are you sure you want to <b>delete</b> your feedback? This action cannot be undone.',
+        confirmText: 'Delete Feedback',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: async () => {
+          await FeedbackAPI.remove({
+            feedbackId: this.feedback.id
+          });
+          this.$toast.open('Feedback deleted!');
+        }
+      });
     }
   }
 };
