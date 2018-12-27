@@ -1,7 +1,7 @@
 import { API_ROOT } from './api.index';
 import Request from './request';
 
-const PATH = '/FeedbackReplays';
+const PATH = '/FeedbackReplies';
 
 const CommentAPI = {
   get(id) {
@@ -16,10 +16,10 @@ const CommentAPI = {
     return Request.post(`${API_ROOT}${PATH}/create-reply`, data);
   },
   update(data) {
-    return Request.patch(`${API_ROOT}${PATH}/${data.id}`, data);
+    return Request.put(`${API_ROOT}${PATH}/update-my-reply`, data);
   },
-  remove(id) {
-    return Request.delete(`${API_ROOT}${PATH}/${id}`);
+  remove(data) {
+    return Request.delete(`${API_ROOT}${PATH}/delete-my-reply`, data);
   }
 };
 

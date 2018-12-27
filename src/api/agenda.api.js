@@ -5,6 +5,13 @@ const PATH = '/Posts';
 
 const AgendaAPI = {
   get(id) {
+    return Request.get(`${API_ROOT}${PATH}/${id}`, {
+      params: {
+        postId: id
+      }
+    });
+  },
+  detail(id) {
     return Request.get(`${API_ROOT}${PATH}/detail`, {
       params: {
         postId: id
@@ -20,10 +27,10 @@ const AgendaAPI = {
     return Request.post(`${API_ROOT}${PATH}/create-post`, data);
   },
   update(data) {
-    return Request.patch(`${API_ROOT}${PATH}/${data.id}`, data);
+    return Request.patch(`${API_ROOT}${PATH}/update-my-post`, data);
   },
-  remove(id) {
-    return Request.delete(`${API_ROOT}${PATH}/${id}`);
+  remove(data) {
+    return Request.delete(`${API_ROOT}${PATH}/delete-my-post`, data);
   },
 };
 

@@ -24,9 +24,9 @@
             </div>
           </div>
 
-          <div class="column is-narrow">
+          <div class="column is-narrow" v-if="this.userProfile.role == 'admin'">
             <div class="navbar-item">
-              <a class="button is-primary is-small" href="#" @click="openNewAgenda()">
+              <a class="button is-primary " href="#" @click="openNewAgenda()">
                 <b-icon icon="plus" type="is-white" size="is-small"></b-icon>
                 <span>New Agenda</span>
               </a>
@@ -39,7 +39,7 @@
                 {{userProfile.title}} {{userProfile.fullName}}
                  &nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
-              <a class="button is-primary is-small" href="#" @click="logout">
+              <a class="button is-primary " href="#" @click="logout">
                 <span>logout</span>
               </a>
             </div>
@@ -60,10 +60,7 @@ export default {
     return {
       profilePopupVisible: false,
       appName: 'Auxilio',
-      userProfile: {
-        name: 'Mike',
-        role: 'Admin'
-      }
+      userProfile: {}
     };
   },
   created() {

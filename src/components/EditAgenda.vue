@@ -6,7 +6,7 @@
           class="modal-card-head has-background-info has-text-centered"
           style="justify-content: center;"
         >
-          <p class="modal-card-title has-text-white">Post new agenda</p>
+          <p class="modal-card-title has-text-white">Edit agenda</p>
         </header>
         <section class="modal-card-body">
           <b-field
@@ -69,7 +69,13 @@
 import { AgendaAPI, PostCategoryAPI } from '@/api/api.index';
 
 export default {
-  name: 'NewAgenda',
+  name: 'EditAgenda',
+  props: {
+    agendaId: {
+      type: [String],
+      default: () => ''
+    }
+  },
   data() {
     return {
       item: {},
@@ -78,8 +84,18 @@ export default {
   },
   created() {
     this.getCategoryList();
+    this.getAgenda();
   },
   methods: {
+    async getAgenda() {
+      const item = await AgendaAPI.get(this.agendaId);
+      this.item = {
+        title: item.title,
+        endDate: new Date(item.endDate),
+        categoryId: item.categoryId,
+        description: item.description
+      };
+    },
     async getCategoryList() {
       const categories = await PostCategoryAPI.all();
       this.categoryList = categories.rows;
@@ -88,13 +104,13 @@ export default {
       const valid = await this.$validator.validateAll();
       if (valid) {
         const formData = new FormData();
-        const item = { ...this.item };
+        const item = { ...this.item, postId: this.agendaId };
         Object.keys(item).forEach((key) => {
           formData.append(key, item[key]);
         });
-        await AgendaAPI.create(formData);
+        await AgendaAPI.update(formData);
         this.$toast.open({
-          message: 'Agenda created successfully.',
+          message: 'Agenda updated successfully.',
           type: 'is-success',
           position: 'is-top'
         });

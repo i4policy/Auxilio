@@ -12,9 +12,9 @@
             </p>
             </div>
             <div class="field">
-            <p class="control">
-                <button class="button is-primary" @click="postComment()">Post comment</button>
-            </p>
+              <p class="control">
+                  <button class="button is-primary" @click="postComment()">Post comment</button>
+              </p>
             </div>
         </div>
     </article>

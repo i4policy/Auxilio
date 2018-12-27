@@ -48,9 +48,9 @@
 
           <div class="columns">
             <div class="column">
-              <progress class="progress is-primary" value="15" max="100">15%</progress>
+              <progress class="progress is-primary" :value="agenda.progress" max="100">{{agenda.progress}}%</progress>
             </div>
-            <div class="column is-narrow">21 days remaing</div>
+            <div class="column is-narrow">{{agenda.remainingDays}} days remaing</div>
           </div>
           <nav class="level is-mobile">
             <div class="level-item has-text-centered">
@@ -77,6 +77,12 @@
                 <p class="title has-text-success">456K</p>
               </div>
             </div>
+            <div class="level-item has-text-centered">
+              &nbsp;&nbsp;
+              <small class="has-text-link pointer" @click="editAgenda()">EDIT</small>
+                &nbsp;&nbsp;
+              <small class="has-text-danger pointer" @click="deleteAgenda()">DELETE</small>
+            </div>
           </nav>
           <div class="has-text-centered"></div>
           <feedback-input :post-id="agenda.id"/>
@@ -99,6 +105,7 @@
 import { AgendaAPI, AgendaVoteAPI } from '@/api/api.index';
 import FeedbackItem from './FeedbackItem.vue';
 import FeedbackInput from './FeedbackInput.vue';
+import EditAgenda from './EditAgenda.vue';
 
 export default {
   name: 'AgendaDetail',
@@ -119,10 +126,9 @@ export default {
   },
   methods: {
     async getAgenda(id) {
-      this.agenda = await AgendaAPI.get(id);
+      this.agenda = await AgendaAPI.detail(id);
     },
     async upVote() {
-      console.log('av');
       await AgendaVoteAPI.vote({
         postId: this.agenda.id,
         vote: 1
@@ -134,7 +140,6 @@ export default {
       });
     },
     async downVote() {
-      console.log('a');
       await AgendaVoteAPI.vote({
         postId: this.agenda.id,
         vote: -1
@@ -143,6 +148,36 @@ export default {
         message: 'Down votted',
         type: 'is-info',
         position: 'is-top'
+      });
+    },
+    editAgenda() {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        component: EditAgenda,
+        hasModalCard: true,
+        props: {
+          agendaId: this.agenda.id
+        }
+      });
+    },
+    async deleteAgenda() {
+      this.$dialog.confirm({
+        title: 'Deleting agenda',
+        message: 'Are you sure you want to <b>delete</b> the agenda? This action cannot be undone.',
+        confirmText: 'Delete Agenda',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: async () => {
+          await AgendaAPI.remove({
+            postId: this.agenda.id
+          });
+          this.$toast.open({
+            message: 'Agenda deleted successfully.',
+            type: 'is-success',
+            position: 'is-top'
+          });
+        }
       });
     }
   }

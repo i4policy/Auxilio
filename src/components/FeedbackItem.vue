@@ -71,7 +71,7 @@
       <div v-if="editMode">
         <feedback-edit :feedback-id="feedback.id" :body="feedback.body" />
       </div>
-      <comment-item v-for="(comment, i) in feedback.feedbackReplays" :key="i" :comment="comment"/>
+      <comment-item v-for="(comment, i) in feedback.replies" :key="i" :comment="comment"/>
       <comment-input :feedback-id="feedback.id"/>
     </div>
   </article>
@@ -115,7 +115,11 @@ export default {
           await FeedbackAPI.remove({
             feedbackId: this.feedback.id
           });
-          this.$toast.open('Feedback deleted!');
+          this.$toast.open({
+            message: 'Feedback deleted successfully.',
+            type: 'is-success',
+            position: 'is-top'
+          });
         }
       });
     }
