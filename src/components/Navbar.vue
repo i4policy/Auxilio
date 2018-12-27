@@ -39,7 +39,7 @@
                 <img class="user-avatar" :src="userProfile.profilePicture" alt="Avatar" />
               </VAvatar>
               <span class="has-text-white is-size-7">
-                {{userProfile.fullName}} {{userProfile.fullName}}
+                {{userProfile.fullName}}
                  &nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
               <a class="button is-primary " href="#" @click="logout">
@@ -86,7 +86,16 @@ export default {
     getUser() {
       this.userProfile = AuthService.getProfile();
     }
-  }
+  },
+  computed: {
+    imgUrl() {
+      if (!this.userProfile.profilePicture) {
+        return false;
+      }
+      const img = this.userProfile.profilePicture;
+      return `${API_ROOT}/Containers/users/download/${img}`;
+    }
+  },
 };
 </script>
 <style>
