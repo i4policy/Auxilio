@@ -1,11 +1,20 @@
 <template>
   <article class="">
     <div class="media-content">
-      <div class="field">
-        <p class="control">
-          <textarea v-model="bodyContent" class="textarea" placeholder="Add a feedback..."></textarea>
-        </p>
-      </div>
+      <b-field
+        label="Title"
+        :type="{'is-danger': errors.has('feedback')}"
+        :message="errors.first('feedback')"
+      >
+        <b-input
+          v-model="body"
+          v-validate="'required'"
+          type="textarea"
+          minlength="1"
+          name="feedback"
+          placeholder="Add a feedbcak..."
+        />
+      </b-field>
       <div class="field">
         <p class="control">
           <button class="button is-primary" @click="editFeedback()">Edit feedback</button>
@@ -42,11 +51,13 @@ export default {
   },
   methods: {
     async editFeedback() {
+      const valid = await this.$validator.validateAll();
+      if (!valid) {
+        return;
+      }
       const formData = new FormData();
-      formData.append('body', JSON.stringify({
-        body: this.bodyContent,
-        id: this.feedbackId
-      }));
+      formData.append('body', this.bodyContent);
+      formData.append('id', this.feedbackId);
       await FeedbackAPI.update(formData);
       this.$toast.open({
         message: 'Feedback edited successfully.',

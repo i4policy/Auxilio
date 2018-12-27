@@ -16,7 +16,7 @@ const FeedbackAPI = {
     return Request.post(`${API_ROOT}${PATH}/create-feedback`, data);
   },
   update(data) {
-    return Request.put(`${API_ROOT}${PATH}/update-my-feedback`, data);
+    return Request.patch(`${API_ROOT}${PATH}/update-my-feedback`, data);
   },
   remove(data) {
     return Request.delete(`${API_ROOT}${PATH}/delete-my-feedback`, data);

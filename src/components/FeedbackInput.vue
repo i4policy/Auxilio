@@ -2,15 +2,28 @@
   <article class="media">
     <figure class="media-left">
       <p class="image is-64x64">
-        <img :src="userProfile.profilePicture" class="is-rounded" v-img-fallback="'/user-placeholder.png'">
+        <img
+          :src="userProfile.profilePicture"
+          class="is-rounded"
+          v-img-fallback="'/user-placeholder.png'"
+        >
       </p>
     </figure>
     <div class="media-content">
-      <div class="field">
-        <p class="control">
-          <textarea v-model="body" class="textarea" placeholder="Add a feedback..."></textarea>
-        </p>
-      </div>
+      <b-field
+        label="Title"
+        :type="{'is-danger': errors.has('feedback')}"
+        :message="errors.first('feedback')"
+      >
+        <b-input
+          v-model="body"
+          v-validate="'required'"
+          type="textarea"
+          minlength="1"
+          name="feedback"
+          placeholder="Add a feedbcak..."
+        />
+      </b-field>
       <div class="field">
         <p class="control">
           <button class="button is-primary" @click="postFeedback()">Post feedback</button>
@@ -42,7 +55,10 @@ export default {
   },
   methods: {
     async postFeedback() {
-      console.log(this.body, this.postId);
+      const valid = await this.$validator.validateAll();
+      if (!valid) {
+        return;
+      }
 
       const formData = new FormData();
       const item = {
@@ -52,12 +68,15 @@ export default {
       Object.keys(item).forEach((key) => {
         formData.append(key, item[key]);
       });
-      await FeedbackAPI.create(formData);
+      const response = await FeedbackAPI.create(formData);
       this.$toast.open({
         message: 'Feedback posted successfully.',
         type: 'is-success',
         position: 'is-top'
       });
+      this.body = '';
+      this.$nextTick(() => this.$validator.reset());
+      this.$emit('success', response);
     }
   }
 };

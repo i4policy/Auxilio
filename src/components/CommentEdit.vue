@@ -1,19 +1,28 @@
 <template>
-    <article class="media">
-        <div class="media-content">
-            <div class="field">
-            <p class="control">
-                <textarea class="textarea" v-model="bodyContent" placeholder="Add a comment..."></textarea>
-            </p>
-            </div>
-            <div class="field">
-            <p class="control">
-                <button class="button is-primary" @click="editComment()">Edit comment</button>
-            </p>
-            </div>
-        </div>
-        <br>
-    </article>
+  <article class="media">
+    <div class="media-content">
+      <b-field
+        label="Title"
+        :type="{'is-danger': errors.has('comment')}"
+        :message="errors.first('comment')"
+      >
+        <b-input
+          v-model="bodyContent"
+          v-validate="'required'"
+          type="textarea"
+          minlength="1"
+          name="comment"
+          placeholder="Add a comment..."
+        />
+      </b-field>
+      <div class="field">
+        <p class="control">
+          <button class="button is-primary" @click="editComment()">Edit comment</button>
+        </p>
+      </div>
+    </div>
+    <br>
+  </article>
 </template>
 <script>
 import { AuthService } from '@/services/services.index';
@@ -42,6 +51,10 @@ export default {
   },
   methods: {
     async editComment() {
+      const valid = await this.$validator.validateAll();
+      if (!valid) {
+        return;
+      }
       const formData = new FormData();
       formData.append('id', this.commentId);
       formData.append('body', this.bodyContent);

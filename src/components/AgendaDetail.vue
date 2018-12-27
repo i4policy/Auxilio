@@ -85,7 +85,7 @@
             </div>
           </nav>
           <div class="has-text-centered"></div>
-          <feedback-input :post-id="agenda.id"/>
+          <feedback-input @success="handleNewFeedback($event)" :post-id="agenda.id"/>
         </div>
       </div>
       <div class="card" style="margin-top:1em; border-radius:0.7em;">
@@ -125,6 +125,11 @@ export default {
     this.getAgenda(id);
   },
   methods: {
+    async handleNewFeedback(feedback) {
+      if (this.agenda.feedbacks && feedback) {
+        this.agenda.feedbacks.unshift(feedback);
+      }
+    },
     async getAgenda(id) {
       this.agenda = await AgendaAPI.detail(id);
     },

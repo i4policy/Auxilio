@@ -8,7 +8,7 @@
     <div class="media-content">
       <div class="content" v-if="!editMode">
         <p>
-          <strong>{{comment.createdById}}</strong>
+          <strong v-if='comment.createdBy'>{{comment.createdBy.fullName}}</strong>
           <br>
           {{comment.body}}
           <br>
