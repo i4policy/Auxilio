@@ -142,9 +142,7 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: async () => {
-          await FeedbackAPI.remove({
-            feedbackId: this.feedback.id
-          });
+          await FeedbackAPI.remove(this.feedback.id);
           this.$toast.open({
             message: 'Feedback deleted successfully.',
             type: 'is-success',

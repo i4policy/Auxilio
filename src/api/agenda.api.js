@@ -29,8 +29,8 @@ const AgendaAPI = {
   update(data) {
     return Request.patch(`${API_ROOT}${PATH}/update-my-post`, data);
   },
-  remove(data) {
-    return Request.delete(`${API_ROOT}${PATH}/delete-my-post`, data);
+  remove(postId) {
+    return Request.delete(`${API_ROOT}${PATH}/delete-my-post`, { data: { postId } });
   },
 };
 

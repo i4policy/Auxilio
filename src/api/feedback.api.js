@@ -18,8 +18,8 @@ const FeedbackAPI = {
   update(data) {
     return Request.patch(`${API_ROOT}${PATH}/update-my-feedback`, data);
   },
-  remove(data) {
-    return Request.delete(`${API_ROOT}${PATH}/delete-my-feedback`, data);
+  remove(feedbackId) {
+    return Request.delete(`${API_ROOT}${PATH}/delete-my-feedback`, { data: { feedbackId } });
   }
 };
 

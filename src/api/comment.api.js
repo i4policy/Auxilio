@@ -18,8 +18,8 @@ const CommentAPI = {
   update(data) {
     return Request.put(`${API_ROOT}${PATH}/update-my-reply`, data);
   },
-  remove(data) {
-    return Request.delete(`${API_ROOT}${PATH}/delete-my-reply`, data);
+  remove(replyId) {
+    return Request.delete(`${API_ROOT}${PATH}/delete-my-reply`, { data: { replyId } });
   }
 };
 

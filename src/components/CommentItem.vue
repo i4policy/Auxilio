@@ -57,9 +57,7 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: async () => {
-          await CommentAPI.remove({
-            replyId: this.comment.id
-          });
+          await CommentAPI.remove(this.comment.id);
           this.$toast.open({
             message: 'Comment deleted successfully.',
             type: 'is-success',

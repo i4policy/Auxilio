@@ -183,14 +183,13 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: async () => {
-          await AgendaAPI.remove({
-            postId: this.agenda.id
-          });
+          await AgendaAPI.remove(this.agenda.id);
           this.$toast.open({
             message: 'Agenda deleted successfully.',
             type: 'is-success',
             position: 'is-top'
           });
+          this.$router.push({ name: 'agendas' });
         }
       });
     }
