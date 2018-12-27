@@ -44,7 +44,7 @@
                   <b-icon
                     @click.native="vote(1)"
                     icon="thumb-up"
-                    type="is-primary"
+                    :type="getAgendaVoteStateClass('up')"
                     size="is-small"
                     custom-class="pointer"
                   ></b-icon>
@@ -58,7 +58,7 @@
                   <b-icon
                     @click.native="vote(-1)"
                     icon="thumb-down"
-                    type="is-grey-lighter"
+                    :type="getAgendaVoteStateClass('down')"
                     size="is-small"
                     custom-class="pointer"
                   ></b-icon>
@@ -101,6 +101,15 @@ export default {
     };
   },
   methods: {
+    getAgendaVoteStateClass(type) {
+      if (type === 'up') {
+        return this.feedback.voted === 1 ? 'is-info' : 'is-grey-lighter';
+      }
+      if (type === 'down') {
+        return this.feedback.voted === -1 ? 'is-info' : 'is-grey-lighter';
+      }
+      return '';
+    },
     async vote(vote) {
       const result = await FeedbackVoteAPI.vote({
         feedbackId: this.feedback.id,
@@ -109,6 +118,7 @@ export default {
       if (result) {
         this.feedback.upVote = result.upVote;
         this.feedback.downVote = result.downVote;
+        this.feedback.voted = result.voted;
       }
       this.$toast.open({
         message: vote === 1 ? 'Up votted' : 'Down votted',

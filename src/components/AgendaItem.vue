@@ -13,7 +13,8 @@
         <p class="card-description">{{content.description | limitTo(120,'...')}}.</p>
         <div class="has-text-centered">
           <small>{{content.startDate | formatDate}}</small>
-          - <small>{{content.endDate | formatDate}}</small>
+          -
+          <small>{{content.endDate | formatDate}}</small>
         </div>
       </div>
       <div class="level">
@@ -24,7 +25,9 @@
       <div class="site-card-footer level">
         <div class="level-item">
           <b-icon icon="thumb-up" type="is-primary" size="is-small"></b-icon>&nbsp;
-          <span class="site-card-footer-item">{{(content.upVote - content.downVote) | formatVote}}</span>
+          <span
+            class="site-card-footer-item"
+          >{{(content.upVote - content.downVote) | formatVote}}</span>
           &nbsp;
           <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"></b-icon>
         </div>
@@ -59,7 +62,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .site-card {
   padding: 0 20px;
   margin-bottom: 15px;
@@ -118,8 +121,9 @@ export default {
   color: #8c8990;
   font-size: 14px;
 }
-.mdi, .site-card-footer-item{
+.mdi,
+.site-card-footer-item {
   color: #8c8990 !important;
-  cursor: default
+  cursor: default;
 }
 </style>

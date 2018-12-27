@@ -12,30 +12,26 @@
               </p>
               <div class="has-text-centered">
                 <small>{{agenda.startDate | formatDate}}</small>
-                - <small>{{agenda.endDate | formatDate}}</small>
+                -
+                <small>{{agenda.endDate | formatDate}}</small>
               </div>
             </div>
 
             <div class="column is-narrow" style="align-items:center; display: flex;">
               <div class="is-block">
-                <div class="is-block has-text-centered" @click="upVote()">
+                <div class="is-block has-text-centered" @click="vote(1)">
                   <b-tooltip label="Up Vote">
-                    <b-icon
-                      icon="thumb-up"
-                      type="is-primary"
-                      size="is-medium"
-                      custom-class="pointer"
-                    ></b-icon>
+                    <b-icon icon="thumb-up" :type="getAgendaVoteStateClass('up')" size="is-medium" custom-class="pointer"></b-icon>
                   </b-tooltip>
                 </div>
                 <div class="is-block">
                   <hr>
                 </div>
-                <div class="is-block has-text-centered" @click="downVote()">
-                  <b-tooltip label="Down Vote" position="is-bottom" type="is-dark">
+                <div class="is-block has-text-centered" @click="vote(-1)">
+                  <b-tooltip label="Down Vote" position="is-bottom">
                     <b-icon
                       icon="thumb-down"
-                      type="is-grey-lighter"
+                      :type="getAgendaVoteStateClass('down')"
                       size="is-medium"
                       custom-class="pointer"
                     ></b-icon>
@@ -48,9 +44,15 @@
 
           <div class="columns">
             <div class="column">
-              <progress class="progress is-primary" :value="agenda.progress" max="100">{{agenda.progress}}%</progress>
+              <progress
+                class="progress is-primary"
+                :value="agenda.progress"
+                max="100"
+              >{{agenda.progress}}%</progress>
             </div>
-            <div class="column is-narrow">{{agenda.remainingDays}} days remaing({{agenda.progress || 0}}%</div>
+            <div
+              class="column is-narrow"
+            >{{agenda.remainingDays}} days remaing({{agenda.progress || 0}}%</div>
           </div>
           <nav class="level is-mobile">
             <div class="level-item has-text-centered">
@@ -80,8 +82,11 @@
             <div class="level-item has-text-centered">
               &nbsp;&nbsp;
               <small class="has-text-link pointer" @click="editAgenda()">EDIT</small>
-                &nbsp;&nbsp;
-              <small class="has-text-danger pointer" @click="deleteAgenda()">DELETE</small>
+              &nbsp;&nbsp;
+              <small
+                class="has-text-danger pointer"
+                @click="deleteAgenda()"
+              >DELETE</small>
             </div>
           </nav>
           <div class="has-text-centered"></div>
@@ -125,6 +130,15 @@ export default {
     this.getAgenda(id);
   },
   methods: {
+    getAgendaVoteStateClass(type) {
+      if (type === 'up') {
+        return this.agenda.voted === 1 ? 'is-info' : 'is-grey-lighter';
+      }
+      if (type === 'down') {
+        return this.agenda.voted === -1 ? 'is-info' : 'is-grey-lighter';
+      }
+      return '';
+    },
     async handleNewFeedback(feedback) {
       if (this.agenda.feedbacks && feedback) {
         this.agenda.feedbacks.unshift(feedback);
@@ -133,33 +147,19 @@ export default {
     async getAgenda(id) {
       this.agenda = await AgendaAPI.detail(id);
     },
-    async upVote() {
+    async vote(vote) {
       const result = await AgendaVoteAPI.vote({
         postId: this.agenda.id,
-        vote: 1
+        vote
       });
       if (result) {
         this.agenda.upVote = result.upVote;
         this.agenda.downVote = result.downVote;
+        this.agenda.voted = result.voted;
       }
       this.$toast.open({
         message: 'Up votted',
         type: 'is-primary',
-        position: 'is-top'
-      });
-    },
-    async downVote() {
-      const result = await AgendaVoteAPI.vote({
-        postId: this.agenda.id,
-        vote: -1
-      });
-      if (result) {
-        this.agenda.upVote = result.upVote;
-        this.agenda.downVote = result.downVote;
-      }
-      this.$toast.open({
-        message: 'Down votted',
-        type: 'is-info',
         position: 'is-top'
       });
     },
@@ -177,7 +177,8 @@ export default {
     async deleteAgenda() {
       this.$dialog.confirm({
         title: 'Deleting agenda',
-        message: 'Are you sure you want to <b>delete</b> the agenda? This action cannot be undone.',
+        message:
+          'Are you sure you want to <b>delete</b> the agenda? This action cannot be undone.',
         confirmText: 'Delete Agenda',
         type: 'is-danger',
         hasIcon: true,
@@ -196,7 +197,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .has-text-centered {
   color: #593c79;
 }
