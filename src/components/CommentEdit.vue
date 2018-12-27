@@ -2,7 +2,6 @@
   <article class="media">
     <div class="media-content">
       <b-field
-        label="Title"
         :type="{'is-danger': errors.has('comment')}"
         :message="errors.first('comment')"
       >

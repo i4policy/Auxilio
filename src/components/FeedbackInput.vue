@@ -11,7 +11,6 @@
     </figure>
     <div class="media-content">
       <b-field
-        label="Title"
         :type="{'is-danger': errors.has('feedback')}"
         :message="errors.first('feedback')"
       >

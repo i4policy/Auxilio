@@ -69,9 +69,9 @@
             <div class="level-item has-text-centered">
               <div>
                 <p class="heading">
-                  <b-icon icon="message" type="is-grey-lighter" size="is-small"></b-icon>Feedbacks and Comments
+                  <b-icon icon="message" type="is-grey-lighter" size="is-small"></b-icon>FeedbackS
                 </p>
-                <p class="title has-text-success">456K</p>
+                <p class="title has-text-success">{{agenda.numberOfFeedbacks}}</p>
               </div>
             </div>
             <div class="level-item has-text-centered">
