@@ -6,7 +6,7 @@
         :message="errors.first('feedback')"
       >
         <b-input
-          v-model="body"
+          v-model="bodyContent"
           v-validate="'required'"
           type="textarea"
           minlength="1"

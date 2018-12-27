@@ -16,7 +16,7 @@ const CommentAPI = {
     return Request.post(`${API_ROOT}${PATH}/create-reply`, data);
   },
   update(data) {
-    return Request.put(`${API_ROOT}${PATH}/update-my-reply`, data);
+    return Request.patch(`${API_ROOT}${PATH}/update-my-reply`, data);
   },
   remove(replyId) {
     return Request.delete(`${API_ROOT}${PATH}/delete-my-reply`, { data: { replyId } });
