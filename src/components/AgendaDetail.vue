@@ -6,11 +6,15 @@
           <div class="columns">
             <div class="column">
               <p class="title">{{agenda.title}}</p>
+              <div class="has-text-grey">{{agenda.description}}</div>
               <div class="has-text-centered">{{agenda.createdAt | formatDate}}</div>
               <p class="subtitle has-text-centered">
                 <tag :b-color="agenda.category.color">{{agenda.category.name}}</tag>
               </p>
-              <div class="has-text-grey">{{agenda.description}}</div>
+              <div class="has-text-centered">
+                <small>{{agenda.startDate | formatDate}}</small>
+                - <small>{{agenda.endDate | formatDate}}</small>
+              </div>
             </div>
 
             <div class="column is-narrow" style="align-items:center; display: flex;">
@@ -47,7 +51,7 @@
             <div class="column">
               <progress class="progress is-primary" :value="agenda.progress" max="100">{{agenda.progress}}%</progress>
             </div>
-            <div class="column is-narrow">{{agenda.remainingDays}} days remaing</div>
+            <div class="column is-narrow">{{agenda.remainingDays}} days remaing({{agenda.progress || 0}}%</div>
           </div>
           <nav class="level is-mobile">
             <div class="level-item has-text-centered">
@@ -55,7 +59,7 @@
                 <p class="heading">
                   <b-icon icon="thumb-up" type="is-grey-lighter" size="is-small"></b-icon>Up Vote
                 </p>
-                <p class="title has-text-primary">{{agenda.upVote}}</p>
+                <p class="title has-text-primary">{{agenda.upVote || 0}}</p>
               </div>
             </div>
             <div class="level-item has-text-centered">
@@ -63,7 +67,7 @@
                 <p class="heading">
                   <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"></b-icon>Down Vote
                 </p>
-                <p class="title">{{agenda.downVote}}</p>
+                <p class="title">{{agenda.downVote || 0}}</p>
               </div>
             </div>
             <div class="level-item has-text-centered">
@@ -71,7 +75,7 @@
                 <p class="heading">
                   <b-icon icon="message" type="is-grey-lighter" size="is-small"></b-icon>FeedbackS
                 </p>
-                <p class="title has-text-success">{{agenda.numberOfFeedbacks}}</p>
+                <p class="title has-text-success">{{agenda.numberOfFeedbacks || 0}}</p>
               </div>
             </div>
             <div class="level-item has-text-centered">
@@ -193,3 +197,8 @@ export default {
   }
 };
 </script>
+<style>
+.has-text-centered {
+  color: #593c79;
+}
+</style>
