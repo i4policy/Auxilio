@@ -7,7 +7,6 @@
             <div class="column">
               <p class="title">{{agenda.title}}</p>
               <div class="has-text-grey">{{agenda.description}}</div>
-              <div class="has-text-centered">{{agenda.createdAt | formatDate}}</div>
               <p class="subtitle has-text-centered">
                 <tag :b-color="agenda.category.color">{{agenda.category.name}}</tag>
               </p>

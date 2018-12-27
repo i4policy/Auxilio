@@ -36,7 +36,7 @@
           <div class="column is-narrow">
             <div class="navbar-item">
               <div class="mb-3" size="40px">
-                <img class="user-avatar" :src="userProfile.profilePicture" alt="Avatar" />
+                <img class="user-avatar" :src="imgUrl" alt="Avatar" />
               </div>
               <span class="has-text-white is-size-7">
                 {{userProfile.fullName}}
