@@ -68,9 +68,19 @@
           </div>
         </div>
       </div>
+
       <div v-if="editMode">
         <feedback-edit :feedback-id="feedback.id" :body="feedback.body"/>
       </div>
+
+      <FilePreview
+        v-for="(data,i) in feedback.files"
+        :key="i"
+        :bucket="'feedback'"
+        :file="data.file"
+        :meta="data.meta"
+      />
+
       <comment-item v-for="(comment, i) in feedback.replies" :key="i" :comment="comment"/>
       <comment-input @success="handleNewComment($event)" :feedback-id="feedback.id"/>
     </div>
@@ -80,11 +90,13 @@
 import CommentItem from './CommentItem.vue';
 import CommentInput from './CommentInput.vue';
 import FeedbackEdit from './FeedbackEdit.vue';
+import FilePreview from '@/components/FilePreview.vue';
 import { FeedbackAPI, FeedbackVoteAPI } from '@/api/api.index';
 
 export default {
   name: 'FeedbackItem',
   components: {
+    FilePreview,
     CommentItem,
     CommentInput,
     FeedbackEdit

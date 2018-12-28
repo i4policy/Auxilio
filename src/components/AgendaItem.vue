@@ -62,7 +62,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style >
 .site-card {
   padding: 0 20px;
   margin-bottom: 15px;

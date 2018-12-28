@@ -21,7 +21,12 @@
               <div class="is-block">
                 <div class="is-block has-text-centered" @click="vote(1)">
                   <b-tooltip label="Up Vote">
-                    <b-icon icon="thumb-up" :type="getAgendaVoteStateClass('up')" size="is-medium" custom-class="pointer"></b-icon>
+                    <b-icon
+                      icon="thumb-up"
+                      :type="getAgendaVoteStateClass('up')"
+                      size="is-medium"
+                      custom-class="pointer"
+                    ></b-icon>
                   </b-tooltip>
                 </div>
                 <div class="is-block">
@@ -66,7 +71,8 @@
             <div class="level-item has-text-centered">
               <div>
                 <p class="heading">
-                  <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"></b-icon>Down Vote
+                  <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"></b-icon>
+                  Down Vote
                 </p>
                 <p class="title">{{agenda.downVote || 0}}</p>
               </div>
@@ -90,7 +96,7 @@
             </div>
           </nav>
           <div class="has-text-centered"></div>
-          <feedback-input @success="handleNewFeedback($event)" :post-id="agenda.id"/>
+          <feedback-input @success="handleNewFeedback($event)" :post-id="agendaId"/>
         </div>
       </div>
       <div class="card" style="margin-top:1em; border-radius:0.7em;">
@@ -120,6 +126,7 @@ export default {
   },
   data() {
     return {
+      agendaId: null,
       agenda: {
         category: {}
       }
@@ -127,6 +134,7 @@ export default {
   },
   created() {
     const { id } = this.$route.params;
+    this.agendaId = id;
     this.getAgenda(id);
   },
   methods: {
