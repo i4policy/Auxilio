@@ -24,7 +24,9 @@ const AuthService = {
         }
         return Promise.reject(err);
       })
-      .catch(() => Promise.reject(err));
+      .catch(() => {
+        Promise.reject(err);
+      });
   },
   logout() {
     UserAccountAPI.logout().then(() => {
@@ -48,7 +50,29 @@ const AuthService = {
   isAuthenticated: () => {
     const token = localStorage.getItem(ACCESS_TOKEN_KEY);
     return token !== null && token !== 'undefined';
-  }
+  },
+  reset(email) {
+    const err = new Error();
+    err.message = 'Invalid parameters';
+    err.statusCode = 400;
+
+    return UserAccountAPI.reset(email)
+      .then(() => {
+        Router.push({ name: 'login' });
+      })
+      .catch(() => Promise.reject(err));
+  },
+  changePassword(resetToken, newPassword) {
+    const err = new Error();
+    err.message = 'Invalid parameters';
+    err.statusCode = 400;
+
+    return UserAccountAPI.changePassword(resetToken, newPassword)
+      .then(() => {
+        Router.push({ name: 'login' });
+      })
+      .catch(() => Promise.reject(err));
+  },
 };
 
 export default AuthService;

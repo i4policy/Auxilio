@@ -32,7 +32,18 @@ const UserAccountAPI = {
   },
   registerMember(data) {
     return Request.post(`${API_ROOT}${PATH}/register-member`, data);
-  }
+  },
+  reset(email) {
+    return Request.post(`${API_ROOT}${PATH}/app-password-reset-request`, {
+      email,
+    });
+  },
+  changePassword(resetToken, newPassword) {
+    return Request.post(`${API_ROOT}${PATH}/app-verify-reset-password`, {
+      resetToken,
+      newPassword
+    });
+  },
 };
 
 export default UserAccountAPI;
