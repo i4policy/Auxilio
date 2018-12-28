@@ -20,19 +20,18 @@
                   <input class="search-input" type="text" placeholder="Search">
                 </div>
               </div>
-
             </div>
           </div>
 
-          <div class="column is-narrow" v-if="this.userProfile.role == 'admin'">
+          <div class="column is-narrow" v-if="$acl.isAdmin">
             <div class="navbar-item">
-              <a class="button is-primary " href="#" @click="openNewAgenda()">
+              <a class="button is-primary" href="#" @click="openNewAgenda()">
                 <b-icon icon="plus" type="is-white" size="is-small"></b-icon>
                 <span>New Agenda</span>
               </a>
             </div>
           </div>
-              <div class="column"></div>
+          <div class="column"></div>
           <div class="column is-narrow">
             <div class="navbar-item">
               <div class="mb-3" size="40px">
@@ -41,9 +40,9 @@
               </div>
               <span class="has-text-white is-size-7">
                 {{userProfile.fullName}}
-                 &nbsp;&nbsp;&nbsp;&nbsp;
-                </span>
-              <a class="button is-primary " href="#" @click="logout">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <a class="button is-primary" href="#" @click="logout">
                 <span>logout</span>
               </a>
             </div>
@@ -56,6 +55,7 @@
 <script>
 import { mapMutations } from 'vuex';
 import { AuthService } from '@/services/services.index';
+import { API_ROOT } from '@/api/api.index';
 import NewAgenda from './NewAgenda.vue';
 import UserAvatar from './UserAvatar.vue';
 
@@ -68,12 +68,9 @@ export default {
     return {
       profilePopupVisible: false,
       appName: 'Auxilio',
-      userProfile: {},
-      bucket: 'users'
+      bucket: 'users',
+      userProfile: AuthService.getProfile()
     };
-  },
-  created() {
-    this.getUser();
   },
   methods: {
     ...mapMutations('layout', ['toggleNavBar']),
@@ -87,11 +84,17 @@ export default {
         component: NewAgenda,
         hasModalCard: true
       });
-    },
-    getUser() {
-      this.userProfile = AuthService.getProfile();
     }
   },
+  computed: {
+    imgUrl() {
+      if (!this.userProfile.profilePicture) {
+        return false;
+      }
+      const img = this.userProfile.profilePicture;
+      return `${API_ROOT}/Containers/users/download/${img}`;
+    }
+  }
 };
 </script>
 <style>
