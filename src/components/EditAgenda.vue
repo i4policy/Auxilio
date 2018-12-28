@@ -114,6 +114,7 @@ export default {
           type: 'is-success',
           position: 'is-top'
         });
+        // todo notify parent
         this.$parent.close();
       } else {
         this.$toast.open({

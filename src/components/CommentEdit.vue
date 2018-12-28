@@ -57,12 +57,13 @@ export default {
       const formData = new FormData();
       formData.append('id', this.commentId);
       formData.append('body', this.bodyContent);
-      await CommentAPI.update(formData);
+      const response = await CommentAPI.update(formData);
       this.$toast.open({
         message: 'Comment updated successfully.',
         type: 'is-success',
         position: 'is-top'
       });
+      this.$emit('success', response);
     }
   }
 };

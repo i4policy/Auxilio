@@ -1,12 +1,7 @@
 <template>
   <div style="padding-top:0.5em;">
     <div v-if="isLoading" class="columns is-centered spinner">
-
-    <atom-spinner
-          :animation-duration="1000"
-          :size="60"
-          :color="'rgb(255,255,255)'"
-     />
+      <atom-spinner :animation-duration="1000" :size="60" :color="'rgb(255,255,255)'"/>
     </div>
     <div v-if="!isLoading" class="columns is-centered">
       <div class="column is-narrow has-text-centered">
@@ -65,6 +60,7 @@ export default {
       this.categoryList = categories.rows;
     },
     async getAgendas(filter = {}) {
+      this.isLoading = true;
       const agendas = await AgendaAPI.all(filter);
       this.agendaList = agendas.rows;
       this.isLoading = false;
@@ -88,7 +84,7 @@ export default {
 }
 .no-found {
   font-size: 20px;
-  color: rgb(255,255,255);
+  color: rgb(255, 255, 255);
   margin-top: 200px;
 }
 </style>

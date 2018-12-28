@@ -7,19 +7,31 @@
     <div class="media-content">
       <div class="content" v-if="!editMode">
         <p>
-          <strong v-if='comment.createdBy'>{{comment.createdBy.fullName}}</strong>
+          <strong v-if="comment.createdBy">{{comment.createdBy.fullName}}</strong>
           <br>
           {{comment.body}}
           <br>
           <small>{{comment.createdAt | formatDate}}</small>
-           &nbsp;&nbsp;
-          <small class="has-text-link pointer" @click="editComment()">EDIT</small>
-            &nbsp;&nbsp;
-          <small class="has-text-danger pointer" @click="deleteComment()">DELETE</small>
+          &nbsp;&nbsp;
+          <small
+            v-if="$acl.hasPermission(comment)"
+            class="has-text-link pointer"
+            @click="editComment"
+          >EDIT</small>
+          &nbsp;&nbsp;
+          <small
+            v-if="$acl.hasPermission(comment)"
+            class="has-text-danger pointer"
+            @click="deleteComment"
+          >DELETE</small>
         </p>
       </div>
       <div v-if="editMode">
-          <comment-edit :comment-id="comment.id" :body="comment.body" />
+        <comment-edit
+          @success="handleCommentUpdated($event)"
+          :comment-id="comment.id"
+          :body="comment.body"
+        />
       </div>
     </div>
   </article>
@@ -47,13 +59,18 @@ export default {
     };
   },
   methods: {
+    handleCommentUpdated(data) {
+      this.comment = data;
+      this.editMode = false;
+    },
     editComment() {
       this.editMode = true;
     },
     deleteComment() {
       this.$dialog.confirm({
         title: 'Deleting comment',
-        message: 'Are you sure you want to <b>delete</b> your comment? This action cannot be undone.',
+        message:
+          'Are you sure you want to <b>delete</b> your comment? This action cannot be undone.',
         confirmText: 'Delete Comment',
         type: 'is-danger',
         hasIcon: true,
@@ -66,6 +83,7 @@ export default {
           });
         }
       });
+      this.$emit('deleted');
     }
   }
 };

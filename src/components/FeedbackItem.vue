@@ -27,11 +27,13 @@
                 {{feedback.createdAt | formatDate}}
                 &nbsp;&nbsp;
                 <small
+                  v-if="$acl.hasPermission(feedback)"
                   class="has-text-link pointer"
                   @click="editFeedback()"
                 >EDIT</small>
                 &nbsp;&nbsp;
                 <small
+                  v-if="$acl.hasPermission(feedback)"
                   class="has-text-danger pointer"
                   @click="deleteFeedback()"
                 >DELETE</small>
@@ -71,7 +73,11 @@
       </div>
 
       <div v-if="editMode">
-        <feedback-edit :feedback-id="feedback.id" :body="feedback.body"/>
+        <feedback-edit
+          @success="handleFeedbackUpdated($event)"
+          :feedback-id="feedback.id"
+          :body="feedback.body"
+        />
       </div>
 
       <FilePreview
@@ -82,7 +88,12 @@
         :meta="data.meta"
       />
 
-      <comment-item v-for="(comment, i) in feedback.replies" :key="i" :comment="comment"/>
+      <comment-item
+        v-for="(comment, i) in feedback.replies"
+        @deleted="handleDeleteSuccess(i)"
+        :key="i"
+        :comment="comment"
+      />
       <comment-input @success="handleNewComment($event)" :feedback-id="feedback.id"/>
     </div>
   </article>
@@ -117,6 +128,16 @@ export default {
     };
   },
   methods: {
+    handleFeedbackUpdated(data) {
+      this.feedback = data;
+      this.editMode = false;
+    },
+    handleDeleteSuccess(index) {
+      if (Number.isNaN(index) || !this.feedback || !this.feedback.replies) {
+        return;
+      }
+      this.feedback.replies.splice(index, 1);
+    },
     getAgendaVoteStateClass(type) {
       if (type === 'up') {
         return this.feedback.voted === 1 ? 'is-info' : 'is-grey-lighter';
@@ -143,8 +164,13 @@ export default {
       });
     },
     handleNewComment(comment) {
-      if (!comment || !this.feedback.replies) return;
-      this.feedback.replies.push(comment);
+      if (!comment) return;
+      if (!this.feedback.replies) {
+        // @todo m3hari, fix me : this is vue caveat use $set minamin
+        this.feedback.replies = [comment];
+      } else {
+        this.feedback.replies.push(comment);
+      }
     },
     editFeedback() {
       this.editMode = true;
@@ -164,6 +190,7 @@ export default {
             type: 'is-success',
             position: 'is-top'
           });
+          this.$emit('deleted');
         }
       });
     }

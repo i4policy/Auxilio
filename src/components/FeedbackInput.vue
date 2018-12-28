@@ -65,8 +65,6 @@ export default {
       bucket: 'users'
     };
   },
-  mounted() {
-  },
   created() {
     Bus.$on(events.ON_FILE_ATTACHED, (data) => {
       this.onFileAttach(data);

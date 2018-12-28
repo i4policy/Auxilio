@@ -10,6 +10,12 @@
               </p>
               <p class="title">{{agenda.title}}</p>
               <div class="has-text-grey">{{agenda.description}}</div>
+              <p class="subtitle has-text-centered">
+                <tag
+                  v-if="agenda.category"
+                  :b-color="agenda.category.color"
+                >{{agenda.category.name}}</tag>
+              </p>
               <div class="has-text-centered">
                 <small>{{agenda.startDate | formatDate}}</small>
                 -
@@ -71,8 +77,7 @@
             <div class="level-item has-text-centered">
               <div>
                 <p class="heading">
-                  <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"></b-icon>
-                  Down Vote
+                  <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"></b-icon>Down Vote
                 </p>
                 <p class="title">{{agenda.downVote || 0}}</p>
               </div>
@@ -87,11 +92,16 @@
             </div>
             <div class="level-item has-text-centered">
               &nbsp;&nbsp;
-              <small class="has-text-link pointer" @click="editAgenda()">EDIT</small>
+              <small
+                v-if="$acl.hasPermission(agenda)"
+                class="has-text-link pointer"
+                @click="editAgenda()"
+              >EDIT</small>
               &nbsp;&nbsp;
               <small
+                v-if="$acl.hasPermission(agenda)"
                 class="has-text-danger pointer"
-                @click="deleteAgenda()"
+                @click="deleteAgenda"
               >DELETE</small>
             </div>
           </nav>
@@ -105,6 +115,7 @@
             class="media"
             v-for="(feedback,i) in agenda.feedbacks"
             :key="i"
+            @deleted="handleDeleteSuccess(i)"
             :feedback="feedback"
           />
         </div>
@@ -138,6 +149,10 @@ export default {
     this.getAgenda(id);
   },
   methods: {
+    handleDeleteSuccess(index) {
+      if (Number.isNaN(index) || !this.agenda || !this.agenda.feedbacks) return;
+      this.agenda.feedbacks.splice(index, 1);
+    },
     getAgendaVoteStateClass(type) {
       if (type === 'up') {
         return this.agenda.voted === 1 ? 'is-info' : 'is-grey-lighter';
@@ -148,9 +163,14 @@ export default {
       return '';
     },
     async handleNewFeedback(feedback) {
-      if (this.agenda.feedbacks && feedback) {
+      if (!feedback) return;
+      if (!this.agenda.feedbacks) {
+        // @todo m3hari, fix me : this is vue caveat use $set minamin
+        this.agenda.feedbacks = [feedback];
+      } else {
         this.agenda.feedbacks.unshift(feedback);
       }
+      this.agenda.numberOfFeedbacks += 1;
     },
     async getAgenda(id) {
       this.agenda = await AgendaAPI.detail(id);
@@ -196,7 +216,7 @@ export default {
         component: EditAgenda,
         hasModalCard: true,
         props: {
-          agendaId: this.agenda.id
+          agendaId: this.agenda.id,
         }
       });
     },

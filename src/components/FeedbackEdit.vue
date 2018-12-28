@@ -1,10 +1,7 @@
 <template>
-  <article class="">
+  <article class>
     <div class="media-content">
-      <b-field
-        :type="{'is-danger': errors.has('feedback')}"
-        :message="errors.first('feedback')"
-      >
+      <b-field :type="{'is-danger': errors.has('feedback')}" :message="errors.first('feedback')">
         <b-input
           v-model="bodyContent"
           v-validate="'required'"
@@ -57,12 +54,13 @@ export default {
       const formData = new FormData();
       formData.append('body', this.bodyContent);
       formData.append('id', this.feedbackId);
-      await FeedbackAPI.update(formData);
+      const response = await FeedbackAPI.update(formData);
       this.$toast.open({
         message: 'Feedback edited successfully.',
         type: 'is-success',
         position: 'is-top'
       });
+      this.$emit('success', response);
     }
   }
 };
