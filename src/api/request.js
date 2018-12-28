@@ -48,6 +48,13 @@ Request.interceptors.response.use(
           position: 'is-top',
           duration: 5000
         });
+      } else {
+        app.$toast.open({
+          message: 'Invalid credinitials.',
+          type: 'is-danger',
+          position: 'is-top',
+          duration: 5000
+        });
       }
     } else {
       const message = (err.response && err.response.data && err.response.data.error && err.response.data.error.message) || 'Unknown error';

@@ -33,7 +33,8 @@
                     v-validate="'required'"
                   ></b-input>
                 </b-field>
-                <button class="button is-block is-primary is-medium is-fullwidth">Login</button>
+                <button class="button login-button is-block is-primary is-medium is-fullwidth">Login</button>
+                <a href="#" class="forgot-password"  @click.prevent="forgotPassword()">Forgot password?</a>
               </form>
             </div>
           </div>
@@ -56,8 +57,8 @@ export default {
     async login() {
       const valid = await this.$validator.validateAll();
       if (valid) {
-        await AuthService.login(this.item.email, this.item.password);
-        this.$router.push({ name: 'agendas' });
+        const result = await AuthService.login(this.item.email, this.item.password);
+        if (result) this.$router.push({ name: 'agendas' });
       } else {
         this.$toast.open({
           message: 'Form is not valid! Please check the fields.',
@@ -65,7 +66,18 @@ export default {
           position: 'is-top'
         });
       }
+    },
+    forgotPassword() {
+      this.$router.push({ name: 'forgot-password' });
     }
   }
 };
 </script>
+<style scooped>
+.forgot-password {
+  color: #593c79 !important;
+}
+.login-button {
+  margin-bottom: 30px;
+}
+</style>
