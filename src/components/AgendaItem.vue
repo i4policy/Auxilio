@@ -24,15 +24,15 @@
       </div>
       <div class="site-card-footer level">
         <div class="level-item">
-          <b-icon icon="thumb-up" type="is-primary" size="is-small"></b-icon>&nbsp;
+          <b-icon icon="thumb-up post-upvote" type="is-primary" size="is-small"></b-icon>&nbsp;
           <span
             class="site-card-footer-item"
           >{{(content.upVote - content.downVote) | formatVote}}</span>
           &nbsp;
-          <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"></b-icon>
+          <b-icon icon="thumb-down post-downvote" type="is-grey-lighter" size="is-small"></b-icon>
         </div>
         <div class="level-item">
-          <b-icon icon="message" type="is-success" size="is-small"></b-icon>
+          <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
           <span class="site-card-footer-item">{{content.numberOfFeedbacks}}</span>
         </div>
       </div>
@@ -62,7 +62,7 @@ export default {
   }
 };
 </script>
-<style >
+<style>
 .site-card {
   padding: 0 20px;
   margin-bottom: 15px;
@@ -121,8 +121,7 @@ export default {
   color: #8c8990;
   font-size: 14px;
 }
-.mdi,
-.site-card-footer-item {
+.post-downvote, .post-upvote, .numberofcomments{
   color: #8c8990 !important;
   cursor: default;
 }

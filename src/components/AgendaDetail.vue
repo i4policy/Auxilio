@@ -5,11 +5,11 @@
         <div class="card-content">
           <div class="columns">
             <div class="column">
+              <p class="subtitle">
+                <tag :b-color="agenda.category.color" class="category">{{agenda.category.name}}</tag>
+              </p>
               <p class="title">{{agenda.title}}</p>
               <div class="has-text-grey">{{agenda.description}}</div>
-              <p class="subtitle has-text-centered">
-                <tag :b-color="agenda.category.color">{{agenda.category.name}}</tag>
-              </p>
               <div class="has-text-centered">
                 <small>{{agenda.startDate | formatDate}}</small>
                 -
@@ -57,7 +57,7 @@
             </div>
             <div
               class="column is-narrow"
-            >{{agenda.remainingDays}} days remaing({{agenda.progress || 0}}%</div>
+            >{{agenda.remainingDays}} days remaing({{agenda.progress || 0}}%)</div>
           </div>
           <nav class="level is-mobile">
             <div class="level-item has-text-centered">
@@ -207,5 +207,8 @@ export default {
 <style scoped>
 .has-text-centered {
   color: #593c79;
+}
+.category {
+  margin-bottom: 20px;
 }
 </style>
