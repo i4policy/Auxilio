@@ -165,11 +165,29 @@ export default {
         this.agenda.downVote = result.downVote;
         this.agenda.voted = result.voted;
       }
-      this.$toast.open({
-        message: 'Up votted',
-        type: 'is-primary',
-        position: 'is-top'
-      });
+
+      if (result.upVote === 1) {
+        this.$toast.open({
+          message: 'Up votted',
+          type: 'is-primary',
+          position: 'is-top',
+          duration: 500
+        });
+      } else if (result.downVote === 1) {
+        this.$toast.open({
+          message: 'Down votted',
+          type: 'is-primary',
+          position: 'is-top',
+          duration: 500
+        });
+      } else {
+        this.$toast.open({
+          message: 'Vote cleared',
+          type: 'is-primary',
+          position: 'is-top',
+          duration: 500
+        });
+      }
     },
     editAgenda() {
       this.$modal.open({
