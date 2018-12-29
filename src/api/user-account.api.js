@@ -33,9 +33,10 @@ const UserAccountAPI = {
   registerMember(data) {
     return Request.post(`${API_ROOT}${PATH}/register-member`, data);
   },
-  reset(email) {
+  reset(email, userInfo) {
     return Request.post(`${API_ROOT}${PATH}/app-password-reset-request`, {
       email,
+      userInfo
     });
   },
   changePassword(resetToken, newPassword) {
