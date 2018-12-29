@@ -140,7 +140,7 @@ export default {
   created() {
     const { id } = this.$route.params;
     this.agendaId = id;
-    this.getAgenda(id);
+    this.loadAgenda();
   },
   methods: {
     handleDeleteSuccess(index) {
@@ -166,8 +166,8 @@ export default {
       }
       this.agenda.numberOfFeedbacks += 1;
     },
-    async getAgenda(id) {
-      this.agenda = await AgendaAPI.detail(id);
+    async loadAgenda() {
+      this.agenda = await AgendaAPI.detail(this.agendaId);
     },
     async vote(vote) {
       const result = await AgendaVoteAPI.vote({
@@ -211,6 +211,11 @@ export default {
         hasModalCard: true,
         props: {
           agendaId: this.agenda.id,
+        },
+        events: {
+          close: () => {
+            this.loadAgenda();
+          }
         }
       });
     },

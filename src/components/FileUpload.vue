@@ -66,8 +66,6 @@
 </template>
 
 <script>
-import { Bus, events } from '@/util/Bus';
-
 export default {
   name: 'FileUpload',
   data() {
@@ -85,8 +83,7 @@ export default {
   methods: {
     save() {
       const data = { meta: this.meta, file: this.file };
-      Bus.$emit(events.ON_FILE_ATTACHED, data);
-      this.$parent.close(data);
+      this.$emit('close', data);
     }
   }
 };

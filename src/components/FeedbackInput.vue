@@ -40,7 +40,6 @@ import { AuthService } from '@/services/services.index';
 import { FeedbackAPI } from '@/api/api.index';
 import FileUpload from '@/components/FileUpload.vue';
 import FilePreview from '@/components/FilePreview.vue';
-import { Bus, events } from '@/util/Bus';
 import UserAvatar from './UserAvatar.vue';
 
 export default {
@@ -66,13 +65,7 @@ export default {
     };
   },
   created() {
-    Bus.$on(events.ON_FILE_ATTACHED, (data) => {
-      this.onFileAttach(data);
-    });
     this.userProfile = AuthService.getProfile();
-  },
-  destroyed() {
-    Bus.$off(events.ON_FILE_ATTACHED);
   },
   methods: {
     resetData() {
@@ -84,6 +77,11 @@ export default {
       this.$modal.open({
         scroll: 'keep',
         parent: this,
+        events: {
+          close: (data) => {
+            this.onFileAttach(data);
+          }
+        },
         component: FileUpload,
         hasModalCard: true
       });

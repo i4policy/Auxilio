@@ -114,8 +114,7 @@ export default {
           type: 'is-success',
           position: 'is-top'
         });
-        // todo notify parent
-        this.$parent.close();
+        this.$emit('close');
       } else {
         this.$toast.open({
           message: 'Form is not valid! Please check the fields.',
