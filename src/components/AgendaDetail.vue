@@ -10,12 +10,6 @@
               </p>
               <p class="title">{{agenda.title}}</p>
               <div class="has-text-grey">{{agenda.description}}</div>
-              <p class="subtitle has-text-centered">
-                <tag
-                  v-if="agenda.category"
-                  :b-color="agenda.category.color"
-                >{{agenda.category.name}}</tag>
-              </p>
               <div class="has-text-centered">
                 <small>{{agenda.startDate | formatDate}}</small>
                 -
@@ -188,14 +182,14 @@ export default {
 
       if (result.upVote === 1) {
         this.$toast.open({
-          message: 'Up votted',
+          message: 'Up voted',
           type: 'is-primary',
           position: 'is-top',
           duration: 500
         });
       } else if (result.downVote === 1) {
         this.$toast.open({
-          message: 'Down votted',
+          message: 'Down voted',
           type: 'is-primary',
           position: 'is-top',
           duration: 500

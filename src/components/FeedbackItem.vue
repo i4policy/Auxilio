@@ -158,7 +158,7 @@ export default {
         this.feedback.voted = result.voted;
       }
       this.$toast.open({
-        message: vote === 1 ? 'Up votted' : 'Down votted',
+        message: vote === 1 ? 'Up voted' : 'Down voted',
         type: 'is-primary',
         position: 'is-top'
       });
