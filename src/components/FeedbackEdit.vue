@@ -11,7 +11,7 @@
           type="textarea"
           minlength="1"
           name="feedback"
-          placeholder="Add a feedbcak..."
+          placeholder="Add a feedback..."
         />
       </b-field>
       <div class="field">

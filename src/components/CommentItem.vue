@@ -1,9 +1,8 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <p class="image is-48x48">
-        <img class="is-rounded" src v-img-fallback="'/user-placeholder.png'">
-      </p>
+      <user-avatar :bucket="bucket" :size="64"
+      :file-name="comment.createdBy.profilePicture"/>
     </figure>
     <div class="media-content">
       <div class="content" v-if="!editMode">
@@ -28,11 +27,13 @@
 <script>
 import { CommentAPI } from '@/api/api.index';
 import CommentEdit from './CommentEdit.vue';
+import UserAvatar from './UserAvatar.vue';
 
 export default {
   name: 'FeedbackReplyItem',
   components: {
-    CommentEdit
+    CommentEdit,
+    UserAvatar
   },
   props: {
     comment: {

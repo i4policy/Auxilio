@@ -1,13 +1,8 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <p class="image is-64x64">
-        <img
-          :src="userProfile.profilePicture"
-          class="is-rounded"
-          v-img-fallback="'/user-placeholder.png'"
-        >
-      </p>
+      <user-avatar :bucket="bucket" :size="64"
+      :file-name="userProfile.profilePicture" :show-me="true"/>
     </figure>
     <div class="media-content">
       <b-field :type="{'is-danger': errors.has('feedback')}" :message="errors.first('feedback')">
@@ -17,7 +12,7 @@
           type="textarea"
           minlength="1"
           name="feedback"
-          placeholder="Add a feedbcak..."
+          placeholder="Add a feedback..."
         />
       </b-field>
 
@@ -46,11 +41,13 @@ import { FeedbackAPI } from '@/api/api.index';
 import FileUpload from '@/components/FileUpload.vue';
 import FilePreview from '@/components/FilePreview.vue';
 import { Bus, events } from '@/util/Bus';
+import UserAvatar from './UserAvatar.vue';
 
 export default {
   name: 'FeedbackInput',
   components: {
-    FilePreview
+    FilePreview,
+    UserAvatar
   },
   props: {
     postId: {
@@ -63,11 +60,12 @@ export default {
       item: { body: '' },
       file: null,
       fileMeta: null,
-      userProfile: {}
+      userProfile: {},
+      body: '',
+      bucket: 'users'
     };
   },
   mounted() {
-    console.log(this.postId);
   },
   created() {
     Bus.$on(events.ON_FILE_ATTACHED, (data) => {

@@ -36,7 +36,8 @@
           <div class="column is-narrow">
             <div class="navbar-item">
               <div class="mb-3" size="40px">
-                <img class="user-avatar" :src="imgUrl" alt="Avatar" />
+                <user-avatar :bucket="bucket" :size="30"
+                :file-name="userProfile.profilePicture"/>
               </div>
               <span class="has-text-white is-size-7">
                 {{userProfile.fullName}}
@@ -56,15 +57,19 @@
 import { mapMutations } from 'vuex';
 import { AuthService } from '@/services/services.index';
 import NewAgenda from './NewAgenda.vue';
-import { API_ROOT } from '@/api/api.index';
+import UserAvatar from './UserAvatar.vue';
 
 export default {
   name: 'Navbar',
+  components: {
+    UserAvatar
+  },
   data() {
     return {
       profilePopupVisible: false,
       appName: 'Auxilio',
-      userProfile: {}
+      userProfile: {},
+      bucket: 'users'
     };
   },
   created() {
@@ -85,15 +90,6 @@ export default {
     },
     getUser() {
       this.userProfile = AuthService.getProfile();
-    }
-  },
-  computed: {
-    imgUrl() {
-      if (!this.userProfile.profilePicture) {
-        return false;
-      }
-      const img = this.userProfile.profilePicture;
-      return `${API_ROOT}/Containers/users/download/${img}`;
     }
   },
 };

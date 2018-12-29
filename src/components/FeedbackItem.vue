@@ -1,9 +1,10 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <p class="image is-64x64">
-        <img class="is-rounded" src v-img-fallback="'/user-placeholder.png'">
-      </p>
+      <figure class="media-left">
+        <user-avatar :bucket="bucket" :size="64"
+        :file-name="feedback.createdBy.profilePicture"/>
+      </figure>
     </figure>
     <div class="media-content">
       <div class="content" v-if="!editMode">
@@ -92,6 +93,7 @@ import CommentInput from './CommentInput.vue';
 import FeedbackEdit from './FeedbackEdit.vue';
 import FilePreview from '@/components/FilePreview.vue';
 import { FeedbackAPI, FeedbackVoteAPI } from '@/api/api.index';
+import UserAvatar from './UserAvatar.vue';
 
 export default {
   name: 'FeedbackItem',
@@ -99,7 +101,8 @@ export default {
     FilePreview,
     CommentItem,
     CommentInput,
-    FeedbackEdit
+    FeedbackEdit,
+    UserAvatar
   },
   props: {
     feedback: {
@@ -109,7 +112,8 @@ export default {
   },
   data() {
     return {
-      editMode: false
+      editMode: false,
+      bucket: 'users'
     };
   },
   methods: {

@@ -17,7 +17,7 @@ const AuthService = {
           localStorage.setItem(PROFILE_KEY, JSON.stringify({
             fullName: res.fullName,
             role: res.role,
-            profilePicture: `${API_ROOT}/Containers/users/download/${res.profilePicture}`,
+            profilePicture: res.profilePicture,
             title: res.title,
           }));
           return Promise.resolve(true);

@@ -1,13 +1,8 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <p class="image is-64x64">
-        <img
-          :src="userProfile.profilePicture"
-          class="is-rounded"
-          v-img-fallback="'/user-placeholder.png'"
-        >
-      </p>
+      <user-avatar :bucket="bucket" :size="64"
+      :file-name="userProfile.profilePicture" :show-me="true"/>
     </figure>
     <div class="media-content">
       <b-field
@@ -34,9 +29,13 @@
 <script>
 import { AuthService } from '@/services/services.index';
 import { CommentAPI } from '@/api/api.index';
+import UserAvatar from './UserAvatar.vue';
 
 export default {
   name: 'CommentInput',
+  components: {
+    UserAvatar
+  },
   props: {
     feedbackId: {
       type: [String],
@@ -46,7 +45,8 @@ export default {
   data() {
     return {
       body: '',
-      userProfile: {}
+      userProfile: {},
+      bucket: 'users'
     };
   },
   created() {
