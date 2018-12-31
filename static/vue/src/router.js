@@ -12,7 +12,6 @@ import NotFoundPage from '@/components/404.vue';
 Vue.use(Router);
 
 const router = new Router({
-  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {

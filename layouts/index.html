@@ -1,0 +1,37 @@
+{{ define "main" }}
+<div class="hero is-fullheight-with-navbar landing">
+    <div class="hero-body columns has-text-centered" style="position: relative; top: -50px;">
+        <div class="column">
+            <h1 class="is-size-1 has-text-weight-bold p-20">{{ .Title }}</h1>
+            <h2 class="is-size-3 p-20">{{ .Params.subtitle }}</h2>
+            <div class="p-20">
+                <a class="button is-secondary" href='{{ getenv "VUE_APP_LOCATION" }}'>{{ i18n "get_started" }}</a>
+            </div>
+        </div>
+        <div class="column is-hidden-mobile has-text-centered">
+            {{ partial "morph.html" }}
+        </div>
+    </div>
+</div>
+
+<div class="hero is-fullheight-with-navbar">
+    <div class="container p-t-20">
+        <div class="columns">
+            <div class="column has-text-centered">
+                <img src="/images/team.svg" width="300">
+                <h2 class="is-size-2 has-text-weight-bold">Collaborate</h2>
+            </div>
+            <div class="column has-text-centered">
+                <img src="/images/discuss.svg" width="300">
+                <h2 class="is-size-2 has-text-weight-bold">Discuss</h2>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column has-text-centered">
+                <img src="/images/act.svg" width="300">
+                <h2 class="is-size-2 has-text-weight-bold">Take Action</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}
