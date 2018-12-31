@@ -1,4 +1,4 @@
-import { UserAccountAPI, API_ROOT } from '@/api/api.index';
+import { UserAccountAPI } from '@/api/api.index';
 import Router from '../router';
 
 export const ACCESS_TOKEN_KEY = 'token';
@@ -14,12 +14,15 @@ const AuthService = {
       .then((res) => {
         if (res && res.token) {
           localStorage.setItem(ACCESS_TOKEN_KEY, res.token);
-          localStorage.setItem(PROFILE_KEY, JSON.stringify({
-            fullName: res.fullName,
-            role: res.role,
-            profilePicture: res.profilePicture,
-            title: res.title,
-          }));
+          localStorage.setItem(
+            PROFILE_KEY,
+            JSON.stringify({
+              fullName: res.fullName,
+              role: res.role,
+              profilePicture: res.profilePicture,
+              title: res.title
+            })
+          );
           return Promise.resolve(true);
         }
         return Promise.reject(err);
@@ -72,7 +75,7 @@ const AuthService = {
         Router.push({ name: 'login' });
       })
       .catch(() => Promise.reject(err));
-  },
+  }
 };
 
 export default AuthService;
