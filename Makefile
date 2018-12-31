@@ -1,5 +1,5 @@
 build:
-	cd static/vue && yarn install && yarn build
+	cd static/vue && yarn install && yarn build --modern
 	hugo
 	rm -rf public/vue
 
