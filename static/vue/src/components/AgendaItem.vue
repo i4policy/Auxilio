@@ -79,6 +79,7 @@ export default {
 }
 .avatar {
   width: 25px;
+  vertical-align: middle;
 }
 .avatar-content {
   margin-left: 1em;
@@ -93,7 +94,7 @@ export default {
   padding-bottom: 0em;
 }
 .card-title {
-  font-size: 16px;
+  font-size: 14px;
   color: #000;
   /* margin: 0 !important; */
 }
@@ -121,7 +122,9 @@ export default {
   color: #8c8990;
   font-size: 14px;
 }
-.post-downvote, .post-upvote, .numberofcomments{
+.post-downvote,
+.post-upvote,
+.numberofcomments {
   color: #8c8990 !important;
   cursor: default;
 }
