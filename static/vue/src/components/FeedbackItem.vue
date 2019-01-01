@@ -107,7 +107,7 @@ import CommentItem from './CommentItem.vue';
 import CommentInput from './CommentInput.vue';
 import FeedbackEdit from './FeedbackEdit.vue';
 import FilePreview from '@/components/FilePreview.vue';
-import { FeedbackAPI, FeedbackVoteAPI } from '@/api/api.index';
+import { FeedbackAPI, FeedbackVoteAPI } from '@/api';
 import UserAvatar from './UserAvatar.vue';
 
 export default {

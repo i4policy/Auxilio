@@ -51,8 +51,8 @@
 </template>
 <script>
 import { mapMutations } from 'vuex';
-import { AuthService } from '@/services/services.index';
-import { API_ROOT } from '@/api/api.index';
+import { AuthService } from '@/services';
+import { API_ROOT } from '@/api';
 import NewAgenda from './NewAgenda.vue';
 import UserAvatar from './UserAvatar.vue';
 import Search from './Search.vue';

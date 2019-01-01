@@ -32,7 +32,7 @@
 import { AtomSpinner } from 'epic-spinners';
 import { mapState } from 'vuex';
 import AgendaItem from './AgendaItem.vue';
-import { AgendaAPI, PostCategoryAPI } from '@/api/api.index';
+import { AgendaAPI, PostCategoryAPI } from '@/api';
 
 export default {
   components: {

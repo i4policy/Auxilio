@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { API_ROOT } from '@/api/api.index';
+import { API_ROOT } from '@/api';
 
 export default {
   name: 'UserAvatar',

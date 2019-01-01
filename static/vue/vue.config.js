@@ -1,4 +1,4 @@
 module.exports = {
-    outputDir: "../app",
-    baseUrl: "./"
+  outputDir: '../app',
+  baseUrl: './'
 };

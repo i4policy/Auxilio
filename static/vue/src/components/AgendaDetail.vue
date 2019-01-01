@@ -122,7 +122,7 @@
   </div>
 </template>
 <script>
-import { AgendaAPI, AgendaVoteAPI } from '@/api/api.index';
+import { AgendaAPI, AgendaVoteAPI } from '@/api';
 import FeedbackItem from './FeedbackItem.vue';
 import FeedbackInput from './FeedbackInput.vue';
 import EditAgenda from './EditAgenda.vue';

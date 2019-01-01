@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { ContainerAPI } from '@/api/api.index';
+import { ContainerAPI } from '@/api';
 
 export default {
   name: 'FilePreview',

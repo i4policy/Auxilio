@@ -1,10 +1,7 @@
 <template>
   <article class="media">
     <div class="media-content">
-      <b-field
-        :type="{'is-danger': errors.has('comment')}"
-        :message="errors.first('comment')"
-      >
+      <b-field :type="{'is-danger': errors.has('comment')}" :message="errors.first('comment')">
         <b-input
           v-model="bodyContent"
           v-validate="'required'"
@@ -24,8 +21,8 @@
   </article>
 </template>
 <script>
-import { AuthService } from '@/services/services.index';
-import { CommentAPI } from '@/api/api.index';
+import { AuthService } from '@/services';
+import { CommentAPI } from '@/api';
 
 export default {
   name: 'CommentInput',

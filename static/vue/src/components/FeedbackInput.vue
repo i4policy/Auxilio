@@ -36,8 +36,8 @@
   </article>
 </template>
 <script>
-import { AuthService } from '@/services/services.index';
-import { FeedbackAPI } from '@/api/api.index';
+import { AuthService } from '@/services';
+import { FeedbackAPI } from '@/api';
 import FileUpload from '@/components/FileUpload.vue';
 import FilePreview from '@/components/FilePreview.vue';
 import UserAvatar from './UserAvatar.vue';

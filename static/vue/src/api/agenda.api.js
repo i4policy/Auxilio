@@ -1,4 +1,4 @@
-import { API_ROOT } from './api.index';
+import { API_ROOT } from '.';
 import Request from './request';
 
 const PATH = '/Posts';
@@ -31,7 +31,7 @@ const AgendaAPI = {
   },
   remove(postId) {
     return Request.delete(`${API_ROOT}${PATH}/delete-my-post`, { data: { postId } });
-  },
+  }
 };
 
 export default AgendaAPI;

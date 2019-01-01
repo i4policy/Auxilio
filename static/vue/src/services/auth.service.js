@@ -1,4 +1,4 @@
-import { UserAccountAPI } from '@/api/api.index';
+import { UserAccountAPI } from '@/api';
 import Router from '../router';
 
 export const ACCESS_TOKEN_KEY = 'token';

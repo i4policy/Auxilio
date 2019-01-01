@@ -1,4 +1,4 @@
-import { API_ROOT } from './api.index';
+import { API_ROOT } from '.';
 import Request from './request';
 
 const PATH = '/Feedbacks';

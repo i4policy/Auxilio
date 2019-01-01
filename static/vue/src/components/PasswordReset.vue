@@ -21,7 +21,9 @@
                     data-vv-validate-on="none"
                   ></b-input>
                 </b-field>
-                <button class="button change-password-button is-block is-primary is-medium is-fullwidth">Change</button>
+                <button
+                  class="button change-password-button is-block is-primary is-medium is-fullwidth"
+                >Change</button>
                 <a href="#" class="login" @click.prevent="login()">Login</a>
               </form>
             </div>
@@ -32,14 +34,14 @@
   </div>
 </template>
 <script>
-import { AuthService } from '@/services/services.index';
+import { AuthService } from '@/services';
 
 export default {
   name: 'PasswordReset',
   data() {
     return {
       item: {},
-      resetToken: '',
+      resetToken: ''
     };
   },
   created() {
@@ -50,7 +52,10 @@ export default {
     async change() {
       const valid = await this.$validator.validateAll();
       if (valid) {
-        await AuthService.changePassword(this.resetToken, this.item.newPassword);
+        await AuthService.changePassword(
+          this.resetToken,
+          this.item.newPassword
+        );
         this.$router.push({ name: 'login' });
         this.$toast.open({
           message: 'Password changed Succesfully.',

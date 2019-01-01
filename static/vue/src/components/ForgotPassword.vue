@@ -21,7 +21,9 @@
                     data-vv-validate-on="none"
                   ></b-input>
                 </b-field>
-                <button class="button forgot-password-button is-block is-primary is-medium is-fullwidth">Reset</button>
+                <button
+                  class="button forgot-password-button is-block is-primary is-medium is-fullwidth"
+                >Reset</button>
                 <a href="#" class="login" @click.prevent="login()">Login</a>
               </form>
             </div>
@@ -32,7 +34,7 @@
   </div>
 </template>
 <script>
-import { AuthService } from '@/services/services.index';
+import { AuthService } from '@/services';
 
 export default {
   name: 'ForgotPassword',

@@ -1,4 +1,4 @@
-import { API_ROOT } from './api.index';
+import { API_ROOT } from '.';
 import Request from './request';
 
 const PATH = '/UserAccounts';
@@ -35,7 +35,7 @@ const UserAccountAPI = {
   },
   reset(email) {
     return Request.post(`${API_ROOT}${PATH}/app-password-reset-request`, {
-      email,
+      email
     });
   },
   changePassword(resetToken, newPassword) {
@@ -43,7 +43,7 @@ const UserAccountAPI = {
       resetToken,
       newPassword
     });
-  },
+  }
 };
 
 export default UserAccountAPI;

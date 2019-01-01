@@ -66,7 +66,7 @@
   </div>
 </template>
 <script>
-import { AgendaAPI, PostCategoryAPI } from '@/api/api.index';
+import { AgendaAPI, PostCategoryAPI } from '@/api';
 
 export default {
   name: 'NewAgenda',

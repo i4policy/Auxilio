@@ -1,7 +1,6 @@
 /* eslint no-param-reassign:0 */
 
-import Vue from 'vue';
-import { AuthService } from '@/services/services.index';
+import { AuthService } from '@/services';
 
 const acl = {
   isAdmin() {
@@ -13,10 +12,8 @@ const acl = {
   }
 };
 
-const aclPlugin = {
+export default {
   install(V) {
     V.prototype.$acl = acl;
   }
 };
-
-Vue.use(aclPlugin);

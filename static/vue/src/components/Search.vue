@@ -29,7 +29,9 @@
                   class="avatar"
                 >
                 <div class="avatar-content">
-                  <div v-if="item.createdBy" class="header-text bold">{{item.createdBy.fullName}}</div>
+                  <div v-if="item.createdBy" class="header-text bold">
+                    {{item.createdBy.fullName}}
+                  </div>
                 </div>
               </div>
               <div v-if="item.postCategory" class="column no-padding is-4 text-right">
@@ -48,7 +50,7 @@
 
 <script>
 import { mixin as clickaway } from 'vue-clickaway';
-import { SearchAPI } from '@/api/api.index';
+import { SearchAPI } from '@/api';
 
 const debounce = require('lodash.debounce');
 

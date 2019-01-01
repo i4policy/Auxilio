@@ -41,7 +41,7 @@
   </article>
 </template>
 <script>
-import { CommentAPI } from '@/api/api.index';
+import { CommentAPI } from '@/api';
 import CommentEdit from './CommentEdit.vue';
 import UserAvatar from './UserAvatar.vue';
 

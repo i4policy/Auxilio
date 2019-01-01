@@ -1,14 +1,15 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <user-avatar :bucket="bucket" :size="64"
-      :file-name="userProfile.profilePicture" :show-me="true"/>
+      <user-avatar
+        :bucket="bucket"
+        :size="64"
+        :file-name="userProfile.profilePicture"
+        :show-me="true"
+      />
     </figure>
     <div class="media-content">
-      <b-field
-        :type="{'is-danger': errors.has('comment')}"
-        :message="errors.first('comment')"
-      >
+      <b-field :type="{'is-danger': errors.has('comment')}" :message="errors.first('comment')">
         <b-input
           v-model="body"
           v-validate="'required'"
@@ -27,8 +28,8 @@
   </article>
 </template>
 <script>
-import { AuthService } from '@/services/services.index';
-import { CommentAPI } from '@/api/api.index';
+import { AuthService } from '@/services';
+import { CommentAPI } from '@/api';
 import UserAvatar from './UserAvatar.vue';
 
 export default {

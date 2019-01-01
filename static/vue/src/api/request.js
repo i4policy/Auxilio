@@ -1,6 +1,6 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { AuthService } from '@/services/services.index';
+import { AuthService } from '@/services';
 
 import app from '../main';
 

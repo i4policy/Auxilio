@@ -1,5 +1,5 @@
 import Request from './request';
-import { API_ROOT } from './api.index';
+import { API_ROOT } from '.';
 
 const PATH = '/Containers';
 
