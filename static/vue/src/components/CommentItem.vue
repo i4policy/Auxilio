@@ -85,9 +85,9 @@ export default {
             type: 'is-success',
             position: 'is-top'
           });
+          this.$emit('deleted');
         }
       });
-      this.$emit('deleted');
     }
   }
 };

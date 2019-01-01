@@ -34,7 +34,7 @@
                 <small
                   v-if="$acl.hasPermission(feedback)"
                   class="has-text-danger pointer"
-                  @click="deleteFeedback()"
+                  @click="deleteFeedback"
                 >DELETE</small>
               </small>
             </p>
