@@ -2,7 +2,12 @@
   <article class="media">
     <figure class="media-left">
       <figure class="media-left">
-        <user-avatar :bucket="bucket" :size="64" :file-name="feedback.createdBy.profilePicture"/>
+        <user-avatar
+          v-if="feedback.createdBy"
+          :bucket="bucket"
+          :size="64"
+          :file-name="feedback.createdBy.profilePicture"
+        />
       </figure>
     </figure>
     <div class="media-content">
@@ -163,7 +168,6 @@ export default {
       });
     },
     handleNewComment(comment) {
-      console.log('NEW COMMENT::', comment);
       if (!comment) return;
       if (!this.feedback.replies) {
         const replies = [comment];
