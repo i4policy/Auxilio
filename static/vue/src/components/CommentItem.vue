@@ -1,8 +1,7 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <user-avatar :bucket="bucket" :size="64"
-      :file-name="comment.createdBy.profilePicture"/>
+      <user-avatar :bucket="'users'" :size="64" :file-name="comment.createdBy.profilePicture"/>
     </figure>
     <div class="media-content">
       <div class="content" v-if="!editMode">
