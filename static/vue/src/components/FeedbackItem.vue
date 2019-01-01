@@ -2,8 +2,7 @@
   <article class="media">
     <figure class="media-left">
       <figure class="media-left">
-        <user-avatar :bucket="bucket" :size="64"
-        :file-name="feedback.createdBy.profilePicture"/>
+        <user-avatar :bucket="bucket" :size="64" :file-name="feedback.createdBy.profilePicture"/>
       </figure>
     </figure>
     <div class="media-content">
@@ -153,9 +152,9 @@ export default {
         vote
       });
       if (result) {
-        this.feedback.upVote = result.upVote;
-        this.feedback.downVote = result.downVote;
-        this.feedback.voted = result.voted;
+        this.$set(this.feedback, 'upVote', result.upVote);
+        this.$set(this.feedback, 'downVote', result.downVote);
+        this.$set(this.feedback, 'voted', result.voted);
       }
       this.$toast.open({
         message: vote === 1 ? 'Up voted' : 'Down voted',
@@ -164,12 +163,15 @@ export default {
       });
     },
     handleNewComment(comment) {
+      console.log('NEW COMMENT::', comment);
       if (!comment) return;
       if (!this.feedback.replies) {
-        // @todo m3hari, fix me : this is vue caveat use $set minamin
-        this.feedback.replies = [comment];
+        const replies = [comment];
+        this.$set(this.feedback, 'replies', replies);
       } else {
-        this.feedback.replies.push(comment);
+        const { replies } = this.feedback;
+        replies.push(comment);
+        this.$set(this.feedback, 'replies', replies);
       }
     },
     editFeedback() {

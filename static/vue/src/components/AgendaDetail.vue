@@ -6,7 +6,11 @@
           <div class="columns">
             <div class="column">
               <p class="subtitle">
-                <tag :b-color="agenda.category.color" class="category">{{agenda.category.name}}</tag>
+                <tag
+                  v-if="agenda.category"
+                  :b-color="agenda.category.color"
+                  class="category"
+                >{{agenda.category.name}}</tag>
               </p>
               <p class="title">{{agenda.title}}</p>
               <div class="has-text-grey">{{agenda.description}}</div>
@@ -159,7 +163,6 @@ export default {
     async handleNewFeedback(feedback) {
       if (!feedback) return;
       if (!this.agenda.feedbacks) {
-        // @todo m3hari, fix me : this is vue caveat use $set minamin
         this.agenda.feedbacks = [feedback];
       } else {
         this.agenda.feedbacks.unshift(feedback);
