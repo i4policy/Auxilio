@@ -6,6 +6,7 @@ import CommentAPI from './comment.api';
 import AgendaVoteAPI from './agenda-vote.api';
 import FeedbackVoteAPI from './feedback-vote.api';
 import ContainerAPI from './container.api';
+import SearchAPI from './search.api';
 
 const API_ROOT = process.env.VUE_APP_API_ROOT || window.location.origin;
 // eslint-disable-next-line
@@ -18,5 +19,6 @@ export {
   CommentAPI,
   AgendaVoteAPI,
   FeedbackVoteAPI,
-  ContainerAPI
+  ContainerAPI,
+  SearchAPI
 };

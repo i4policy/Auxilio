@@ -15,10 +15,8 @@
           <div class="column is-three-fifths">
             <div class="columns">
               <div class="column"></div>
-              <div class="column is-three-fifths">
-                <div class="navbar-item">
-                  <input class="search-input" type="text" placeholder="Search">
-                </div>
+              <div class="column is-four-fifths">
+                <Search/>
               </div>
             </div>
           </div>
@@ -35,8 +33,7 @@
           <div class="column is-narrow">
             <div class="navbar-item">
               <div class="mb-3" size="40px">
-                <user-avatar :bucket="bucket" :size="30"
-                :file-name="userProfile.profilePicture"/>
+                <user-avatar :bucket="bucket" :size="30" :file-name="userProfile.profilePicture"/>
               </div>
               <span class="has-text-white is-size-7">
                 {{userProfile.fullName}}
@@ -58,11 +55,13 @@ import { AuthService } from '@/services/services.index';
 import { API_ROOT } from '@/api/api.index';
 import NewAgenda from './NewAgenda.vue';
 import UserAvatar from './UserAvatar.vue';
+import Search from './Search.vue';
 
 export default {
   name: 'Navbar',
   components: {
-    UserAvatar
+    UserAvatar,
+    Search
   },
   data() {
     return {

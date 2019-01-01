@@ -6,9 +6,7 @@
           <div class="columns">
             <div class="column">
               <p class="subtitle">
-                <tag :b-color="agenda.category.color" class="category">
-                  {{agenda.category.name}}
-                </tag>
+                <tag :b-color="agenda.category.color" class="category">{{agenda.category.name}}</tag>
               </p>
               <p class="title">{{agenda.title}}</p>
               <div class="has-text-grey">{{agenda.description}}</div>
@@ -73,7 +71,7 @@
             <div class="level-item has-text-centered">
               <div>
                 <p class="heading">
-                  <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"/> Down Vote
+                  <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"/>Down Vote
                 </p>
                 <p class="title">{{agenda.downVote || 0}}</p>
               </div>
@@ -239,6 +237,14 @@ export default {
           this.$router.push({ name: 'agendas' });
         }
       });
+    }
+  },
+  watch: {
+    '$route.params.id': {
+      handler(id) {
+        this.agendaId = id;
+        this.loadAgenda();
+      }
     }
   }
 };
