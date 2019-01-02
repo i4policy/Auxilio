@@ -1,0 +1,159 @@
+$primary: #593c79;
+$body-family: "Poppins";
+$body-background-color: $primary;
+$body-line-height: 1;
+$body-color: #fff;
+$secondary: #ed0083;
+$secondary-invert: findColorInvert($secondary) !default;
+$custom-colors: ("secondary":($secondary, $secondary-invert));
+$footer-background-color: $primary;
+$box-background-color: transparent;
+
+$spaceamounts: (0 ,5, 10, 15, 20, 50, 100);
+
+$sides: (top, bottom, left, right);
+
+@each $space in $spaceamounts
+  @each $side in $sides
+    .m-#{str-slice($side, 0, 1)}-#{$space}
+      margin-#{$side}: #{$space}px !important;
+
+    .m-#{$space}
+        margin: #{$space}px !important;
+
+    .p-#{str-slice($side, 0, 1)}-#{$space}
+      padding-#{$side}: #{$space}px !important;
+
+    .p-#{$space}
+        padding: #{$space}px !important;
+
+
+.navbar
+    background: $body-background-color !important;
+
+.landing
+    background: url(/images/hero.svg) no-repeat;
+    background-position: bottom;
+    background-size: 100%;
+
+.landing img
+    max-width: 600px;
+
+.landing .columns
+    margin-bottom: 0 !important;
+
+.footer
+    padding: 5px !important;
+
+@-webkit-keyframes rotate-right
+  from
+    -webkit-transform: rotate(0deg)
+
+  to
+    -webkit-transform: rotate(360deg)
+
+
+@-webkit-keyframes rotate-left
+  from
+    -webkit-transform: rotate(0deg)
+
+  to
+    -webkit-transform: rotate(-360deg)
+
+
+@-webkit-keyframes hover
+  0%
+    -webkit-transform: translateY(0%)
+
+  50%
+    -webkit-transform: translateY(5%)
+
+  100%
+    -webkit-transform: translateY(0%)
+
+
+@-webkit-keyframes pull
+  0%
+    -webkit-transform: scaleY(1)
+
+  40%
+    -webkit-transform: scaleY(1.01)
+
+  60%
+    -webkit-transform: scaleY(0.99)
+
+  80%
+    -webkit-transform: scaleY(1.01)
+
+  100%
+    -webkit-transform: scaleY(0.99)
+
+  80%
+    -webkit-transform: scaleY(1.01)
+
+  100%
+    -webkit-transform: scaleY(1)
+
+
+#airplane2, #airplane1
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transform-origin: 200px 200px
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: rotate-right 60s linear 0s infinite
+
+#countryObjects
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transform-origin: 200px 200px
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: rotate-right 240s linear 0s infinite
+
+#floatingGlobe
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transform-origin: 200px 200px
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: rotate-left 360s linear 0s infinite
+
+#globe
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: hover 0s linear 0s infinite
+
+#windmill
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transform-origin: 331px 201px
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: rotate-right 2s linear 0s infinite
+
+#circle1
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transform-origin: 200px 200px
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: rotate-right 12s linear 0s infinite
+
+#circle2
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transform-origin: 200px 200px
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: rotate-left 24s linear 0s infinite
+
+#circle3
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transform-origin: 200px 200px
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: rotate-right 12s linear 0s infinite
+
+#circle4
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transform-origin: 200px 200px
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: rotate-left 24s linear 0s infinite
+
+#circle5
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-transform-origin: 200px 200px
+  -webkit-transform: translate3d(0, 0, 0)
+  -webkit-animation: rotate-right 12s linear 0s infinite
+
+.space-between
+  justify-content: space-between !important;
+
+@import "node_modules/bulma/bulma.sass";

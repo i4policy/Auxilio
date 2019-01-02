@@ -1,0 +1,5 @@
+baseURL: "/"
+defaultContentLanguage: "en"
+languages:
+  en:
+    title: "Auxilio"

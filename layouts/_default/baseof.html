@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" class="has-navbar-fixed-top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,800" rel="stylesheet"> 
+  <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+  {{ $style := resources.Get "./style.sass" | resources.ToCSS }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}">
+  {{ block "styles" . }}
+  {{ end }}
+</head>
+<body>
+  <nav class="navbar is-fixed-top">
+    
+    <div class="navbar-brand">
+      
+      <a class="navbar-item" href="{{ .Params.home }}"><img src="/images/logo.svg"></a>
+      
+      <a class="navbar-burger burger" id="navbar-burger" data-target="navbarBasic">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+      
+    </div>
+    
+    <div id="navbarBasic" class="navbar-menu">
+      
+      <div class="navbar-start">
+        
+        {{ range .Site.Params.navbar }}
+        
+        <a class="navbar-item has-text-weight-semibold" href="{{ .url }}">{{ .title }}</a>
+        
+        {{ end }}
+        
+      </div>
+      
+      <div class="navbar-end">
+      </div>
+      
+    </div>
+    
+  </nav>
+	{{ block "main" . }}
+  {{ end }}
+  
+  
+  
+  <footer class="footer columns m-0">
+    <a class="column" href="https://i4policy.org">
+      <img src="/images/i4policy.png" width="55">
+    </a>
+    <a class="column has-text-right" href="https://ahadootec.com"><img src="/images/ahadoo-logo.png" width="100"></a>
+  </footer>
+  
+  {{ block "scripts" . }}
+  {{ end }}
+</body>
+</html>
