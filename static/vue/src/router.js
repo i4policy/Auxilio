@@ -4,6 +4,7 @@ import AuthContent from '@/components/AuthContent.vue';
 import Login from '@/components/Login.vue';
 import ForgotPassword from '@/components/ForgotPassword.vue';
 import PasswordReset from '@/components/PasswordReset.vue';
+import MyProfile from '@/components/MyProfile.vue';
 import Agendas from '@/components/Agendas.vue';
 import AgendaDetail from '@/components/AgendaDetail.vue';
 import NotFoundPage from '@/components/404.vue';
@@ -42,6 +43,11 @@ const router = new Router({
           path: 'detail/:id',
           name: 'agenda-detail',
           component: AgendaDetail
+        },
+        {
+          path: 'profile',
+          name: 'profile',
+          component: MyProfile
         }
       ]
     },

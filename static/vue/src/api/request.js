@@ -39,7 +39,7 @@ Request.interceptors.response.use(
         message: 'Network error.',
         type: 'is-danger',
         position: 'is-top',
-        duration: 5000
+        duration: 1000
       });
       throw err;
     }
@@ -57,14 +57,14 @@ Request.interceptors.response.use(
           message: 'Unauthorized access.',
           type: 'is-danger',
           position: 'is-top',
-          duration: 5000
+          duration: 1000
         });
       } else {
         app.$toast.open({
           message: 'Invalid credinitials.',
           type: 'is-danger',
           position: 'is-top',
-          duration: 5000
+          duration: 1000
         });
       }
       throw err.response.data.error;
@@ -76,7 +76,7 @@ Request.interceptors.response.use(
         message: 'Internal error.',
         type: 'is-danger',
         position: 'is-top',
-        duration: 5000
+        duration: 1000
       });
       throw err.response.data.error;
     }

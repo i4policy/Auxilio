@@ -8161,6 +8161,13 @@ vue-loader@^15.4.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-next-level-scroll@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-next-level-scroll/-/vue-next-level-scroll-1.2.0.tgz#3c5b5be72e5ab5fa00ae7b3ce9ddc53cf290d118"
+  integrity sha512-hhKeE9HaDmzdf/6N6Sjy5KEAGfRAHRe+4YQVUCs5lNMlansiFv170cqg4E5A7lnTTbwmG44BqdoVGwqXU4Y8Jg==
+  dependencies:
+    vue "^2.5.17-beta.0"
+
 vue-router@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
@@ -8203,7 +8210,7 @@ vue2-dropzone@^3.0.4:
   dependencies:
     dropzone "^5.5.0"
 
-vue@^2.5.13, vue@^2.5.17:
+vue@^2.5.13, vue@^2.5.17, vue@^2.5.17-beta.0:
   version "2.5.21"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.21.tgz#3d33dcd03bb813912ce894a8303ab553699c4a85"
   integrity sha512-Aejvyyfhn0zjVeLvXd70h4hrE4zZDx1wfZqia6ekkobLmUZ+vNFQer53B4fu0EjWBSiqApxPejzkO1Znt3joxQ==

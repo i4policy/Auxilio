@@ -32,10 +32,10 @@
           <div class="column"></div>
           <div class="column is-narrow">
             <div class="navbar-item">
-              <div class="mb-3" size="40px">
+              <div class="mb-3 user-pic" size="40px" @click="navigateToMyProfile">
                 <user-avatar :bucket="bucket" :size="30" :file-name="userProfile.profilePicture"/>
               </div>
-              <span class="has-text-white is-size-7">
+              <span class="has-text-white is-size-7 user-name" @click="navigateToMyProfile">
                 {{userProfile.fullName}}
                 &nbsp;&nbsp;&nbsp;&nbsp;
               </span>
@@ -83,6 +83,9 @@ export default {
         component: NewAgenda,
         hasModalCard: true
       });
+    },
+    navigateToMyProfile() {
+      this.$router.push({ name: 'profile' });
     }
   },
   computed: {
@@ -128,5 +131,8 @@ export default {
   border-radius: 30px;
   margin-right: 10px;
   margin-top: 10px;
+}
+.user-name, .user-pic {
+  cursor: pointer;
 }
 </style>

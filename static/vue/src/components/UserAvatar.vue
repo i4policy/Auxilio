@@ -1,12 +1,12 @@
 <template>
-  <p class="image" v-bind:style="[{width: size + 'px'},{height: size + 'px'}]">
+  <div class="image" v-bind:style="[{width: size + 'px'},{height: size + 'px'}]">
     <img
       :src="imgUrl"
       class="is-rounded"
       v-img-fallback="'/user-placeholder.png'"
     >
     <span class="you" v-if="showMe">You</span>
-  </p>
+  </div>
 </template>
 
 <script>

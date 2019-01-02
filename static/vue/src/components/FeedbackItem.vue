@@ -10,7 +10,7 @@
         />
       </figure>
     </figure>
-    <div class="media-content">
+    <div class="media-content" :id="`target-${feedback.id}`">
       <div class="content" v-if="!editMode">
         <div class="columns">
           <div class="column">
@@ -61,7 +61,7 @@
                 <hr>
               </div>
               <div class="is-block has-text-centered">
-                <b-tooltip label="Down Vote" position="is-bottom" type="is-dark">
+                <b-tooltip label="Down Vote"  ition="is-bottom" type="is-dark">
                   <b-icon
                     @click.native="vote(-1)"
                     icon="thumb-down"

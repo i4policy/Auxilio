@@ -8,7 +8,7 @@
         :file-name="comment.createdBy.profilePicture"
       />
     </figure>
-    <div class="media-content">
+    <div class="media-content" :id="`target-${comment.id}`">
       <div class="content" v-if="!editMode">
         <p>
           <strong v-if="comment.createdBy">{{comment.createdBy.fullName}}</strong>

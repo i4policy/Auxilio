@@ -11,6 +11,8 @@
                   :b-color="agenda.category.color"
                   class="category"
                 >{{agenda.category.name}}</tag>
+                <vue-next-level-scroll :target= "`#${scrollTarget}`" ref="scrollRef">
+                </vue-next-level-scroll>
               </p>
               <p class="title">{{agenda.title}}</p>
               <div class="has-text-grey">{{agenda.description}}</div>
@@ -126,25 +128,32 @@ import { AgendaAPI, AgendaVoteAPI } from '@/api';
 import FeedbackItem from './FeedbackItem.vue';
 import FeedbackInput from './FeedbackInput.vue';
 import EditAgenda from './EditAgenda.vue';
+import VueNextLevelScroll from 'vue-next-level-scroll';
 
 export default {
   name: 'AgendaDetail',
   components: {
     FeedbackItem,
-    FeedbackInput
+    FeedbackInput,
+    VueNextLevelScroll
   },
   data() {
     return {
       agendaId: null,
       agenda: {
         category: {}
-      }
+      },
+      scrollTarget: ''
     };
   },
   created() {
     const { id } = this.$route.params;
+    if (this.$route.query.scrollTarget) { this.scrollTarget = this.$route.query.scrollTarget; }
     this.agendaId = id;
     this.loadAgenda();
+  },
+  updated() {
+    this.scrolltoTarget();
   },
   methods: {
     handleDeleteSuccess(index) {
@@ -240,6 +249,10 @@ export default {
           this.$router.push({ name: 'agendas' });
         }
       });
+    },
+    scrolltoTarget() {
+      const elem = this.$refs.scrollRef;
+      elem.click();
     }
   },
   watch: {

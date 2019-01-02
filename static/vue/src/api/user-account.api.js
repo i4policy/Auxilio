@@ -44,6 +44,12 @@ const UserAccountAPI = {
       resetToken,
       newPassword
     });
+  },
+  getMyProfile(limit, skip) {
+    return Request.post(`${API_ROOT}${PATH}/my-profile`, {
+      limit,
+      skip
+    });
   }
 };
 
