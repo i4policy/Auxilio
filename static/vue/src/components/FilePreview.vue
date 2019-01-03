@@ -7,7 +7,7 @@
           <div class="header-text">{{meta.year | formatDate }}</div>
           <h3 class="card-title-small">Summery</h3>
           <div class="header-text">{{meta.summary}}</div>
-          <h3 class="card-title-small">Bibliography.</h3>
+          <h3 class="card-title-small">Bibliography</h3>
           <div class="header-text">{{meta.bibliography}}</div>
           <article class="media no-border">
             <div class="media-left no-margin-right">
