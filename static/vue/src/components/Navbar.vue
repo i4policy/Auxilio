@@ -53,7 +53,6 @@
 import { mapMutations } from 'vuex';
 import { AuthService } from '@/services';
 import { API_ROOT } from '@/api';
-import NewAgenda from './NewAgenda.vue';
 import UserAvatar from './UserAvatar.vue';
 import Search from './Search.vue';
 
@@ -77,12 +76,7 @@ export default {
       AuthService.logout();
     },
     openNewAgenda() {
-      this.$modal.open({
-        scroll: 'keep',
-        parent: this,
-        component: NewAgenda,
-        hasModalCard: true
-      });
+      this.$router.push({ name: 'create-agenda' });
     },
     navigateToMyProfile() {
       this.$router.push({ name: 'profile' });
@@ -132,7 +126,8 @@ export default {
   margin-right: 10px;
   margin-top: 10px;
 }
-.user-name, .user-pic {
+.user-name,
+.user-pic {
   cursor: pointer;
 }
 </style>
