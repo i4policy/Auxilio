@@ -2,7 +2,9 @@
   <div>
     <navbar/>
     <div class="container is-fluid">
-      <router-view/>
+      <transition name="fade" mode="out-in">
+        <router-view/>
+      </transition>
     </div>
   </div>
 </template>
@@ -19,4 +21,15 @@ export default {
 <style lang="sass">
 
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 </style>
