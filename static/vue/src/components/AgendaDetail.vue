@@ -11,8 +11,7 @@
                   :b-color="agenda.category.color"
                   class="category"
                 >{{agenda.category.name}}</tag>
-                <vue-next-level-scroll :target= "`#${scrollTarget}`" ref="scrollRef">
-                </vue-next-level-scroll>
+                <vue-next-level-scroll :target="`#${scrollTarget}`" ref="scrollRef"></vue-next-level-scroll>
               </p>
               <p class="title">{{agenda.title}}</p>
               <div class="has-text-grey">{{agenda.description}}</div>
@@ -95,7 +94,7 @@
               <small
                 v-if="$acl.hasPermission(agenda)"
                 class="has-text-link pointer"
-                @click="editAgenda()"
+                @click="editAgenda"
               >EDIT</small>
               &nbsp;&nbsp;
               <small
@@ -127,7 +126,6 @@
 import { AgendaAPI, AgendaVoteAPI } from '@/api';
 import FeedbackItem from './FeedbackItem.vue';
 import FeedbackInput from './FeedbackInput.vue';
-import EditAgenda from './EditAgenda.vue';
 import VueNextLevelScroll from 'vue-next-level-scroll';
 
 export default {
@@ -148,7 +146,9 @@ export default {
   },
   created() {
     const { id } = this.$route.params;
-    if (this.$route.query.scrollTarget) { this.scrollTarget = this.$route.query.scrollTarget; }
+    if (this.$route.query.scrollTarget) {
+      this.scrollTarget = this.$route.query.scrollTarget;
+    }
     this.agendaId = id;
     this.loadAgenda();
   },
@@ -216,18 +216,10 @@ export default {
       }
     },
     editAgenda() {
-      this.$modal.open({
-        scroll: 'keep',
-        parent: this,
-        component: EditAgenda,
-        hasModalCard: true,
-        props: {
-          agendaId: this.agenda.id
-        },
-        events: {
-          close: () => {
-            this.loadAgenda();
-          }
+      this.$router.push({
+        name: 'update-agenda',
+        params: {
+          agendaId: this.agendaId
         }
       });
     },

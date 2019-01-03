@@ -9,6 +9,7 @@ import Agendas from '@/components/Agendas.vue';
 import AgendaDetail from '@/components/AgendaDetail.vue';
 import NotFoundPage from '@/components/404.vue';
 import NewAgenda from '@/components/NewAgenda.vue';
+import EditAgenda from '@/components/EditAgenda.vue';
 import { AuthService } from '@/services';
 
 Vue.use(Router);
@@ -35,6 +36,11 @@ const router = new Router({
           path: 'create-agenda',
           name: 'create-agenda',
           component: NewAgenda
+        },
+        {
+          path: 'update-agenda',
+          name: 'update-agenda',
+          component: EditAgenda
         },
         {
           path: 'detail/:id',
