@@ -23,7 +23,7 @@
 
           <div class="column is-narrow" v-if="$acl.isAdmin">
             <div class="navbar-item">
-              <a class="button is-primary" href="#" @click="openNewAgenda()">
+              <a class="button is-primary" @click="openNewAgenda()">
                 <b-icon icon="plus" type="is-white" size="is-small"></b-icon>
                 <span>New Agenda</span>
               </a>
