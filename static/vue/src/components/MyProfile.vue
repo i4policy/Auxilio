@@ -6,13 +6,19 @@
           <div class="site-card pointer" style="padding-bottom: 1em;">
             <div class="site-card-header columns">
               <div class="column is-full">
-                <user-avatar class="avatar-big" :bucket="bucket" :size="80" :file-name="profile.profilePicture"/>
+                <user-avatar class="avatar-big" :bucket="bucket" :size="80" :file-name="userData.profile.profilePicture"/>
                 <div class="avatar-content text-left" style="display:inline-block">
                   <div class="card-title bold">Profile</div>
-                  <div class="header-text bold">{{ profile.fullName }}</div>
-                  <div class="header-text">{{ profile.title }}</div>
-                  <div class="header-text">{{ profile.email }}</div>
-                  <div class="header-text">{{ profile.phoneNumber }}</div>
+                  <div class="header-text">
+                    <router-link tag="a" :to="{name:'update-profile'}">
+                      <b-icon icon="pencil edit-profile" type="is-primary" size="is-small"></b-icon>&nbsp;
+                    </router-link>
+                  </div>
+                  <div class="header-text bold">{{ userData.profile.fullName }}</div>
+                  <div class="header-text">{{ userData.profile.title }}</div>
+                  <div class="header-text">{{ userData.profile.email }}</div>
+                  <div class="header-text">{{ userData.profile.phoneNumber }}</div>
+
                 </div>
               </div>
             </div>
@@ -70,7 +76,12 @@ export default {
   },
   data() {
     return {
-      userData: {},
+      userData: {
+        profile: {},
+        posts: {},
+        feedbacks: {},
+        replies: {}
+      },
       bucket: 'users',
       viewLestPosts: false,
       viewLestFeedbacks: false,
@@ -131,5 +142,10 @@ export default {
 .card-links > span:hover {
   color: #333;
   border-bottom: 1px solid #333;
+}
+.edit-profile {
+  margin-left: 200px;
+  font-size: 15px;
+  color: #593c79;
 }
 </style>

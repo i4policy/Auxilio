@@ -50,6 +50,9 @@ const UserAccountAPI = {
       limit,
       skip
     });
+  },
+  updatMyProfile(data) {
+    return Request.patch(`${API_ROOT}${PATH}/update-my-account`, data);
   }
 };
 

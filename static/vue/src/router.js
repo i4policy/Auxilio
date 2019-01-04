@@ -5,6 +5,7 @@ import Login from '@/components/Login.vue';
 import ForgotPassword from '@/components/ForgotPassword.vue';
 import PasswordReset from '@/components/PasswordReset.vue';
 import MyProfile from '@/components/MyProfile.vue';
+import UpdateProfile from '@/components/UpdateProfile.vue';
 import Agendas from '@/components/Agendas.vue';
 import AgendaDetail from '@/components/AgendaDetail.vue';
 import NotFoundPage from '@/components/404.vue';
@@ -51,6 +52,11 @@ const router = new Router({
           path: 'profile',
           name: 'profile',
           component: MyProfile
+        },
+        {
+          path: 'update-profile',
+          name: 'update-profile',
+          component: UpdateProfile
         }
       ]
     },

@@ -70,6 +70,26 @@ Request.interceptors.response.use(
       throw err.response.data.error;
     }
 
+    if (status === 403) {
+      app.$toast.open({
+        message: err.response.data.error.message,
+        type: 'is-danger',
+        position: 'is-top',
+        duration: 1000
+      });
+      throw err.response.data.error;
+    }
+
+    if (status === 422) {
+      app.$toast.open({
+        message: err.response.data.error.message,
+        type: 'is-danger',
+        position: 'is-top',
+        duration: 1000
+      });
+      throw err.response.data.error;
+    }
+
     // 500 - Internal Error
     if (status >= 500) {
       app.$toast.open({

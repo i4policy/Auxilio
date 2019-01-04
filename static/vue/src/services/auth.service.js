@@ -17,10 +17,12 @@ const AuthService = {
           localStorage.setItem(
             PROFILE_KEY,
             JSON.stringify({
+              title: res.title,
               fullName: res.fullName,
+              email: res.email,
+              phoneNumber: res.phoneNumber,
               role: res.role,
-              profilePicture: res.profilePicture,
-              title: res.title
+              profilePicture: res.profilePicture
             })
           );
           return Promise.resolve(true);
