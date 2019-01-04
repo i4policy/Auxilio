@@ -1,8 +1,12 @@
 <template>
   <article class="media">
     <figure class="media-left">
-      <user-avatar :bucket="bucket" :size="64"
-      :file-name="userProfile.profilePicture" :show-me="true"/>
+      <user-avatar
+        :bucket="'users'"
+        :size="64"
+        :file-name="userProfile.profilePicture"
+        :show-me="true"
+      />
     </figure>
     <div class="media-content">
       <b-field :type="{'is-danger': errors.has('feedback')}" :message="errors.first('feedback')">
@@ -16,7 +20,9 @@
         />
       </b-field>
 
-      <FilePreview v-if="file && fileMeta" :bucket="'feedback'" :file="file" :meta="fileMeta"/>
+      <template v-for="(file,index) in item.files">
+        <FilePreview :bucket="'feedback'" :key="index" :fileData="file"/>
+      </template>
 
       <div class="columns">
         <div class="column">
@@ -56,12 +62,12 @@ export default {
   },
   data() {
     return {
-      item: { body: '' },
-      file: null,
-      fileMeta: null,
+      item: {
+        body: '',
+        files: []
+      },
       userProfile: {},
-      body: '',
-      bucket: 'users'
+      body: ''
     };
   },
   created() {
@@ -69,9 +75,10 @@ export default {
   },
   methods: {
     resetData() {
-      this.file = null;
-      this.fileMeta = null;
-      this.item = { body: '' };
+      this.item = {
+        body: '',
+        files: []
+      };
     },
     openAttachFile() {
       this.$modal.open({
@@ -88,8 +95,7 @@ export default {
     },
     onFileAttach(data) {
       const { file, meta } = data;
-      this.file = file;
-      this.fileMeta = meta;
+      this.item.files.push({ file, meta });
     },
     async postFeedback() {
       const valid = await this.$validator.validateAll();
@@ -100,13 +106,16 @@ export default {
 
       const formData = new FormData();
       Object.keys(this.item).forEach((key) => {
-        formData.append(key, this.item[key]);
+        const value = typeof this.item[key] === 'object' ? JSON.stringify(this.item[key]) : this.item[key];
+        formData.append(key, value);
       });
-      // add file meta data
-      formData.append('fileMeta', JSON.stringify(this.fileMeta));
-
       // add files
-      formData.append('file', this.file);
+      for (let i = 0; i < this.item.files.length; i += 1) {
+        const { file } = this.item.files[i];
+        if (file && file.name) {
+          formData.append(`file-${i}`, file, file.name);
+        }
+      }
 
       const response = await FeedbackAPI.create(formData);
       this.$toast.open({

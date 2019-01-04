@@ -61,7 +61,7 @@
                 <hr>
               </div>
               <div class="is-block has-text-centered">
-                <b-tooltip label="Down Vote"  ition="is-bottom" type="is-dark">
+                <b-tooltip label="Down Vote" ition="is-bottom" type="is-dark">
                   <b-icon
                     @click.native="vote(-1)"
                     icon="thumb-down"
@@ -84,13 +84,14 @@
         />
       </div>
 
-      <FilePreview
-        v-for="(data,i) in feedback.files"
-        :key="i"
-        :bucket="'feedback'"
-        :file="data.file"
-        :meta="data.meta"
-      />
+      <template v-if="feedback.files && feedback.files.length">
+        <FilePreview
+          v-for="(file,index) in feedback.files"
+          :bucket="'feedback'"
+          :key="index"
+          :fileData="file"
+        />
+      </template>
 
       <comment-item
         v-for="(comment, i) in feedback.replies"
