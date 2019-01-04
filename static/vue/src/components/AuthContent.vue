@@ -18,8 +18,7 @@ export default {
   }
 };
 </script>
-<style lang="sass">
-
+<style >
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
 
 .fade-enter-active,
