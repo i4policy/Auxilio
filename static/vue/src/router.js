@@ -80,7 +80,11 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const authenticated = AuthService.isAuthenticated();
-  if (!authenticated && to.name !== 'login') {
+  if (!authenticated && to.name === 'reset-password') {
+    next();
+  } else if (!authenticated && to.name === 'forgot-password') {
+    next();
+  } else if (!authenticated && to.name !== 'login') {
     next({ name: 'login' });
   } else if (authenticated && to.name === 'login') {
     next({ name: 'agendas' });
