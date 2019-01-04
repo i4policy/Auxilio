@@ -104,6 +104,15 @@
               >DELETE</small>
             </div>
           </nav>
+          <template v-if="agenda.files && agenda.files.length">
+            <FilePreview
+              v-for="(file,index) in agenda.files"
+              :bucket="'post'"
+              :key="index"
+              :fileData="file"
+            />
+          </template>
+
           <div class="has-text-centered"></div>
           <feedback-input @success="handleNewFeedback($event)" :post-id="agendaId"/>
         </div>
@@ -126,11 +135,13 @@
 import { AgendaAPI, AgendaVoteAPI } from '@/api';
 import FeedbackItem from './FeedbackItem.vue';
 import FeedbackInput from './FeedbackInput.vue';
+import FilePreview from '@/components/FilePreview.vue';
 import VueNextLevelScroll from 'vue-next-level-scroll';
 
 export default {
   name: 'AgendaDetail',
   components: {
+    FilePreview,
     FeedbackItem,
     FeedbackInput,
     VueNextLevelScroll

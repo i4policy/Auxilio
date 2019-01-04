@@ -15,7 +15,7 @@
                 <b-icon icon="file"></b-icon>
               </figure>
             </div>
-            <div @click="download" class="media-content">
+            <div v-if="fileData.file" @click="download" class="media-content">
               <div class="content" style="margin-top: 3px;">
                 <strong>{{fileData.file.name}}</strong>
               </div>
@@ -46,7 +46,10 @@ export default {
   methods: {
     async download() {
       if (!this.fileData || !this.fileData.file.name) return;
-      const response = await ContainerAPI.get(this.bucket, this.fileData.file.name);
+      const response = await ContainerAPI.get(
+        this.bucket,
+        this.fileData.file.name
+      );
 
       // CREDITS: https://gist.github.com/javilobo8/097c30a233786be52070986d8cdb1743
       const url = window.URL.createObjectURL(new Blob([response]));

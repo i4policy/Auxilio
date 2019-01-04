@@ -63,7 +63,17 @@
         <b-field label="Description">
           <wysiwyg required v-model="item.description"/>
         </b-field>
+        <p class="control attachment-btn">
+          <button type="button" class="button" @click="openAttachFile">
+            <b-icon icon="attachment"></b-icon>
+            <span style="margin-left:4px">Add Files</span>
+          </button>
+        </p>
+        <template v-for="(file,index) in item.files">
+          <FilePreview :bucket="'feedback'" :key="index" :fileData="file"/>
+        </template>
       </section>
+
       <footer class="modal-card-foot has-background-info" style="justify-content: right;">
         <div class="is-pulled-right">
           <button class="button" type="button" @click="cancel">Cancel</button>
@@ -75,12 +85,19 @@
 </template>
 <script>
 import { AgendaAPI, PostCategoryAPI } from '@/api';
+import FilePreview from '@/components/FilePreview.vue';
+import FileUpload from '@/components/FileUpload.vue';
 
 export default {
   name: 'NewAgenda',
+  components: {
+    FilePreview
+  },
   data() {
     return {
-      item: {},
+      item: {
+        files: []
+      },
       categoryList: []
     };
   },
@@ -88,6 +105,23 @@ export default {
     this.getCategoryList();
   },
   methods: {
+    openAttachFile() {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        events: {
+          close: (data) => {
+            this.onFileAttach(data);
+          }
+        },
+        component: FileUpload,
+        hasModalCard: true
+      });
+    },
+    onFileAttach(data) {
+      const { file, meta } = data;
+      this.item.files.push({ file, meta });
+    },
     cancel() {
       this.$router.push({ name: 'agendas' });
     },
@@ -99,10 +133,21 @@ export default {
       const valid = await this.$validator.validateAll();
       if (valid) {
         const formData = new FormData();
-        const item = { ...this.item };
-        Object.keys(item).forEach((key) => {
-          formData.append(key, item[key]);
+        Object.keys(this.item).forEach((key) => {
+          const value = typeof this.item[key] === 'object'
+            && !(this.item[key] instanceof Date)
+            ? JSON.stringify(this.item[key])
+            : this.item[key];
+          formData.append(key, value);
         });
+        // add files
+        for (let i = 0; i < this.item.files.length; i += 1) {
+          const { file } = this.item.files[i];
+          if (file && file.name) {
+            formData.append(`file-${i}`, file, file.name);
+          }
+        }
+
         await AgendaAPI.create(formData);
         this.$toast.open({
           message: 'Agenda created successfully.',
