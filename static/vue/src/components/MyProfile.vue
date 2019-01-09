@@ -29,7 +29,7 @@
             </div>
             <div class="card-body">
               <div class="columns">
-                <div class="column is-12-mobile is-6-desktop">
+                <div class="column is-12-mobile is-4-desktop">
                   <h3 class="card-title">Posts ({{ userData.posts.count}})</h3>
                   <div class="card-links" v-for="post in posts" :key="post.id" @click="$router.push({name: 'agenda-detail',params: { id: post.id }});">
                     <i class="category-pill-small">3</i>
@@ -40,7 +40,7 @@
                   <div v-if="!viewLestPosts" class="card-links" @click="viewMorePosts()"><span> View more &rarr;</span></div>
                   <div v-if="viewLestPosts" class="card-links" @click="getMyProfile()"><span> View less &rarr;</span></div>
                 </div>
-                <div class="column is-12-mobile is-6-desktop">
+                <div class="column is-12-mobile is-4-desktop">
                   <h3 class="card-title">Feedbacks ({{ userData.feedbacks.count}})</h3>
                   <div class="card-links" v-for="feedback in feedbacks" :key="feedback.id" @click="$router.push({name: 'agenda-detail',params: { id: feedback.postId }, query: {scrollTarget: `target-${feedback.id}`}});">
                     <i class="category-pill-small">3</i>
@@ -50,9 +50,7 @@
                   </div>
                   <div class="card-links" @click="viewMoreFeedbacks()"><span> View more &rarr;</span></div>
                 </div>
-              </div>
-              <div class="columns">
-                <div class="column is-12-mobile is-6-desktop">
+                <div class="column is-12-mobile is-4-desktop">
                   <h3 class="card-title">Replies ({{ userData.replies.count}})</h3>
                   <div class="card-links" v-for="reply in replies" :key="reply.id" @click="$router.push({name: 'agenda-detail',params: { id: reply.postId }, query: {scrollTarget: `target-${reply.id}`}});">
                     <i class="category-pill-small">3</i>

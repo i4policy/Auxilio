@@ -5,12 +5,25 @@
     </div>
     <div v-if="!isLoading" class="columns is-centered">
       <div class="column is-narrow has-text-centered">
-        <tag
-          :b-color="category.color"
+        <b-tag
+          type="is-white"
+          class="categories"
+          @click.native="filterByAll()"
+        >All</b-tag>
+        <b-tag
+          class="categories"
           v-for="(category, i) in categoryList"
           :key="i"
+          closable
+          v-bind:style="[{background: category.color }]"
+          @close="deleteCategory(category.id)"
           @click.native="filterByCategory(category.id)"
-        >{{category.name}}</tag>
+        >{{category.name}}</b-tag>
+         <tag
+          @click.native="openCategoryModal()"
+          class="add-category"
+        ><b-tooltip label="New Category" position="is-bottom">+</b-tooltip>
+        </tag>
       </div>
     </div>
     <div v-if="!isLoading && agendaList.length == 0" class="columns is-centered no-found">
@@ -32,6 +45,8 @@
 import { AtomSpinner } from 'epic-spinners';
 import AgendaItem from './AgendaItem.vue';
 import { AgendaAPI, PostCategoryAPI } from '@/api';
+import NewCategory from './NewCategory.vue';
+import ConfirmationDialog from '../shared/components/ConfirmationDialog.vue';
 
 export default {
   components: {
@@ -65,6 +80,43 @@ export default {
       if (categoryId) {
         await this.getAgendas({ categoryId });
       }
+    },
+    async filterByAll() {
+      await this.getAgendas();
+    },
+    openCategoryModal() {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        events: {
+          close: (data) => {
+            this.getCategories();
+          }
+        },
+        component: NewCategory,
+        hasModalCard: true
+      });
+    },
+    deleteCategory(id) {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        events: {
+          close: async (data) => {
+            if (data) {
+              await PostCategoryAPI.remove(id);
+              this.getCategories();
+              this.$toast.open({
+                message: 'Category deleted.',
+                type: 'is-success',
+                position: 'is-top'
+              });
+            }
+          }
+        },
+        component: ConfirmationDialog,
+        hasModalCard: true
+      });
     }
   }
 };
@@ -77,5 +129,17 @@ export default {
   font-size: 20px;
   color: rgb(255, 255, 255);
   margin-top: 200px;
+}
+.add-category {
+  color: #fff !important;
+  background-color:#08020266 !important;
+  font-size: 18px;
+}
+.add-category:hover {
+  background-color: #111 !important;
+}
+.categories {
+  margin-right: 10px;
+  cursor: pointer;
 }
 </style>

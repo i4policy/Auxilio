@@ -1,11 +1,15 @@
 <template>
   <div>
     <div class="site-card pointer" @click="openDetail()">
-      <div
+      <b-tooltip :label="`${content.newFeedbacks} new feedbacks`" class="tooltip-new-feedback">
+        <div
         class="is-badge-primary is-badge-large"
         :class="{ badge: content.newFeedbacks>0 }"
         :data-badge="'+' + content.newFeedbacks"
-      ></div>
+        position="is-bottom"
+        ></div>
+      </b-tooltip>
+
       <div class="site-card-header is-marginless">
         <span class="post-creater">{{content.createdBy.fullName}}</span>
         <h3 class="card-title">{{content.title | limitTo(80, '...')}}</h3>
@@ -131,5 +135,8 @@ export default {
 }
 .post-creater {
   color: #593c79;
+}
+.tooltip-new-feedback {
+  display: inherit;
 }
 </style>

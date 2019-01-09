@@ -8,6 +8,7 @@
   <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
   {{ $style := resources.Get "./style.sass" | resources.ToCSS }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
+  <link rel="stylesheet" href="https://unpkg.com/vue-swatches/dist/vue-swatches.min.css">
   {{ block "styles" . }}
   {{ end }}
 </head>
