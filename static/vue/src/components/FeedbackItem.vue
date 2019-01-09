@@ -162,11 +162,29 @@ export default {
         this.$set(this.feedback, 'downVote', result.downVote);
         this.$set(this.feedback, 'voted', result.voted);
       }
-      this.$toast.open({
-        message: vote === 1 ? 'Up voted' : 'Down voted',
-        type: 'is-primary',
-        position: 'is-top'
-      });
+      
+      if (result.upVote === 1) {
+        this.$toast.open({
+          message: 'Up voted',
+          type: 'is-primary',
+          position: 'is-top',
+          duration: 500
+        });
+      } else if (result.downVote === 1) {
+        this.$toast.open({
+          message: 'Down voted',
+          type: 'is-primary',
+          position: 'is-top',
+          duration: 500
+        });
+      } else {
+        this.$toast.open({
+          message: 'Vote cleared',
+          type: 'is-primary',
+          position: 'is-top',
+          duration: 500
+        });
+      }
     },
     handleNewComment(comment) {
       if (!comment) return;

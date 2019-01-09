@@ -8,6 +8,12 @@ const ContainerAPI = {
     return Request.get(`${API_ROOT}${PATH}/${bucket}/download/${fileName}`, {
       responseType: 'blob'
     });
+  },
+  upload(bucket, data) {
+    const config = {
+      headers: { 'content-type': 'multipart/form-data' }
+    };
+    return Request.post(`${API_ROOT}${PATH}/${bucket}/customUpload`, data, config);
   }
 };
 

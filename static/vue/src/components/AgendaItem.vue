@@ -7,6 +7,7 @@
         :data-badge="'+' + content.newFeedbacks"
       ></div>
       <div class="site-card-header is-marginless">
+        <span class="post-creater">{{content.createdBy.fullName}}</span>
         <h3 class="card-title">{{content.title | limitTo(80, '...')}}</h3>
       </div>
       <div class="card-body">
@@ -127,5 +128,8 @@ export default {
 .numberofcomments {
   color: #8c8990 !important;
   cursor: default;
+}
+.post-creater {
+  color: #593c79;
 }
 </style>

@@ -6,6 +6,8 @@ export const PROFILE_KEY = 'profile';
 
 const AuthService = {
   login(email, password) {
+    console.log(email);
+    console.log(password);
     const err = new Error();
     err.message = 'Invalid login parameters';
     err.statusCode = 400;

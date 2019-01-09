@@ -11,6 +11,7 @@
                   :b-color="agenda.category.color"
                   class="category"
                 >{{agenda.category.name}}</tag>
+                <span class="post-creater">{{agenda.createdBy.fullName}}</span>
                 <vue-next-level-scroll :target="`#${scrollTarget}`" ref="scrollRef"></vue-next-level-scroll>
               </p>
               <p class="title">{{agenda.title}}</p>
@@ -274,5 +275,8 @@ export default {
 }
 .category {
   margin-bottom: 20px;
+}
+.post-creater {
+  color: #593c79;
 }
 </style>

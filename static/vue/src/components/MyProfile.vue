@@ -3,7 +3,7 @@
     <div class="site-body">
       <div class="columns">
         <div class="column is-offset-1 is-10">
-          <div class="site-card pointer" style="padding-bottom: 1em;">
+          <div class="site-card" style="padding-bottom: 1em;">
             <div class="site-card-header columns">
               <div class="column is-full">
                 <user-avatar class="avatar-big" :bucket="bucket" :size="80" :file-name="userData.profile.profilePicture"/>
@@ -11,7 +11,12 @@
                   <div class="card-title bold">Profile</div>
                   <div class="header-text">
                     <router-link tag="a" :to="{name:'update-profile'}">
-                      <b-icon icon="pencil edit-profile" type="is-primary" size="is-small"></b-icon>&nbsp;
+                      <b-tooltip label="Edit Profile">
+                        <b-icon
+                          icon="pencil" class="edit-profile" type="is-secondary"
+                          size="is-small"
+                        ></b-icon>
+                      </b-tooltip>
                     </router-link>
                   </div>
                   <div class="header-text bold">{{ userData.profile.fullName }}</div>
@@ -143,7 +148,7 @@ export default {
   color: #333;
   border-bottom: 1px solid #333;
 }
-.edit-profile {
+.edit-profile{
   margin-left: 200px;
   font-size: 15px;
   color: #593c79;
