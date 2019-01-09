@@ -4,6 +4,7 @@
       <div class="hero-body">
         <div class="container has-text-centered">
           <div class="column is-4 is-offset-4">
+            <h1 class="subtitle has-text-white">Update your account</h1>
             <div class="box">
               <form @submit.prevent="update" novalidate>
                 <b-field

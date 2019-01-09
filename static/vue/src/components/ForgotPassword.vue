@@ -47,8 +47,7 @@ export default {
     async reset() {
       const valid = await this.$validator.validateAll();
       if (valid) {
-        const userDetail = AuthService.getUserMachineDetail();
-        await AuthService.reset(this.item.email, userDetail);
+        await AuthService.reset(this.item.email);
         this.$router.push({ name: 'login' });
         this.$toast.open({
           message: 'Reset url is send via your email.',
