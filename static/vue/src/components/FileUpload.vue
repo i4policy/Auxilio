@@ -17,7 +17,7 @@
             <b-input
               type="text"
               v-model="meta.title"
-              placeholder="Title"
+              placeholder="Title*"
               name="title"
               v-validate="'required'"
             ></b-input>
@@ -30,7 +30,7 @@
             <b-datepicker
               v-validate="'required'"
               v-model="meta.year"
-              placeholder="Year Of Report"
+              placeholder="Year Of Report*"
               name="year"
               icon="calendar-today"
             ></b-datepicker>

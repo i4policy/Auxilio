@@ -16,7 +16,7 @@
           <b-input
             type="text"
             v-model="item.title"
-            placeholder="Agenda title"
+            placeholder="Agenda title*"
             name="title"
             v-validate="'required'"
           ></b-input>
@@ -32,7 +32,8 @@
               <b-datepicker
                 v-validate="'required'"
                 v-model="item.endDate"
-                placeholder="Due date"
+                :min-date="new Date()"
+                placeholder="Due date*"
                 name="due date"
                 icon="calendar-today"
               ></b-datepicker>
@@ -47,7 +48,7 @@
               <b-select
                 v-validate="'required'"
                 v-model="item.categoryId"
-                placeholder="Select a category"
+                placeholder="Select a category*"
                 expanded
                 name="category"
               >

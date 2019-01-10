@@ -6,6 +6,7 @@
           <div class="column is-4 is-offset-4">
             <img src="@/assets/logo.svg" style="height:60px">
             <p class="subtitle has-text-white">Reset your password.</p>
+            <p class="subtitle has-text-white">A link to reset your password will be sent via your email.</p>
             <div class="box">
               <form @submit.prevent="reset" novalidate>
                 <b-field

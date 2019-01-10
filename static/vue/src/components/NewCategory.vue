@@ -19,7 +19,7 @@
             <b-input
                 type="text"
                 v-model="item.name"
-                placeholder="Category Name"
+                placeholder="Category Name*"
                 name="name"
                 v-validate="'required'"
             ></b-input>
