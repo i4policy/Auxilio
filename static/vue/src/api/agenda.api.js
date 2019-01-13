@@ -1,6 +1,7 @@
 import { API_ROOT } from '.';
 import Request from './request';
 
+const MAIN_TOPIC_PATH = '/MainTopics';
 const PATH = '/Posts';
 
 const AgendaAPI = {
@@ -19,8 +20,13 @@ const AgendaAPI = {
     });
   },
   all(filter) {
-    return Request.get(`${API_ROOT}${PATH}/list`, {
+    return Request.get(`${API_ROOT}${MAIN_TOPIC_PATH}/list`, {
       params: { filter }
+    });
+  },
+  allSubTopics(filter, limit = 0) {
+    return Request.get(`${API_ROOT}${PATH}/list`, {
+      params: { filter, limit }
     });
   },
   create(data) {

@@ -1,31 +1,28 @@
 <template>
   <div>
-    <div class="site-card pointer" @click="openDetail()">
-      <b-tooltip :label="`${content.newFeedbacks} new feedbacks`" class="tooltip-new-feedback">
-        <div
-        class="is-badge-primary is-badge-large"
-        :class="{ badge: content.newFeedbacks>0 }"
-        :data-badge="'+' + content.newFeedbacks"
-        position="is-bottom"
-        ></div>
-      </b-tooltip>
-
+    <div class="agenda-item site-card pointer">
       <div class="site-card-header is-marginless">
         <span class="post-creater">{{content.createdBy.fullName}}</span>
-        <h3 class="card-title">{{content.title | limitTo(80, '...')}}</h3>
+        <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
       </div>
       <div class="card-body">
-        <p class="card-description">{{content.description | limitTo(120,'...')}}.</p>
-        <div class="has-text-centered">
-          <small>{{content.startDate | formatDate}}</small>
-          -
-          <small>{{content.endDate | formatDate}}</small>
+        <div
+          v-for="(subTopic, i) in subTopicList"
+          :key="i"
+        >
+          <sub-topic-item :content="subTopic"></sub-topic-item>
         </div>
+        <!-- <p class="card-description">{{content.description | limitTo(120,'...')}}.</p> -->
       </div>
-      <div class="level">
-        <div class="level-item"></div>
-        <div class="level-item"></div>
-        <div class="level-item"></div>
+      <div v-if="viewMore" class="card-links has-text-right" @click="viewMoreSubTopics()"><span> View more &rarr;</span></div>
+      <div v-if="!viewMore" class="card-links has-text-right" @click="viewLessSubTopics()"><span> View less &rarr;</span></div>
+      <div class="site-card-footer level subtopic-footer">
+        <div class="subtopic-add" @click="openNewSubTopic()">
+          <a class="open-card-composer js-open-card-composer" href="#">
+            <span><b-icon icon="plus" class="subtopic-add-icon" size="is-small"></b-icon></span>
+            <span class="add-new">Add another sub topic</span>
+          </a>
+        </div>
       </div>
       <div class="site-card-footer level">
         <div class="level-item">
@@ -45,8 +42,13 @@
   </div>
 </template>
 <script>
+import SubTopicItem from './SubTopicItem.vue';
+import { AgendaAPI } from '@/api';
+
 export default {
-  components: {},
+  components: {
+    SubTopicItem
+  },
   name: 'AgendaItem',
   props: {
     content: {
@@ -55,15 +57,37 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      isLoading: false
+    };
+  },
+  computed: {
+    subTopicList() {
+      return this.content.subTopics.rows;
+    },
+    viewMore() {
+      return this.content.subTopics.rows.length < this.content.subTopics.count;
+    }
   },
   methods: {
-    openDetail() {
-      this.$router.push({
-        name: 'agenda-detail',
-        params: { id: this.content.id }
-      });
-    }
+    openNewSubTopic() {
+      this.$router.push({ name: 'create-agenda', query: { mainTopicId: this.content.id } });
+    },
+    async viewMoreSubTopics() {
+      const subTopics = await this.getSubTopics();
+      this.content.subTopics.rows = subTopics;
+      this.isLoading = false;
+    },
+    async viewLessSubTopics() {
+      const subTopics = await this.getSubTopics({ mainTopicId: this.content.id }, 4);
+      this.content.subTopics.rows = subTopics;
+      this.isLoading = false;
+    },
+    async getSubTopics(filter = { mainTopicId: this.content.id }, limit) {
+      this.isLoading = true;
+      const subTopics = await AgendaAPI.allSubTopics(filter, limit);
+      return subTopics.rows;
+    },
   }
 };
 </script>
@@ -72,7 +96,7 @@ export default {
   padding: 0 20px;
   margin-bottom: 15px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-  background: #fff;
+  background: rgb(224, 217, 217);
   border-radius: 3px;
 }
 .card:hover {
@@ -119,9 +143,10 @@ export default {
   font-size: 12;
   color: #aaa;
 }
-.has-text-centered {
-  color: #593c79;
-  padding-top: 15px;
+.has-text-right {
+  color: #555;
+  padding: 0px !important;
+  font-size: 14px !important;
 }
 .card-description {
   color: #8c8990;
@@ -135,8 +160,10 @@ export default {
 }
 .post-creater {
   color: #593c79;
+  font-size: 14px;
 }
-.tooltip-new-feedback {
-  display: inherit;
+.agenda-item {
+  height: 610px;
+  overflow-y: scroll;
 }
 </style>

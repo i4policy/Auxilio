@@ -99,10 +99,14 @@ export default {
       item: {
         files: []
       },
-      categoryList: []
+      categoryList: [],
+      mainTopicId: ''
     };
   },
   created() {
+    if (this.$route.query.mainTopicId) {
+      this.mainTopicId = this.$route.query.mainTopicId;
+    }
     this.getCategoryList();
   },
   methods: {
@@ -148,6 +152,8 @@ export default {
             formData.append(`file-${i}`, file, file.name);
           }
         }
+
+        formData.append('mainTopicId', this.mainTopicId);
 
         await AgendaAPI.create(formData);
         this.$toast.open({
