@@ -2,8 +2,19 @@
   <div>
     <div class="agenda-item site-card pointer">
       <div class="site-card-header is-marginless">
-        <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">{{content.createdBy.fullName}}</span>
+        <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">
+          {{content.createdBy.fullName}}
+          <span>
+            <b-tooltip label="Delete Topic">
+              <b-icon
+                icon="close" class="delete-agenda" type="is-secondary" @click.stop="deleteTopic(content.id)"
+                size="is-small"
+              ></b-icon>
+            </b-tooltip>
+          </span>
+        </span>
         <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
+        
       </div>
       <div v-if="subTopicList && subTopicList.length > 0" class="card-body">
         <div
@@ -45,6 +56,7 @@
 import SubTopicItem from './SubTopicItem.vue';
 import NewTopic from './NewTopic.vue';
 import { AgendaAPI } from '@/api';
+import ConfirmationDialog from '../shared/components/ConfirmationDialog.vue';
 
 export default {
   components: {
@@ -107,6 +119,21 @@ export default {
     },
     openProfile(id) {
       this.$router.push({ name: 'profile', query: { userAccountId: id } });
+    },
+    deleteTopic(id) {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        events: {
+          close: async (data) => {
+            if (data) {
+              this.$emit('onDelete', id);
+            }
+          }
+        },
+        component: ConfirmationDialog,
+        hasModalCard: true
+      });
     }
   }
 };
@@ -183,8 +210,16 @@ export default {
   font-size: 14px;
 }
 .agenda-item {
-  height: 610px;
+  height: 640px;
   overflow-y: scroll;
   width: 270px;
+}
+.delete-agenda:hover {
+  color: #593c79;
+  font-weight: bold;
+}
+.delete-agenda {
+  font-size: 16px;
+  margin-left: 135px;
 }
 </style>

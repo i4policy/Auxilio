@@ -15,7 +15,6 @@
                             icon="pencil" class="edit-profile" type="is-secondary"
                             size="is-small"
                           ></b-icon>
-                          edit
                         </b-tooltip>
                       </router-link>
                   <div class="card-title bold profile-header">Profile</div>

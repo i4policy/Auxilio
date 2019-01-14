@@ -157,7 +157,7 @@ export default {
 
         await AgendaAPI.create(formData);
         this.$toast.open({
-          message: 'Topic created successfully.',
+          message: 'Sub Topic created.',
           type: 'is-success',
           position: 'is-top'
         });

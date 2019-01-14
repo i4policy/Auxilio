@@ -17,7 +17,6 @@
           closable
           v-bind:style="[{background: category.color }]"
           @close="deleteCategory(category.id)"
-          @click.native="filterByCategory(category.id)"
         >{{category.name}}</b-tag>
          <tag
           @click.native="openCategoryModal()"
@@ -35,7 +34,7 @@
         v-for="(agenda, i) in agendaList"
         :key="i"
       >
-        <agenda-item :content="agenda"></agenda-item>
+        <agenda-item :content="agenda" @onDelete="deleteTopic($event)"></agenda-item>
       </div>
     </div>
   </div>
@@ -116,6 +115,15 @@ export default {
         },
         component: ConfirmationDialog,
         hasModalCard: true
+      });
+    },
+    async deleteTopic(id) {
+      await AgendaAPI.removeMainTopic(id);
+      this.getAgendas();
+      this.$toast.open({
+        message: 'Topic deleted.',
+        type: 'is-success',
+        position: 'is-top'
       });
     }
   }
