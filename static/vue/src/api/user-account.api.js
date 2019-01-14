@@ -45,11 +45,21 @@ const UserAccountAPI = {
       newPassword
     });
   },
-  getMyProfile(limit, skip) {
-    return Request.post(`${API_ROOT}${PATH}/my-profile`, {
-      limit,
-      skip
-    });
+  getMyPosts(limit, skip, userAccountId = null) {
+    const data = userAccountId ? { userAccountId, limit, skip } : { limit, skip };
+    return Request.post(`${API_ROOT}${PATH}/my-posts`, data);
+  },
+  getMyFeedbacks(limit, skip, userAccountId = null) {
+    const data = userAccountId ? { userAccountId, limit, skip } : { limit, skip };
+    return Request.post(`${API_ROOT}${PATH}/my-feedbacks`, data);
+  },
+  getMyReplies(limit, skip, userAccountId = null) {
+    const data = userAccountId ? { userAccountId, limit, skip } : { limit, skip };
+    return Request.post(`${API_ROOT}${PATH}/my-replies`, data);
+  },
+  getProfile(userAccountId = null) {
+    const data = userAccountId ? { userAccountId } : {};
+    return Request.post(`${API_ROOT}${PATH}/get-user-profile`, data);
   },
   updatMyProfile(data) {
     return Request.patch(`${API_ROOT}${PATH}/update-my-account`, data);

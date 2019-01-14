@@ -20,6 +20,7 @@ const AuthService = {
             PROFILE_KEY,
             JSON.stringify({
               title: res.title,
+              id: res.id,
               fullName: res.fullName,
               email: res.email,
               phoneNumber: res.phoneNumber,

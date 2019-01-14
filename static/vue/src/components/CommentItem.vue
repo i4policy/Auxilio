@@ -11,7 +11,7 @@
     <div class="media-content" :id="`target-${comment.id}`">
       <div class="content" v-if="!editMode">
         <p>
-          <strong v-if="comment.createdBy">{{comment.createdBy.fullName}}</strong>
+          <strong class="comment-creater" v-if="comment.createdBy"  @click.stop="openProfile(comment.createdBy.id)">{{comment.createdBy.fullName}}</strong>
           <br>
           {{comment.body}}
           <br>
@@ -88,7 +88,18 @@ export default {
           this.$emit('deleted');
         }
       });
+    },
+    openProfile(id) {
+      this.$router.push({ name: 'profile', query: { userAccountId: id } });
     }
   }
 };
 </script>
+<style>
+.comment-creater {
+  cursor: pointer;
+}
+.comment-creater:hover {
+  color: #593c79;
+}
+</style>

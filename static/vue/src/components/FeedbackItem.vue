@@ -16,7 +16,9 @@
           <div class="column">
             <p>
               <strong
+                class="feedback-creater"
                 v-if="feedback.createdBy"
+                @click.stop="openProfile(feedback.createdBy.id)"
               >{{feedback.createdBy.title}} {{feedback.createdBy.fullName}}</strong>
               <br>
               {{feedback.body}}
@@ -162,7 +164,7 @@ export default {
         this.$set(this.feedback, 'downVote', result.downVote);
         this.$set(this.feedback, 'voted', result.voted);
       }
-      
+
       if (result.upVote === 1) {
         this.$toast.open({
           message: 'Up voted',
@@ -218,7 +220,18 @@ export default {
           this.$emit('deleted');
         }
       });
+    },
+    openProfile(id) {
+      this.$router.push({ name: 'profile', query: { userAccountId: id } });
     }
   }
 };
 </script>
+<style>
+.feedback-creater {
+  cursor: pointer;
+}
+.feedback-creater:hover {
+  color: #593c79;
+}
+</style>

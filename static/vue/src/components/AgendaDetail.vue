@@ -11,7 +11,7 @@
                   :b-color="agenda.category.color"
                   class="category"
                 >{{agenda.category.name}}</tag>
-                <span class="post-creater">{{agenda.createdBy.fullName}}</span>
+                <span class="post-creater" @click.stop="openProfile(agenda.createdBy.id)">{{agenda.createdBy.fullName}}</span>
                 <vue-next-level-scroll :target="`#${scrollTarget}`" ref="scrollRef"></vue-next-level-scroll>
               </p>
               <p class="title">{{agenda.title}}</p>
@@ -257,6 +257,9 @@ export default {
     scrolltoTarget() {
       const elem = this.$refs.scrollRef;
       elem.click();
+    },
+    openProfile(id) {
+      this.$router.push({ name: 'profile', query: { userAccountId: id } });
     }
   },
   watch: {
@@ -278,5 +281,6 @@ export default {
 }
 .post-creater {
   color: #593c79;
+  cursor: pointer;
 }
 </style>

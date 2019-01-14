@@ -2,7 +2,7 @@
   <div>
     <div class="agenda-item site-card pointer">
       <div class="site-card-header is-marginless">
-        <span class="post-creater">{{content.createdBy.fullName}}</span>
+        <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">{{content.createdBy.fullName}}</span>
         <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
       </div>
       <div v-if="subTopicList && subTopicList.length > 0" class="card-body">
@@ -105,6 +105,9 @@ export default {
       this.content.subTopics.rows = subTopics.rows;
       this.content.subTopics.count = subTopics.count;
     },
+    openProfile(id) {
+      this.$router.push({ name: 'profile', query: { userAccountId: id } });
+    }
   }
 };
 </script>

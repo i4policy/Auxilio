@@ -8,7 +8,7 @@
             ></div>
         </b-tooltip>
         <p class="subtopic-header">
-            <span class="post-creater">{{content.createdBy.fullName}}</span>
+            <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">{{content.createdBy.fullName}}</span>
             <span style="float:right">
             <b-tag
                 type="is-black"
@@ -44,6 +44,9 @@ export default {
         name: 'agenda-detail',
         params: { id: this.content.id }
       });
+    },
+    openProfile(id) {
+      this.$router.push({ name: 'profile', query: { userAccountId: id } });
     }
   }
 };
