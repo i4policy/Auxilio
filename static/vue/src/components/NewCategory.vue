@@ -26,6 +26,9 @@
             </b-field>
           </div>
           <div class="column">
+            <label for="form__field" class="cat-color">
+              <b>Color</b>
+            </label>
             <div class="form__field">
               <div class="form__input">
                 <Swatches v-model="item.color" :colors="colors" popover-to="left"></Swatches>
@@ -84,4 +87,7 @@ export default {
 </script>
 
 <style>
+.cat-color {
+  font-weight: 600;
+}
 </style>

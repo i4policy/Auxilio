@@ -32,6 +32,9 @@ const AgendaAPI = {
   create(data) {
     return Request.post(`${API_ROOT}${PATH}/create-post`, data);
   },
+  createMainTopic(data) {
+    return Request.post(`${API_ROOT}${MAIN_TOPIC_PATH}/create-topic`, data);
+  },
   update(data) {
     return Request.patch(`${API_ROOT}${PATH}/update-my-post`, data);
   },

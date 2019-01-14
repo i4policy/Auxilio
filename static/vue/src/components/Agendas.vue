@@ -21,7 +21,7 @@
         >{{category.name}}</b-tag>
          <tag
           @click.native="openCategoryModal()"
-          class="add-category"
+        class="add-category"
         ><b-tooltip label="New Category" position="is-bottom">+</b-tooltip>
         </tag>
       </div>

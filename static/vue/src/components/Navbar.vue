@@ -23,9 +23,9 @@
 
           <div class="column is-narrow" v-if="$acl.isAdmin">
             <div class="navbar-item">
-              <a class="button is-primary" @click="openNewAgenda()">
+              <a class="button is-primary" @click="openNewTopic()">
                 <b-icon icon="plus" type="is-white" size="is-small"></b-icon>
-                <span>New Agenda</span>
+                <span>New Topic</span>
               </a>
             </div>
           </div>
@@ -75,8 +75,8 @@ export default {
     logout() {
       AuthService.logout();
     },
-    openNewAgenda() {
-      this.$router.push({ name: 'create-agenda' });
+    openNewTopic() {
+      this.$router.push({ name: 'create-agenda'});
     },
     navigateToMyProfile() {
       this.$router.push({ name: 'profile' });

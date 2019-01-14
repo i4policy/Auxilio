@@ -5,7 +5,7 @@
         <span class="post-creater">{{content.createdBy.fullName}}</span>
         <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
       </div>
-      <div class="card-body">
+      <div v-if="subTopicList && subTopicList.length > 0" class="card-body">
         <div
           v-for="(subTopic, i) in subTopicList"
           :key="i"
@@ -15,7 +15,7 @@
         <!-- <p class="card-description">{{content.description | limitTo(120,'...')}}.</p> -->
       </div>
       <div v-if="viewMore" class="card-links has-text-right" @click="viewMoreSubTopics()"><span> View more &rarr;</span></div>
-      <div v-if="!viewMore" class="card-links has-text-right" @click="viewLessSubTopics()"><span> View less &rarr;</span></div>
+      <div v-if="!viewMore && content.subTopics.rows.length > 4" class="card-links has-text-right" @click="viewLessSubTopics()"><span> View less &rarr;</span></div>
       <div class="site-card-footer level subtopic-footer">
         <div class="subtopic-add" @click="openNewSubTopic()">
           <a class="open-card-composer js-open-card-composer" href="#">
@@ -43,6 +43,7 @@
 </template>
 <script>
 import SubTopicItem from './SubTopicItem.vue';
+import NewTopic from './NewTopic.vue';
 import { AgendaAPI } from '@/api';
 
 export default {
@@ -71,22 +72,38 @@ export default {
   },
   methods: {
     openNewSubTopic() {
-      this.$router.push({ name: 'create-agenda', query: { mainTopicId: this.content.id } });
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        props: { mainTopicId: this.content.id },
+        events: {
+          close: async (data) => {
+            if (data) {
+              if (this.content.subTopics.rows.length > 4) {
+                await this.getSubTopics();
+              } else {
+                await this.getSubTopics({ mainTopicId: this.content.id }, 4);
+              }
+            }
+          }
+        },
+        component: NewTopic,
+        hasModalCard: true
+      });
     },
     async viewMoreSubTopics() {
-      const subTopics = await this.getSubTopics();
-      this.content.subTopics.rows = subTopics;
+      await this.getSubTopics();
       this.isLoading = false;
     },
     async viewLessSubTopics() {
-      const subTopics = await this.getSubTopics({ mainTopicId: this.content.id }, 4);
-      this.content.subTopics.rows = subTopics;
+      await this.getSubTopics({ mainTopicId: this.content.id }, 4);
       this.isLoading = false;
     },
     async getSubTopics(filter = { mainTopicId: this.content.id }, limit) {
       this.isLoading = true;
       const subTopics = await AgendaAPI.allSubTopics(filter, limit);
-      return subTopics.rows;
+      this.content.subTopics.rows = subTopics.rows;
+      this.content.subTopics.count = subTopics.count;
     },
   }
 };
@@ -165,5 +182,6 @@ export default {
 .agenda-item {
   height: 610px;
   overflow-y: scroll;
+  width: 270px;
 }
 </style>
