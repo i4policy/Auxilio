@@ -31,7 +31,7 @@
                   <div class="card-links list-link" v-for="(post, i) in posts.rows" :key="post.id" @click="$router.push({name: 'agenda-detail',params: { id: post.id }});">
                     <!-- <i class="category-pill-small">3</i> -->
                     <span>
-                      {{i+1}}. {{ post.title }}
+                      {{i+1}}. {{ post.title | limitTo(30, '...')}}
                     </span>
                   </div>
                   <div v-if="!viewLessPosts && (posts.count > 5)" class="card-links" @click="viewMorePosts()"><span> View more &rarr;</span></div>
@@ -43,7 +43,7 @@
                   <div class="card-links list-link" v-for="(feedback,i) in feedbacks.rows" :key="feedback.id" @click="$router.push({name: 'agenda-detail',params: { id: feedback.postId }, query: {scrollTarget: `target-${feedback.id}`}});">
                     <!-- <i class="category-pill-small">3</i> -->
                     <span>
-                      {{i+1.}} {{ feedback.body }}
+                      {{i+1.}} {{ feedback.body | limitTo(30, '...')}}
                     </span>
                   </div>
                   <div v-if="!viewLessFeedbacks && feedbacks.count > 5" class="card-links" @click="viewMoreFeedbacks()"><span> View more &rarr;</span></div>
@@ -54,7 +54,7 @@
                   <div class="card-links list-link" v-for="(reply, i) in replies.rows" :key="reply.id" @click="$router.push({name: 'agenda-detail',params: { id: reply.postId }, query: {scrollTarget: `target-${reply.id}`}});">
                     <!-- <i class="category-pill-small">3</i> -->
                     <span>
-                     {{i+1.}} {{ reply.body }}
+                     {{i+1.}} {{ reply.body | limitTo(30, '...')}}
                     </span>
                   </div>
                   <div v-if="!viewLessReplies && replies.count > 5" class="card-links" @click="viewMoreReplies()"><span> View more &rarr;</span></div>
@@ -190,6 +190,5 @@ export default {
 }
 .header-text {
   font-size: 16px;
-  font-weight: 600;
 }
 </style>
