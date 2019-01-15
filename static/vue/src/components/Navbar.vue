@@ -25,7 +25,7 @@
             <div class="navbar-item">
               <a class="button is-primary" @click="openNewTopic()">
                 <b-icon icon="plus" type="is-white" size="is-small"></b-icon>
-                <span>New Topic</span>
+                <span>New Agenda</span>
               </a>
             </div>
           </div>

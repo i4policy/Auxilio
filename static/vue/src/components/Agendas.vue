@@ -3,7 +3,7 @@
     <div v-if="isLoading" class="columns is-centered spinner">
       <atom-spinner :animation-duration="1000" :size="60" :color="'rgb(255,255,255)'"/>
     </div>
-    <div v-if="!isLoading" class="columns is-centered">
+    <!-- <div v-if="!isLoading" class="columns is-centered">
       <div class="column is-narrow has-text-centered">
         <b-tag
           type="is-white"
@@ -24,13 +24,13 @@
         ><b-tooltip label="New Category" position="is-bottom">+</b-tooltip>
         </tag>
       </div>
-    </div>
+    </div> -->
     <div v-if="!isLoading && agendaList.length == 0" class="columns is-centered no-found">
       <p>No agenda found.</p>
     </div>
 
     <div v-if="!isLoading" class="agenda-container">
-      <draggable v-model="agendaList">
+      <!-- <draggable v-model="agendaList"> -->
           <div
             class="agenda-card"
             v-for="(agenda, i) in agendaList"
@@ -38,7 +38,7 @@
           >
             <agenda-item :content="agenda" @onDelete="deleteTopic($event)"></agenda-item>
           </div>
-      </draggable>
+      <!-- </draggable> -->
     </div>
   </div>
 </template>

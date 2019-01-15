@@ -1,7 +1,7 @@
 <template>
   <div v-if="fileData" class="columns no-padding">
     <div class="column">
-      <div class="site-card pointer">
+      <div class="site-card pointer file-preview-card">
         <div class="card-body">
           <h3 class="card-title-small">{{fileData.meta.title}}</h3>
           <div class="header-text">{{fileData.meta.year | formatDate }}</div>
@@ -64,4 +64,7 @@ export default {
 </script>
 
 <style>
+/* .file-preview-card {
+  width: 50%;
+} */
 </style>

@@ -142,10 +142,10 @@ export default {
 </script>
 <style>
 .site-card {
-  padding: 0 20px;
+  padding: 0px 5px 0px 15px;
   margin-bottom: 15px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-  background: rgb(224, 217, 217);
+  background: #fff;
   border-radius: 3px;
 }
 .card:hover {
@@ -233,7 +233,7 @@ export default {
 .delete-tooltip {
   position: relative;
   bottom: 50px;
-  left: 90px;
+  left: 120px;
 }
 .subtopic-footer {
   padding-bottom: 10px !important;

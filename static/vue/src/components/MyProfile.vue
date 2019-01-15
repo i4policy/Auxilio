@@ -4,7 +4,7 @@
       <div class="columns">
         <div class="column is-offset-1 is-10">
           <div class="site-card" style="padding-bottom: 1em;">
-            <div class="site-card-header columns">
+            <div class="site-card-header columns profile-card">
               <div class="column is-1 image-avatar">
                 <user-avatar class="avatar-big" :bucket="bucket" :size="80" :file-name="profile.profilePicture"/>
               </div>
@@ -17,17 +17,17 @@
                           ></b-icon>
                         </b-tooltip>
                       </router-link>
-                  <div class="card-title bold profile-header">Profile</div>
-                  <div class="header-text bold">{{ profile.fullName }}</div>
-                  <div class="header-text bold">{{ profile.title }}</div>
-                  <div class="header-text bold">{{ profile.email }}</div>
-                  <div class="header-text bold">{{ profile.phoneNumber }}</div>
+                  <div class="profile-title bold profile-header">Profile</div>
+                  <div class="header-text bold profile-text">{{ profile.fullName }}</div>
+                  <div class="header-text bold profile-text">{{ profile.title }}</div>
+                  <div class="header-text bold profile-text">{{ profile.email }}</div>
+                  <div class="header-text bold profile-text">{{ profile.phoneNumber }}</div>
               </div>
             </div>
             <div class="card-body">
               <div class="columns">
                 <div class="column is-12-mobile is-4-desktop">
-                  <h3 class="card-title">Posts ({{ posts.count}})</h3>
+                  <h3 class="profile-title">Posts ({{ posts.count}})</h3>
                   <div class="card-links list-link" v-for="(post, i) in posts.rows" :key="post.id" @click="$router.push({name: 'agenda-detail',params: { id: post.id }});">
                     <!-- <i class="category-pill-small">3</i> -->
                     <span>
@@ -38,7 +38,7 @@
                   <div v-if="viewLessPosts" class="card-links" @click="getMyPosts()"><span> View less &rarr;</span></div>
                 </div>
                 <div class="column is-12-mobile is-4-desktop">
-                  <h3 class="card-title">Feedbacks ({{ feedbacks.count}})</h3>
+                  <h3 class="profile-title">Feedbacks ({{ feedbacks.count}})</h3>
 
                   <div class="card-links list-link" v-for="(feedback,i) in feedbacks.rows" :key="feedback.id" @click="$router.push({name: 'agenda-detail',params: { id: feedback.postId }, query: {scrollTarget: `target-${feedback.id}`}});">
                     <!-- <i class="category-pill-small">3</i> -->
@@ -151,7 +151,7 @@ export default {
 </script>
 <style scooped>
 .site-body {
-    margin-top: 1em;
+    margin-top: 2em;
 }
 
 .avatar-big {
@@ -167,9 +167,8 @@ export default {
   color: #fff;
 }
 .card-links > span {
-  font-size: 14px;
+  font-size: 16px;
   color: #555;
-  margin-left: 7px;
   cursor: pointer;
 }
 .card-links > span:hover {
@@ -198,5 +197,17 @@ export default {
 }
 .header-text {
   font-size: 16px;
+}
+.profile-card {
+  background: #ddd;
+  margin-right: 0em !important;
+}
+.profile-title {
+  font-size: 18px !important;
+  color: #444;
+  font-weight: 600;
+}
+.profile-text {
+  color: #444 !important;
 }
 </style>

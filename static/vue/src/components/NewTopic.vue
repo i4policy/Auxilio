@@ -31,10 +31,9 @@
               :message="errors.first('due date')"
             >
               <b-datepicker
-                v-validate="'required'"
                 v-model="item.endDate"
                 :min-date="new Date()"
-                placeholder="Due date*"
+                placeholder="Due date"
                 name="due date"
                 icon="calendar-today"
               ></b-datepicker>
@@ -47,9 +46,8 @@
               :message="errors.first('category')"
             >
               <b-select
-                v-validate="'required'"
                 v-model="item.categoryId"
-                placeholder="Select a category*"
+                placeholder="Select a category"
                 expanded
                 name="category"
               >

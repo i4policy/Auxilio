@@ -5,6 +5,12 @@
         <div class="card-content">
           <div class="columns">
             <div class="column">
+              <p @click.stop="backToAgendas()">
+                <b-icon
+                icon="arrow-left" class="back" type="is-secondary" position="is-bottom"
+                size="is-small"
+                ></b-icon>
+              </p>
               <p class="subtitle">
                 <tag
                   v-if="agenda.category"
@@ -116,10 +122,6 @@
 
           <div class="has-text-centered"></div>
           <feedback-input @success="handleNewFeedback($event)" :post-id="agendaId"/>
-        </div>
-      </div>
-      <div class="card" style="margin-top:1em; border-radius:0.7em;">
-        <div class="card-content">
           <feedback-item
             class="media"
             v-for="(feedback,i) in agenda.feedbacks"
@@ -153,7 +155,7 @@ export default {
       agenda: {
         category: {}
       },
-      scrollTarget: ''
+      scrollTarget: 'null'
     };
   },
   created() {
@@ -260,6 +262,9 @@ export default {
     },
     openProfile(id) {
       this.$router.push({ name: 'profile', query: { userAccountId: id } });
+    },
+    backToAgendas() {
+      this.$router.push({ name: 'agendas' });
     }
   },
   watch: {
@@ -281,6 +286,10 @@ export default {
 }
 .post-creater {
   color: #593c79;
+  cursor: pointer;
+}
+.back {
+  margin-left: 0px !important;
   cursor: pointer;
 }
 </style>

@@ -8,16 +8,16 @@
             ></div>
         </b-tooltip>
         <p class="subtopic-header">
-            <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">{{content.createdBy.fullName | limitTo(10, '...') }}</span>
-            <span style="float:right">
             <b-tag
                 type="is-black"
                 v-bind:style="[{background: content.category.color }]"
                 class="subtopic-tag"
             >{{ content.category.name }}</b-tag>
+            <span style="float:right">
+              <span class="post-creater" >{{content.createdBy.fullName }}</span>            
             </span>
         </p>
-        <span class="subtopic-title">{{ content.title | limitTo(10, '...') }}</span>
+        <span class="subtopic-title">{{ content.title }}</span>
             <div class="has-text-right">
             <small>{{content.startDate | formatDate}}</small>
             -
@@ -97,9 +97,9 @@ export default {
   font-weight: 600;
 }
 .subtopic-card {
-  background-color: #fff;
+  background-color: #eee;
   border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(9,45,66,.25);
+  box-shadow: 0 0 7px 0 rgb(0,0,0,0.5); 
   cursor: pointer;
   display: block;
   margin-bottom: 8px;
@@ -109,6 +109,12 @@ export default {
   text-decoration: none;
   z-index: 0;
   padding: 7px;
+  transition: 0.3s;
+}
+.subtopic-card:hover{
+  background: #ddd;
+  box-shadow: 0 2px 10px 0 rgb(0,0,0,0.5); 
+   transition: 0.3s;
 }
 .subtopic-tag {
   height: 18px !important;
