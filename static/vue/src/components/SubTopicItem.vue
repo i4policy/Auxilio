@@ -8,7 +8,7 @@
             ></div>
         </b-tooltip>
         <p class="subtopic-header">
-            <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">{{content.createdBy.fullName}}</span>
+            <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">{{content.createdBy.fullName | limitTo(10, '...') }}</span>
             <span style="float:right">
             <b-tag
                 type="is-black"
@@ -17,7 +17,7 @@
             >{{ content.category.name }}</b-tag>
             </span>
         </p>
-        <span class="subtopic-title">{{ content.title }}</span>
+        <span class="subtopic-title">{{ content.title | limitTo(10, '...') }}</span>
             <div class="has-text-right">
             <small>{{content.startDate | formatDate}}</small>
             -

@@ -105,8 +105,12 @@ export default {
       this.userAccountId = this.$route.query.userAccountId;
     }
     this.getProfile();
-    this.getMyPosts();
-    this.getMyFeedbacks();
+    setTimeout(() => {
+      this.getMyPosts();
+    }, 1000);
+    setTimeout(() => {
+      this.getMyFeedbacks();
+    }, 2000);
     this.getMyReplies();
   },
   methods: {
