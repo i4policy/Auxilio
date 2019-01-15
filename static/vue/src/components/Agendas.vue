@@ -28,20 +28,25 @@
     <div v-if="!isLoading && agendaList.length == 0" class="columns is-centered no-found">
       <p>No agenda found.</p>
     </div>
-    <div v-if="!isLoading" class="columns is-multiline is-3">
-      <div
-        class="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
-        v-for="(agenda, i) in agendaList"
-        :key="i"
-      >
-        <agenda-item :content="agenda" @onDelete="deleteTopic($event)"></agenda-item>
-      </div>
+
+    <div v-if="!isLoading" class="columns is-multiline is-3 card-columns">
+      <draggable v-model="agendaList">
+          <div
+            class="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
+            v-for="(agenda, i) in agendaList"
+            :key="i"
+            style="display: flex;"
+          >
+            <agenda-item :content="agenda" @onDelete="deleteTopic($event)"></agenda-item>
+          </div>
+      </draggable>
     </div>
   </div>
 </template>
 
 <script>
 import { AtomSpinner } from 'epic-spinners';
+import draggable from 'vuedraggable';
 import AgendaItem from './AgendaItem.vue';
 import { AgendaAPI, PostCategoryAPI } from '@/api';
 import NewCategory from './NewCategory.vue';
@@ -50,7 +55,8 @@ import ConfirmationDialog from '../shared/components/ConfirmationDialog.vue';
 export default {
   components: {
     AgendaItem,
-    AtomSpinner
+    AtomSpinner,
+    draggable
   },
   name: 'Agendas',
   data() {
@@ -149,5 +155,9 @@ export default {
 .categories {
   margin-right: 10px;
   cursor: pointer;
+}
+.card-columns [data-v-7c776732] {
+  display: flex;
+  overflow-y: scroll
 }
 </style>

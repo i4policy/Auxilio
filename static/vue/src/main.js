@@ -5,6 +5,7 @@ import '@/plugins/buefy';
 import '@/plugins/vue-img-fallback';
 import '@/plugins/vue-wysiwyg';
 import '@/plugins/vee-validate';
+import '@/plugins/ckeditor';
 
 // Internal
 import '@/shared';

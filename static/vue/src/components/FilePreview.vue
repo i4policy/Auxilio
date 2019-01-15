@@ -6,9 +6,9 @@
           <h3 class="card-title-small">{{fileData.meta.title}}</h3>
           <div class="header-text">{{fileData.meta.year | formatDate }}</div>
           <h3 class="card-title-small">Summery</h3>
-          <div class="header-text">{{fileData.meta.summary}}</div>
+          <div v-html="fileData.meta.summary" class="header-text"></div>
           <h3 class="card-title-small">Bibliography</h3>
-          <div class="header-text">{{fileData.meta.bibliography}}</div>
+          <div v-html="fileData.meta.bibliography" class="header-text"></div>
           <article class="media no-border">
             <div class="media-left no-margin-right">
               <figure class="image is-24x24 sub-comment-figure">

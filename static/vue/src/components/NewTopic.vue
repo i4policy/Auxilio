@@ -63,7 +63,7 @@
           </div>
         </div>
         <b-field label="Description">
-          <wysiwyg required v-model="item.description"/>
+            <ckeditor :editor="editor" v-model="item.description" :config="editorConfig"></ckeditor>
         </b-field>
         <p class="control attachment-btn">
           <button type="button" class="button" @click="openAttachFile">
@@ -89,6 +89,7 @@
 import { AgendaAPI, PostCategoryAPI } from '@/api';
 import FilePreview from '@/components/FilePreview.vue';
 import FileUpload from '@/components/FileUpload.vue';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default {
   name: 'NewAgenda',
@@ -100,7 +101,11 @@ export default {
       item: {
         files: []
       },
-      categoryList: []
+      categoryList: [],
+      editor: ClassicEditor,
+      editorConfig: {
+        // The configuration of the rich-text editor.
+      }
     };
   },
   props: {

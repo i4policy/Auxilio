@@ -15,7 +15,7 @@
                 <vue-next-level-scroll :target="`#${scrollTarget}`" ref="scrollRef"></vue-next-level-scroll>
               </p>
               <p class="title">{{agenda.title}}</p>
-              <div class="has-text-grey">{{agenda.description}}</div>
+              <div v-html="agenda.description" class="has-text-grey"></div>
               <div class="has-text-centered">
                 <small>{{agenda.startDate | formatDate}}</small>
                 -

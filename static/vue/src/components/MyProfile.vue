@@ -166,6 +166,7 @@ export default {
   font-size: 14px;
   color: #555;
   margin-left: 7px;
+  cursor: pointer;
 }
 .card-links > span:hover {
   color: #333;

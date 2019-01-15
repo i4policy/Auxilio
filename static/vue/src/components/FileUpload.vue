@@ -47,11 +47,11 @@
           </b-field>
 
           <b-field label="Summary">
-            <wysiwyg required v-model="meta.summary"/>
+            <ckeditor :editor="editor" v-model="meta.summary" :config="editorConfig"></ckeditor>
           </b-field>
 
           <b-field label="Bibiliography">
-            <wysiwyg required v-model="meta.bibliography"/>
+            <ckeditor :editor="editor" v-model="meta.bibliography" :config="editorConfig"></ckeditor>
           </b-field>
         </section>
         <footer class="modal-card-foot has-background-info" style="justify-content: center;">
@@ -66,6 +66,8 @@
 </template>
 
 <script>
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 export default {
   name: 'FileUpload',
   data() {
@@ -76,7 +78,11 @@ export default {
         summary: '',
         bibliography: ''
       },
-      file: null
+      file: null,
+      editor: ClassicEditor,
+      editorConfig: {
+        // The configuration of the rich-text editor.
+      }
     };
   },
 

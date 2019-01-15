@@ -1,20 +1,22 @@
 <template>
   <div>
     <div class="agenda-item site-card pointer">
-      <div class="site-card-header is-marginless">
-        <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">
-          {{content.createdBy.fullName}}
-          <span>
-            <b-tooltip label="Delete Topic">
+      <div class="site-card-header agenda-item-header is-marginless">
+        <div>
+            <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">
+            {{content.createdBy.fullName}}
+          </span>
+          <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
+        </div>
+         <span  @click.stop="deleteTopic(content.id)">
+            <b-tooltip class="delete-tooltip" label="Delete Topic" position="is-bottom">
               <b-icon
-                icon="close" class="delete-agenda" type="is-secondary" @click.stop="deleteTopic(content.id)"
+                icon="close" class="delete-agenda" type="is-secondary" position="is-bottom"
                 size="is-small"
               ></b-icon>
             </b-tooltip>
           </span>
-        </span>
-        <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
-        
+
       </div>
       <div v-if="subTopicList && subTopicList.length > 0" class="card-body">
         <div
@@ -215,11 +217,21 @@ export default {
   width: 270px;
 }
 .delete-agenda:hover {
-  color: #593c79;
+  color: #ed0083;
   font-weight: bold;
 }
-.delete-agenda {
+.delete-agenda{
   font-size: 16px;
-  margin-left: 135px;
+  margin-left: 100px;
+  color: #593c79;
+  font-weight: 600;
+}
+.agenda-item-header {
+  position: relative;
+}
+.delete-tooltip {
+  position: relative;
+  bottom: 50px;
+  left: 90px;
 }
 </style>

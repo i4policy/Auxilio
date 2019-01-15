@@ -24,7 +24,7 @@
             ></b-input>
             </b-field>
             <b-field label="Description">
-                <wysiwyg required v-model="item.description"/>
+                <ckeditor :editor="editor" v-model="item.description" :config="editorConfig"></ckeditor>
             </b-field>
           </div>
         </div>
@@ -41,6 +41,7 @@
 </template>
 <script>
 import { AgendaAPI, PostCategoryAPI } from '@/api';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default {
   name: 'NewAgenda',
@@ -48,7 +49,11 @@ export default {
     return {
       item: {
       },
-      categoryList: []
+      categoryList: [],
+      editor: ClassicEditor,
+      editorConfig: {
+        // The configuration of the rich-text editor.
+      }
     };
   },
   created() {
