@@ -37,7 +37,7 @@
           </a>
         </div>
       </div>
-      <div class="site-card-footer level">
+      <!-- <div class="site-card-footer level">
         <div class="level-item">
           <b-icon icon="thumb-up post-upvote" type="is-primary" size="is-small"></b-icon>&nbsp;
           <span
@@ -50,7 +50,7 @@
           <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
           <span class="site-card-footer-item">{{content.numberOfFeedbacks}}</span>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
