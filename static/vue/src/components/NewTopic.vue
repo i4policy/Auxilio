@@ -9,37 +9,38 @@
         <p class="modal-card-title has-text-white">Create new Topic</p>
         </header>
          <section class="modal-card-body">
-        <b-field
-          label="Title"
-          :type="{'is-danger': errors.has('title')}"
-          :message="errors.first('title')"
-        >
-          <b-input
-            type="text"
-            v-model="item.title"
-            placeholder="Topic title*"
-            name="title"
-            v-validate="'required'"
-          ></b-input>
-        </b-field>
-
-        <div class="columns">
-          <div class="column">
-            <b-field
-              label="Due Date"
-              :type="{'is-danger': errors.has('due date')}"
-              :message="errors.first('due date')"
-            >
-              <b-datepicker
-                v-model="item.endDate"
-                :min-date="new Date()"
-                placeholder="Due date"
-                name="due date"
-                icon="calendar-today"
-              ></b-datepicker>
-            </b-field>
-          </div>
-          <div class="column">
+            <div class="columns">
+              <div class="column is-4">
+                <b-field
+                  label="Title"
+                  :type="{'is-danger': errors.has('title')}"
+                  :message="errors.first('title')"
+                >
+                  <b-input
+                    type="text"
+                    v-model="item.title"
+                    placeholder="Topic title*"
+                    name="title"
+                    v-validate="'required'"
+                  ></b-input>
+                </b-field>
+              </div>
+              <div class="column is-4">
+                <b-field
+                  label="Due Date"
+                  :type="{'is-danger': errors.has('due date')}"
+                  :message="errors.first('due date')"
+                >
+                  <b-datepicker
+                    v-model="item.endDate"
+                    :min-date="new Date()"
+                    placeholder="Due date"
+                    name="due date"
+                    icon="calendar-today"
+                  ></b-datepicker>
+                </b-field>
+              </div>
+              <div class="column is-4">
             <b-field
               label="Category"
               :type="{'is-danger': errors.has('category')}"
@@ -59,6 +60,9 @@
               </b-select>
             </b-field>
           </div>
+            </div>
+        <div class="columns">
+          
         </div>
         <b-field label="Description">
             <ckeditor :editor="editor" v-model="item.description" :config="editorConfig"></ckeditor>
@@ -170,3 +174,13 @@ export default {
   }
 };
 </script>
+<style scoped>
+.modal-card {
+  width: 740px;
+  min-height: 550px;
+}
+.ck.ck-editor__editable_inline > :last-child {
+  height: 200px;
+}
+</style>
+
