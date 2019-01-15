@@ -29,13 +29,12 @@
       <p>No agenda found.</p>
     </div>
 
-    <div v-if="!isLoading" class="columns is-multiline is-3 card-columns">
+    <div v-if="!isLoading" class="agenda-container">
       <draggable v-model="agendaList">
           <div
-            class="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
+            class="agenda-card"
             v-for="(agenda, i) in agendaList"
             :key="i"
-            style="display: flex;"
           >
             <agenda-item :content="agenda" @onDelete="deleteTopic($event)"></agenda-item>
           </div>
@@ -156,8 +155,11 @@ export default {
   margin-right: 10px;
   cursor: pointer;
 }
-.card-columns [data-v-7c776732] {
-  display: flex;
-  overflow-y: scroll
+.agenda-container {
+  overflow-x: scroll;
+}
+.agenda-card {
+  display: inline-flex;
+  margin-left: 1em;
 }
 </style>

@@ -212,7 +212,8 @@ export default {
   font-size: 14px;
 }
 .agenda-item {
-  height: 640px;
+  min-height: 150px;
+  max-height: 640px;
   overflow-y: scroll;
   width: 270px;
 }
@@ -233,5 +234,8 @@ export default {
   position: relative;
   bottom: 50px;
   left: 90px;
+}
+.subtopic-footer {
+  padding-bottom: 10px !important;
 }
 </style>
