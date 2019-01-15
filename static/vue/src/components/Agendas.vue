@@ -162,4 +162,9 @@ export default {
   display: table-cell;
   padding-left: 1em;
 }
+::-webkit-scrollbar {
+  height: 2px;              /* height of horizontal scrollbar ← You're missing this */
+  width: 2px;               /* width of vertical scrollbar */
+  border: 1px solid #9999;
+}
 </style>
