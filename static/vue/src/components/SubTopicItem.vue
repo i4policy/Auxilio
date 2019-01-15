@@ -103,7 +103,7 @@ export default {
   cursor: pointer;
   display: block;
   margin-bottom: 8px;
-  max-width: 300px;
+  max-width: 240px;
   min-height: 20px;
   position: relative;
   text-decoration: none;

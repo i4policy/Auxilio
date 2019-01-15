@@ -215,7 +215,6 @@ export default {
 .agenda-item {
   min-height: 150px;
   max-height: 640px;
-  overflow-y: scroll;
   width: 270px;
 }
 .delete-agenda:hover {
@@ -233,7 +232,7 @@ export default {
 }
 .delete-container {
   position: relative;
-  left: 30px;
+  left: 20px;
 }
 .subtopic-footer {
   padding-bottom: 10px !important;
