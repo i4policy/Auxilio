@@ -17,7 +17,7 @@
               <span class="post-creater" >{{content.createdBy.fullName }}</span>            
             </span>
         </p>
-        <span class="subtopic-title">{{ content.title }}</span>
+        <span class="subtopic-title" style="font-weight:bold">{{ content.title }}</span>
             <div class="has-text-right">
             <small>{{content.startDate | formatDate}}</small>
             -

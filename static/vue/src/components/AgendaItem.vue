@@ -233,7 +233,7 @@ export default {
 }
 .delete-container {
   position: relative;
-  left: 50px;
+  left: 30px;
 }
 .subtopic-footer {
   padding-bottom: 10px !important;
