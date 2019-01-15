@@ -17,9 +17,11 @@ export default {
   props: {
     bucket: {
       type: String,
+      default: 'users'
     },
     fileName: {
       type: String,
+      default: 'avatar_anonymous.png'
     },
     size: {
       type: Number,
