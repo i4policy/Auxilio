@@ -5,9 +5,9 @@
         <div class="card-content">
           <div class="columns">
             <div class="column">
-              <p @click.stop="backToAgendas()">
+              <p @click.stop="backToAgendas()" style="float:right">
                 <b-icon
-                icon="arrow-left" class="back" type="is-secondary" position="is-bottom"
+                icon="close" class="back" type="is-secondary" position="is-bottom"
                 size="is-small"
                 ></b-icon>
               </p>

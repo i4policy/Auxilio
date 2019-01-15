@@ -6,9 +6,7 @@
             <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">
             {{content.createdBy.fullName}}
           </span>
-          <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
-        </div>
-         <span  @click.stop="deleteTopic(content.id)">
+          <span class="delete-container" @click.stop="deleteTopic(content.id)">
             <b-tooltip class="delete-tooltip" label="Delete Topic" position="is-bottom">
               <b-icon
                 icon="close" class="delete-agenda" type="is-secondary" position="is-bottom"
@@ -16,6 +14,9 @@
               ></b-icon>
             </b-tooltip>
           </span>
+          <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
+        </div>
+         
 
       </div>
       <div v-if="subTopicList && subTopicList.length > 0" class="card-body">
@@ -144,7 +145,7 @@ export default {
 .site-card {
   padding: 0px 5px 0px 15px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 5px 5px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   background: #fff;
   border-radius: 3px;
 }
@@ -230,10 +231,9 @@ export default {
 .agenda-item-header {
   position: relative;
 }
-.delete-tooltip {
+.delete-container {
   position: relative;
-  bottom: 50px;
-  left: 120px;
+  left: 50px;
 }
 .subtopic-footer {
   padding-bottom: 10px !important;
