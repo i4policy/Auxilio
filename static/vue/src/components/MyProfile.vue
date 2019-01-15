@@ -180,6 +180,9 @@ export default {
   margin-left: 200px;
   font-size: 15px;
   color: #593c79;
+  position: relative;
+  right: 100px;
+  top: 25px
 }
 .image-avatar {
   margin-right: 20px;
