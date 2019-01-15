@@ -97,7 +97,7 @@ export default {
   font-weight: 600;
 }
 .subtopic-card {
-  background-color: #eee;
+  background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 0 7px 0 rgb(0,0,0,0.5); 
   cursor: pointer;

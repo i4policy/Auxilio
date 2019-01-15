@@ -30,7 +30,7 @@
     </div>
 
     <div v-if="!isLoading" class="agenda-container">
-      <!-- <draggable v-model="agendaList"> -->
+      <draggable v-model="agendaList">
           <div
             class="agenda-card"
             v-for="(agenda, i) in agendaList"
@@ -38,7 +38,7 @@
           >
             <agenda-item :content="agenda" @onDelete="deleteTopic($event)"></agenda-item>
           </div>
-      <!-- </draggable> -->
+      </draggable>
     </div>
   </div>
 </template>
@@ -134,7 +134,7 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss">
+<style scoped lapng="scss">
 .spinner {
   margin-top: 200px;
 }
@@ -159,7 +159,7 @@ export default {
   overflow-x: scroll;
 }
 .agenda-card {
-  display: inline-flex;
-  margin-left: 1em;
+  display: table-cell;
+  padding-left: 1em;
 }
 </style>
