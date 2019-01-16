@@ -16,12 +16,12 @@
           type="textarea"
           minlength="1"
           name="comment"
-          placeholder="Add a comment..."
+          placeholder="Add a reply..."
         />
       </b-field>
       <div class="field">
         <p class="control">
-          <button class="button is-primary" @click="postComment()">Post comment</button>
+          <button class="button is-primary" @click="postComment()">Post reply</button>
         </p>
       </div>
     </div>
@@ -69,7 +69,7 @@ export default {
       });
       const response = await CommentAPI.create(formData);
       this.$toast.open({
-        message: 'Comment posted successfully.',
+        message: 'reply posted.',
         type: 'is-success',
         position: 'is-top'
       });

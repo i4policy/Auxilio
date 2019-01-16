@@ -8,12 +8,12 @@
           type="textarea"
           minlength="1"
           name="comment"
-          placeholder="Add a comment..."
+          placeholder="Add a reply..."
         />
       </b-field>
       <div class="field">
         <p class="control">
-          <button class="button is-primary" @click="editComment()">Edit comment</button>
+          <button class="button is-primary" @click="editComment()">Edit reply</button>
         </p>
       </div>
     </div>
@@ -56,7 +56,7 @@ export default {
       formData.append('body', this.bodyContent);
       const response = await CommentAPI.update(formData);
       this.$toast.open({
-        message: 'Comment updated successfully.',
+        message: 'Reply updated successfully.',
         type: 'is-success',
         position: 'is-top'
       });

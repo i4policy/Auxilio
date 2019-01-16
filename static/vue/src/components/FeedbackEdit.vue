@@ -8,12 +8,12 @@
           type="textarea"
           minlength="1"
           name="feedback"
-          placeholder="Add a feedback..."
+          placeholder="Add a comment..."
         />
       </b-field>
       <div class="field">
         <p class="control">
-          <button class="button is-primary" @click="editFeedback()">Edit feedback</button>
+          <button class="button is-primary" @click="editFeedback()">Edit comment</button>
         </p>
       </div>
     </div>
@@ -56,7 +56,7 @@ export default {
       formData.append('id', this.feedbackId);
       const response = await FeedbackAPI.update(formData);
       this.$toast.open({
-        message: 'Feedback edited successfully.',
+        message: 'Comment edited successfully.',
         type: 'is-success',
         position: 'is-top'
       });

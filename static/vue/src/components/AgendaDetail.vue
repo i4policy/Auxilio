@@ -153,7 +153,8 @@ export default {
     return {
       agendaId: null,
       agenda: {
-        category: {}
+        category: {},
+        createdBy: {}
       },
       scrollTarget: 'null'
     };

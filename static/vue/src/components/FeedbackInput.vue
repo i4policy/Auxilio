@@ -16,7 +16,7 @@
           type="textarea"
           minlength="1"
           name="feedback"
-          placeholder="Add a feedback..."
+          placeholder="Add a comment..."
         />
       </b-field>
 
@@ -33,7 +33,7 @@
               </button>
             </p>
             <p class="control attachment-btn">
-              <button class="button is-primary" @click="postFeedback()">Post feedback</button>
+              <button class="button is-primary" @click="postFeedback()">Post comment</button>
             </p>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default {
 
       const response = await FeedbackAPI.create(formData);
       this.$toast.open({
-        message: 'Feedback posted successfully.',
+        message: 'Comment posted successfully.',
         type: 'is-success',
         position: 'is-top'
       });

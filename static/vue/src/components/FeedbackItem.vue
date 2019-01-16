@@ -204,16 +204,16 @@ export default {
     },
     deleteFeedback() {
       this.$dialog.confirm({
-        title: 'Deleting feedback',
+        title: 'Deleting comment',
         message:
-          'Are you sure you want to <b>delete</b> your feedback? This action cannot be undone.',
-        confirmText: 'Delete Feedback',
+          'Are you sure you want to <b>delete</b> your comment? This action cannot be undone.',
+        confirmText: 'Delete Comment',
         type: 'is-danger',
         hasIcon: true,
         onConfirm: async () => {
           await FeedbackAPI.remove(this.feedback.id);
           this.$toast.open({
-            message: 'Feedback deleted successfully.',
+            message: 'Comment deleted',
             type: 'is-success',
             position: 'is-top'
           });
