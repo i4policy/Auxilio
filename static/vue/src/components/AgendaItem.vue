@@ -214,7 +214,6 @@ export default {
 }
 .agenda-item {
   min-height: 150px;
-  max-height: 640px;
   width: 270px;
 }
 .delete-agenda:hover {

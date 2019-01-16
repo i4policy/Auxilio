@@ -126,7 +126,7 @@ export default {
   transition: 0.3s;
 }
 .subtopic-card:hover{
-  background: #ddd;
+  background: #d8d8d852;
   box-shadow: 0 2px 10px 0 rgb(0,0,0,0.5); 
    transition: 0.3s;
 }

@@ -5,12 +5,7 @@
         <div class="card-content">
           <div class="columns">
             <div class="column">
-              <p @click.stop="backToAgendas()" style="float:right">
-                <b-icon
-                icon="close" class="back" type="is-secondary" position="is-bottom"
-                size="is-small"
-                ></b-icon>
-              </p>
+              
               <p class="subtitle">
                 <tag
                   v-if="agenda.category"
@@ -31,6 +26,14 @@
 
             <div class="column is-narrow" style="align-items:center; display: flex;">
               <div class="is-block">
+                <div class="is-block has-text-centered" @click="vote(1)">
+                  <p @click.stop="backToAgendas()" style="float:right">
+                    <b-icon
+                    icon="close" class="back" type="is-secondary" position="is-bottom"
+                    size="is-medium"
+                    ></b-icon>
+                  </p>
+                </div>
                 <div class="is-block has-text-centered" @click="vote(1)">
                   <b-tooltip label="Up Vote">
                     <b-icon
