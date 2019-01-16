@@ -7,7 +7,7 @@
             :data-badge="'+' + content.newFeedbacks"
             ></div>
         </b-tooltip>
-        <p class="subtopic-header">
+        <p class="subtopic-header agenda-header">
             <b-tag
                 type="is-black"
                 v-bind:style="[{background: content.category.color }]"
@@ -17,12 +17,26 @@
               <span class="post-creater" >{{content.createdBy.fullName }}</span>            
             </span>
         </p>
-        <span class="subtopic-title" style="font-weight:bold">{{ content.title }}</span>
-            <div class="has-text-right">
+        <span class="subtopic-title" style="font-weight:bold;padding:5px">{{ content.title }}</span>
+            <!-- <div class="has-text-right">
             <small>{{content.startDate | formatDate}}</small>
             -
             <small>{{content.endDate | formatDate}}</small>
+        </div> -->
+        <div class="site-card-footer level agenda-footer">
+        <div class="level-item">
+          <b-icon icon="thumb-up post-upvote" type="is-primary" size="is-small"></b-icon>&nbsp;
+          <span
+            class="site-card-footer-item"
+          >{{(content.upVote - content.downVote) | formatVote}}</span>
+          &nbsp;
+          <b-icon icon="thumb-down post-downvote" type="is-grey-lighter" size="is-small"></b-icon>
         </div>
+        <div class="level-item">
+          <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
+          <span class="site-card-footer-item">{{content.numberOfFeedbacks}}</span>
+        </div>
+      </div>
     </div>
 </template>
 <script>
@@ -118,5 +132,11 @@ export default {
 }
 .subtopic-tag {
   height: 18px !important;
+}
+.agenda-footer {
+  padding-top: 10px !important;
+}
+.agenda-header {
+  padding: 0px 0px 10px 0px;
 }
 </style>
