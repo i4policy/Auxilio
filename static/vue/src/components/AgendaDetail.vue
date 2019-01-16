@@ -26,7 +26,7 @@
 
             <div class="column is-narrow" style="align-items:center; display: flex;">
               <div class="is-block">
-                <div class="is-block has-text-centered" @click="vote(1)">
+                <div class="is-block has-text-centered">
                   <p @click.stop="backToAgendas()" style="float:right">
                     <b-icon
                     icon="close" class="back" type="is-secondary" position="is-bottom"

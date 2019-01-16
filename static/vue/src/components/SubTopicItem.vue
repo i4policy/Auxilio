@@ -14,7 +14,7 @@
                 class="subtopic-tag"
             >{{ content.category.name }}</b-tag>
             <span style="float:right">
-              <span class="post-creater" >{{content.createdBy.fullName }}</span>            
+              <span class="post-creater" >{{content.createdBy.fullName }}</span>
             </span>
         </p>
         <span class="subtopic-title" style="font-weight:bold;padding:5px">{{ content.title }}</span>
@@ -25,12 +25,18 @@
         </div> -->
         <div class="site-card-footer level agenda-footer">
         <div class="level-item">
-          <b-icon icon="thumb-up post-upvote" type="is-primary" size="is-small"></b-icon>&nbsp;
+          <span @click.stop="vote(1)" class="subtopic-upvote">
+            <b-icon icon="thumb-up" size="is-small"
+            :type="getAgendaVoteStateClass('up')"
+            ></b-icon>&nbsp;
+          </span>
           <span
             class="site-card-footer-item"
           >{{(content.upVote - content.downVote) | formatVote}}</span>
           &nbsp;
-          <b-icon icon="thumb-down post-downvote" type="is-grey-lighter" size="is-small"></b-icon>
+          <span @click.stop="vote(-1)" class="subtopic-downvote">
+            <b-icon icon="thumb-down" :type="getAgendaVoteStateClass('down')" size="is-small"></b-icon>&nbsp;
+          </span>
         </div>
         <div class="level-item">
           <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
@@ -40,13 +46,16 @@
     </div>
 </template>
 <script>
+import { AgendaVoteAPI } from '@/api';
+
 export default {
   components: {},
   name: 'SubTopic',
   props: {
     content: {
       type: [Object],
-      default: () => {}
+      default: () => {
+      }
     }
   },
   data() {
@@ -61,7 +70,27 @@ export default {
     },
     openProfile(id) {
       this.$router.push({ name: 'profile', query: { userAccountId: id } });
-    }
+    },
+    async vote(vote) {
+      const result = await AgendaVoteAPI.vote({
+        postId: this.content.id,
+        vote
+      });
+      if (result) {
+        this.content.upVote = result.upVote;
+        this.content.downVote = result.downVote;
+        this.content.voted = result.voted;
+      }
+    },
+    getAgendaVoteStateClass(type) {
+      if (type === 'up') {
+        return this.content.voted === 1 ? 'is-info' : 'is-grey-lighter';
+      }
+      if (type === 'down') {
+        return this.content.voted === -1 ? 'is-info' : 'is-grey-lighter';
+      }
+      return '';
+    },
   }
 };
 </script>
@@ -113,7 +142,7 @@ export default {
 .subtopic-card {
   background-color: #fff;
   border-radius: 3px;
-  box-shadow: 0 0 7px 0 rgb(0,0,0,0.5); 
+  box-shadow: 0 0 7px 0 rgb(0,0,0,0.5);
   cursor: pointer;
   display: block;
   margin-bottom: 8px;
@@ -127,7 +156,7 @@ export default {
 }
 .subtopic-card:hover{
   background: #d8d8d852;
-  box-shadow: 0 2px 10px 0 rgb(0,0,0,0.5); 
+  box-shadow: 0 2px 10px 0 rgb(0,0,0,0.5);
    transition: 0.3s;
 }
 .subtopic-tag {
@@ -138,5 +167,8 @@ export default {
 }
 .agenda-header {
   padding: 0px 0px 10px 0px;
+}
+.subtopic-upvote, .subtopic-downvote {
+  cursor: pointer;
 }
 </style>
