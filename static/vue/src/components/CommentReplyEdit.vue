@@ -25,7 +25,7 @@ import { AuthService } from '@/services';
 import { CommentAPI } from '@/api';
 
 export default {
-  name: 'CommentReplyEdit',
+  name: 'CommentInput',
   props: {
     commentId: {
       type: [String],

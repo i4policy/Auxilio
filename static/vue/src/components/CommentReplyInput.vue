@@ -1,9 +1,17 @@
 <template>
   <article class="media">
+    <figure class="media-left">
+      <user-avatar
+        :bucket="bucket"
+        :size="64"
+        :file-name="userProfile.profilePicture"
+        :show-me="true"
+      />
+    </figure>
     <div class="media-content">
       <b-field :type="{'is-danger': errors.has('comment')}" :message="errors.first('comment')">
         <b-input
-          v-model="bodyContent"
+          v-model="body"
           v-validate="'required'"
           type="textarea"
           minlength="1"
@@ -13,53 +21,60 @@
       </b-field>
       <div class="field">
         <p class="control">
-          <button class="button is-primary" @click="editComment()">Edit reply</button>
+          <button class="button is-primary" @click="postReply()">Post reply</button>
         </p>
       </div>
     </div>
-    <br>
   </article>
 </template>
 <script>
 import { AuthService } from '@/services';
 import { CommentAPI } from '@/api';
+import UserAvatar from './UserAvatar.vue';
 
 export default {
-  name: 'CommentReplyEdit',
+  name: 'CommentReplyInput',
+  components: {
+    UserAvatar
+  },
   props: {
-    commentId: {
-      type: [String],
-      default: () => ''
-    },
-    body: {
+    replyId: {
       type: [String],
       default: () => ''
     }
   },
   data() {
     return {
-      bodyContent: this.body,
-      userProfile: {}
+      body: '',
+      userProfile: {},
+      bucket: 'users'
     };
   },
   created() {
     this.userProfile = AuthService.getProfile();
   },
   methods: {
-    async editComment() {
+    async postReply() {
       const valid = await this.$validator.validateAll();
       if (!valid) {
         return;
       }
       const formData = new FormData();
-      formData.append('id', this.commentId);
-      formData.append('body', this.bodyContent);
-      const response = await CommentAPI.update(formData);
+      const item = {
+        body: this.body,
+        replyId: this.replyId
+      };
+      Object.keys(item).forEach((key) => {
+        formData.append(key, item[key]);
+      });
+      const response = await CommentAPI.createReply(formData);
       this.$toast.open({
-        message: 'Reply updated successfully.',
+        message: 'reply posted.',
         type: 'is-success',
         position: 'is-top'
       });
+      this.body = '';
+      this.$nextTick(() => this.$validator.reset());
       this.$emit('success', response);
     }
   }

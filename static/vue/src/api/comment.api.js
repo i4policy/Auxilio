@@ -12,8 +12,11 @@ const CommentAPI = {
       params: filter
     });
   },
-  create(data) {
+  createReply(data) {
     return Request.post(`${API_ROOT}${PATH}/create-reply`, data);
+  },
+  createFeedbackReply(data) {
+    return Request.post(`${API_ROOT}${PATH}/create-feedback-reply`, data);
   },
   update(data) {
     return Request.patch(`${API_ROOT}${PATH}/update-my-reply`, data);

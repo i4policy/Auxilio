@@ -28,46 +28,28 @@
             class="has-text-danger pointer"
             @click="deleteComment"
           >DELETE</small>
-          <small
-            v-if="$acl.hasPermission(comment)"
-            class="has-text-link pointer show-reply"
-            @click="showReplyBox = !showReplyBox"
-          ><b-icon icon="reply" type="is-info" size="is-small"></b-icon>reply</small>
         </p>
       </div>
       <div v-if="editMode">
-        <comment-edit
+        <comment-reply-edit
           @success="handleCommentUpdated($event)"
           :comment-id="comment.id"
           :body="comment.body"
         />
-      </div>
-      <comment-reply-item
-        v-for="(comment, i) in comment.replies"
-        @deleted="handleDeleteSuccess(i)"
-        :key="i"
-        :comment="comment"
-      />
-      <div v-if="showReplyBox">
-        <comment-reply-input @success="handleNewReply($event)" :reply-id="comment.id"/>
       </div>
     </div>
   </article>
 </template>
 <script>
 import { CommentAPI } from '@/api';
-import CommentEdit from './CommentEdit.vue';
+import CommentReplyEdit from './CommentReplyEdit.vue';
 import UserAvatar from './UserAvatar.vue';
-import CommentReplyInput from './CommentReplyInput.vue';
-import CommentReplyItem from './CommentReplyItem.vue';
 
 export default {
-  name: 'FeedbackReplyItem',
+  name: 'CommentReplyItem',
   components: {
-    CommentEdit,
+    CommentReplyEdit,
     UserAvatar,
-    CommentReplyInput,
-    CommentReplyItem
   },
   props: {
     comment: {
@@ -77,8 +59,7 @@ export default {
   },
   data() {
     return {
-      editMode: false,
-      showReplyBox: false
+      editMode: false
     };
   },
   methods: {
@@ -110,24 +91,7 @@ export default {
     },
     openProfile(id) {
       this.$router.push({ name: 'profile', query: { userAccountId: id } });
-    },
-    handleNewReply(reply) {
-      if (!reply) return;
-      if (!this.comment.replies) {
-        const replies = [reply];
-        this.$set(this.comment, 'replies', replies);
-      } else {
-        const { replies } = this.comment;
-        replies.push(reply);
-        this.$set(this.comment, 'replies', replies);
-      }
-    },
-    handleDeleteSuccess(index) {
-      if (Number.isNaN(index) || !this.comment || !this.comment.replies) {
-        return;
-      }
-      this.comment.replies.splice(index, 1);
-    },
+    }
   }
 };
 </script>
@@ -137,8 +101,5 @@ export default {
 }
 .comment-creater:hover {
   color: #593c79;
-}
-.show-reply {
-  margin-left: 10px;
 }
 </style>

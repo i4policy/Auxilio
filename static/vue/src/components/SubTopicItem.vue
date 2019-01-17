@@ -39,8 +39,16 @@
           </span>
         </div>
         <div class="level-item">
-          <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
-          <span class="site-card-footer-item">{{content.numberOfFeedbacks}}</span>
+          <b-tooltip label="number of comments" position="is-top">
+            <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
+            <span class="site-card-footer-item">{{content.numberOfFeedbacks}}</span>
+          </b-tooltip>        
+        </div>
+        <div class="level-item">
+          <b-tooltip label="number of replies" position="is-top">
+            <b-icon icon="reply numberofcomments" type="is-success" size="is-small"></b-icon>
+            <span class="site-card-footer-item">{{content.numberOfReplies}}</span>
+          </b-tooltip>
         </div>
       </div>
     </div>
@@ -170,5 +178,11 @@ export default {
 }
 .subtopic-upvote, .subtopic-downvote {
   cursor: pointer;
+}
+.numberofreplies {
+  margin-left: 5px !important;
+}
+.icon {
+  display: none !important;
 }
 </style>

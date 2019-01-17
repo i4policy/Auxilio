@@ -67,7 +67,7 @@ export default {
       Object.keys(item).forEach((key) => {
         formData.append(key, item[key]);
       });
-      const response = await CommentAPI.create(formData);
+      const response = await CommentAPI.createFeedbackReply(formData);
       this.$toast.open({
         message: 'reply posted.',
         type: 'is-success',
