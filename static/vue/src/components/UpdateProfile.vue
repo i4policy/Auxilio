@@ -40,14 +40,10 @@
                     :type="{'is-danger': errors.has('phoneNumber')}"
                     :message="errors.first('phoneNumber')"
                   >
-                    <b-input
-                      type="number"
-                      v-model="item.phoneNumber"
-                      placeholder="Phone Number"
-                      name="phoneNumber"
-                      v-validate="'required'"
-                      data-vv-validate-on="none"
-                    ></b-input>
+                  <vue-tel-input v-model="item.phoneNumber"
+                                  @onInput="onPhoneInput"
+                                  :preferredCountries="['et', 'us', 'gb', 'ua']">
+                  </vue-tel-input>
                   </b-field>
                   <b-field
                     :type="{'is-danger': errors.has('email')}"
@@ -100,6 +96,7 @@
 <script>
 import { AuthService } from '@/services';
 import { UserAccountAPI } from '@/api';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
 export default {
   name: 'UpdateProfile',
@@ -130,6 +127,9 @@ export default {
           position: 'is-top'
         });
       }
+    },
+    onPhoneInput({ number, isValid, country }) {
+      console.log(number, isValid, country);
     },
   },
   created() {

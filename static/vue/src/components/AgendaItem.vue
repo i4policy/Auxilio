@@ -30,6 +30,20 @@
             </div>
           </div>
         </div>
+        <!-- <div class="column is-narrow has-text-centered" v-if="this.content.subTopics.categoryList.length > 0">
+          <b-tag
+            type="is-white"
+            class="categories"
+            @click.native="filterByAll()"
+          >All</b-tag>
+          <b-tag
+            class="categories"
+            v-for="(category, i) in this.content.subTopics.categoryList"
+            :key="i"
+            @click.native="filterByCategory(category.id)"
+            v-bind:style="[{background: category.color }]"
+          >{{category.name}}</b-tag>
+        </div> -->
       </div>
       <div v-if="subTopicList && subTopicList.length > 0" class="card-body">
         <div
@@ -68,7 +82,7 @@ export default {
     content: {
       type: [Object],
       default: () => {}
-    }
+    },
   },
   data() {
     return {
@@ -135,7 +149,15 @@ export default {
         component: ConfirmationDialog,
         hasModalCard: true
       });
-    }
+    },
+    async filterByCategory(categoryId) {
+      if (categoryId) {
+        await this.getSubTopics({ categoryId, mainTopicId: this.content.id });
+      }
+    },
+    async filterByAll() {
+      await this.getSubTopics();
+    },
   }
 };
 </script>
@@ -242,5 +264,8 @@ export default {
 }
 .agenda-status {
   margin-top: 10px;
+}
+.categories {
+  margin-right: 10px !important;
 }
 </style>

@@ -7,6 +7,7 @@ import '@/plugins/vue-wysiwyg';
 import '@/plugins/vee-validate';
 import '@/plugins/ckeditor';
 import '@/plugins/vue-escape';
+import '@/plugins/vue-tel-input';
 
 // Internal
 import '@/shared';

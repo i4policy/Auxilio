@@ -3,7 +3,7 @@
     <div v-if="isLoading" class="columns is-centered spinner">
       <atom-spinner :animation-duration="1000" :size="60" :color="'rgb(255,255,255)'"/>
     </div>
-    <!-- <div v-if="!isLoading" class="columns is-centered">
+    <div v-if="!isLoading" class="columns is-centered">
       <div class="column is-narrow has-text-centered">
         <b-tag
           type="is-white"
@@ -17,6 +17,7 @@
           closable
           v-bind:style="[{background: category.color }]"
           @close="deleteCategory(category.id)"
+          @click.native="filterByCategory(category.id)"
         >{{category.name}}</b-tag>
          <tag
           @click.native="openCategoryModal()"
@@ -24,7 +25,7 @@
         ><b-tooltip label="New Category" position="is-bottom">+</b-tooltip>
         </tag>
       </div>
-    </div> -->
+    </div>
     <div v-if="!isLoading && agendaList.length == 0" class="columns is-centered no-found">
       <p>No agenda found.</p>
     </div>

@@ -25,6 +25,7 @@
     "vue-next-level-scroll": "^1.2.0",
     "vue-router": "^3.0.1",
     "vue-swatches": "^1.0.2",
+    "vue-tel-input": "^2.0.13",
     "vue-wysiwyg": "^1.7.2",
     "vuedraggable": "^2.17.0",
     "vuex": "^3.0.1"
