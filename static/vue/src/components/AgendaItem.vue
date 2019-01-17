@@ -6,18 +6,30 @@
             <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">
             {{content.createdBy.fullName}}
           </span>
-          <span class="delete-container" @click.stop="deleteTopic(content.id)">
+         <div class="delete-container has-text-right" @click.stop="deleteTopic(content.id)">
             <b-tooltip class="delete-tooltip" label="Delete Topic" position="is-bottom">
               <b-icon
                 icon="close" class="delete-agenda" type="is-secondary" position="is-bottom"
                 size="is-small"
               ></b-icon>
             </b-tooltip>
-          </span>
+          </div>
           <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
+          <div class="agenda-status level">
+            <div class="level-item">
+              <b-icon icon="thumb-up post-upvote" type="is-primary" size="is-small"></b-icon>&nbsp;
+              <span
+                class="site-card-footer-item"
+              >{{(content.upVote - content.downVote) | formatVote}}</span>
+              &nbsp;
+              <b-icon icon="thumb-down post-downvote" type="is-grey-lighter" size="is-small"></b-icon>
+            </div>
+            <div class="level-item">
+              <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
+              <span class="site-card-footer-item">{{content.numberOfFeedbacks}}</span>
+            </div>
+          </div>
         </div>
-         
-
       </div>
       <div v-if="subTopicList && subTopicList.length > 0" class="card-body">
         <div
@@ -38,20 +50,6 @@
           </a>
         </div>
       </div>
-      <!-- <div class="site-card-footer level">
-        <div class="level-item">
-          <b-icon icon="thumb-up post-upvote" type="is-primary" size="is-small"></b-icon>&nbsp;
-          <span
-            class="site-card-footer-item"
-          >{{(content.upVote - content.downVote) | formatVote}}</span>
-          &nbsp;
-          <b-icon icon="thumb-down post-downvote" type="is-grey-lighter" size="is-small"></b-icon>
-        </div>
-        <div class="level-item">
-          <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
-          <span class="site-card-footer-item">{{content.numberOfFeedbacks}}</span>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -153,7 +151,7 @@ export default {
   box-shadow: 0 6px 9px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
 }
 .site-card-header {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
   padding: 10px 0;
 }
 .avatar {
@@ -231,9 +229,18 @@ export default {
 }
 .delete-container {
   position: relative;
-  left: 20px;
+  right: 10px;
+  float: right !important;
+}
+.agenda-comments {
+  position: relative;
+  right: 10px;
+  float: right !important;
 }
 .subtopic-footer {
   padding-bottom: 10px !important;
+}
+.agenda-status {
+  margin-top: 10px;
 }
 </style>

@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "bulma": "^0.7.2"
+    "bulma": "^0.7.2",
+    "vue-esc": "^2.0.0"
   }
 }

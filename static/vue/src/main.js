@@ -6,6 +6,7 @@ import '@/plugins/vue-img-fallback';
 import '@/plugins/vue-wysiwyg';
 import '@/plugins/vee-validate';
 import '@/plugins/ckeditor';
+import '@/plugins/vue-escape';
 
 // Internal
 import '@/shared';

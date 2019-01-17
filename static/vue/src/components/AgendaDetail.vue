@@ -1,5 +1,5 @@
 <template>
-  <div class="columns is-centered">
+  <div class="columns is-centered" v-esc="backToAgendas">
     <div class="column is-three-fifths">
       <div class="card" style="margin-top:1em; border-radius:0.7em;">
         <div class="card-content">
@@ -269,6 +269,9 @@ export default {
     },
     backToAgendas() {
       this.$router.push({ name: 'agendas' });
+    },
+    escape(event) {
+      console.log('Esc key pressed.', `Event: ${event}`);
     }
   },
   watch: {

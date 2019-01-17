@@ -163,8 +163,12 @@ export default {
   padding-left: 1em;
 }
 ::-webkit-scrollbar {
-  height: 2px;              /* height of horizontal scrollbar ← You're missing this */
-  width: 2px;               /* width of vertical scrollbar */
-  border: 1px solid #9999;
+  border: 6px solid #666;
+}
+::-webkit-scrollbar-thumb {
+  background: #999;
+  opacity: 0.7;
+  height: 5px;
+  width: 20px;
 }
 </style>
