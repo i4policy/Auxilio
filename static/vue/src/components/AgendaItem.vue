@@ -47,10 +47,13 @@
                           <h3 class="mini-profile-info-title">
                             <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.invitedUsers[i].id)" href="#">{{content.invitedUsers[i].fullName}}</a>
                           </h3>
+                          <p class="quiet u-bottom">{{content.invitedUsers[i].title}}</p>
                           <p class="quiet u-bottom">{{content.invitedUsers[i].email}}</p>
                           <p class="quiet u-bottom">{{content.invitedUsers[i].phoneNumber}}</p>
                           <p v-if="content.invitedUsers[i].isActive" class="u-bottom">
+                          <router-link :to="{name:'update-profile'}">
                             <a class="quiet js-edit-profile" href="#">Edit profile info</a>
+                          </router-link>
                           </p>
                         </div>
                       </div>
@@ -446,6 +449,14 @@ export default {
     margin-bottom: 0;
     padding-bottom: 0;
     font-size: 14px;
+    color: #333 !important;
+}
+.u-bottom a {
+  color: #6b808c;
+}
+
+.u-bottom a:hover{
+  text-decoration: underline;
 }
 ol, ul {
 
