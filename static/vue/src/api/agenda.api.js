@@ -50,6 +50,9 @@ const AgendaAPI = {
   confirmInvitation(data) {
     return Request.post(`${API_ROOT}${MAIN_TOPIC_PATH}/confirm-invitation`, data);
   },
+  leaveTopic(data) {
+    return Request.post(`${API_ROOT}${MAIN_TOPIC_PATH}/leave-topic`, data);
+  },
 };
 
 export default AgendaAPI;

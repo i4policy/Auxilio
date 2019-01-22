@@ -59,8 +59,8 @@
                       </div>
                       <ul class="pop-over-list">
                         <li><a class="js-remove-member" href="#" @click.stop="openProfile(content.invitedUsers[i].id)" >View Member’s Activity</a></li>
-                        <li v-if="content.invitedUsers[i].isActive"><a class="js-remove-member">Leave Topic</a></li>
-                        <li v-if="!content.invitedUsers[i].isActive"><a class="js-remove-member">Remove from Topic…</a></li>
+                        <li v-if="content.invitedUsers[i].isActive" @click="leaveTopic(content.id, content.invitedUsers[i].id, i, content.invitedUsers[i].isActive)"><a class="js-remove-member">Leave Topic</a></li>
+                        <li v-if="!content.invitedUsers[i].isActive" @click="leaveTopic(content.id, content.invitedUsers[i].id, i, content.invitedUsers[i].isActive)"><a class="js-remove-member">Remove from Topic…</a></li>
                       </ul>
                     </div>
                   </div>
@@ -257,6 +257,19 @@ export default {
     },
     isOwner(userId) {
       return AuthService.getProfile().id === userId;
+    },
+    async leaveTopic(mainTopicId, userId, userIndex, isActive) {
+      await AgendaAPI.leaveTopic({ mainTopicId, userId });
+      this.content.invitedUsers.splice(userIndex, 1);
+      if (isActive) {
+        this.$emit('onLeave');
+      }
+      this.$toast.open({
+        message: 'User Removed.',
+        type: 'is-success',
+        position: 'is-top',
+        duration: 1000
+      });
     }
   }
 };

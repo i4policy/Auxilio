@@ -38,7 +38,7 @@
             v-for="(agenda, i) in agendaList"
             :key="i"
           >
-            <agenda-item :content="agenda" @onDelete="deleteTopic($event)"></agenda-item>
+            <agenda-item :content="agenda" @onDelete="deleteTopic($event)" @onLeave="leaveTopic($event, i)"></agenda-item>
           </div>
       </draggable>
     </div>
@@ -145,6 +145,9 @@ export default {
     scrolltoTarget() {
       const elem = this.$refs.scrollRef;
       elem.click();
+    },
+    leaveTopic(index) {
+      this.agendaList.splice(index, 1);
     }
   }
 };
