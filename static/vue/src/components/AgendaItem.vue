@@ -22,7 +22,6 @@
                 icon="user-plus" class="delete-agenda" type="is-secondary" position="is-bottom"
                 size="is-small"
               ></b-icon>
-              invite
             </b-tooltip>
           </div>
           <div class="columns">
