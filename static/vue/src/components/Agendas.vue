@@ -1,5 +1,6 @@
 <template>
   <div style="padding-top:0.5em;">
+    <vue-next-level-scroll :target="`#topic-${mainTopicId}`" ref="scrollRef"></vue-next-level-scroll>
     <div v-if="isLoading" class="columns is-centered spinner">
       <atom-spinner :animation-duration="1000" :size="60" :color="'rgb(255,255,255)'"/>
     </div>
@@ -47,6 +48,7 @@
 <script>
 import { AtomSpinner } from 'epic-spinners';
 import draggable from 'vuedraggable';
+import VueNextLevelScroll from 'vue-next-level-scroll';
 import AgendaItem from './AgendaItem.vue';
 import { AgendaAPI, PostCategoryAPI } from '@/api';
 import NewCategory from './NewCategory.vue';
@@ -56,19 +58,27 @@ export default {
   components: {
     AgendaItem,
     AtomSpinner,
-    draggable
+    draggable,
+    VueNextLevelScroll
   },
   name: 'Agendas',
   data() {
     return {
       agendaList: [],
       categoryList: [],
-      isLoading: true
+      isLoading: true,
+      mainTopicId: null
     };
   },
   created() {
     this.getCategories();
     this.getAgendas();
+    if (this.$route.query.mainTopicId) {
+      this.mainTopicId = this.$route.query.mainTopicId;
+    }
+  },
+  updated() {
+    this.scrolltoTarget();
   },
   methods: {
     async getCategories() {
@@ -131,6 +141,10 @@ export default {
         type: 'is-success',
         position: 'is-top'
       });
+    },
+    scrolltoTarget() {
+      const elem = this.$refs.scrollRef;
+      elem.click();
     }
   }
 };

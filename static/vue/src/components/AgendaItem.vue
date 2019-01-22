@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="agenda-item site-card pointer">
+    <div class="agenda-item site-card pointer" :id="`topic-${content.id}`">
+
       <div class="site-card-header agenda-item-header is-marginless">
         <div>
             <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">
@@ -15,6 +16,76 @@
             </b-tooltip>
           </div>
           <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
+          <div class="delete-container has-text-right" @click.stop="openInvitation(content.id)">
+            <b-tooltip class="delete-tooltip" label="Invite users" position="is-bottom">
+              <b-icon
+                icon="user-plus" class="delete-agenda" type="is-secondary" position="is-bottom"
+                size="is-small"
+              ></b-icon>
+              invite
+            </b-tooltip>
+          </div>
+          <div class="columns">
+            <div class="column is-12">
+              <div
+                v-for="(user, i) in content.invitedUsers"
+                v-if="i <= 5"
+                v-popover="{ name: `popover-${content.id}-${content.invitedUsers[i].id}` }"
+                :key="i"
+                class="member js-member">
+                <span class="member-initials" :title="user.fullName">{{ user.fullName | formatName }}</span>
+                <span v-if="user.isAdmin" class="member-type admin" title="This member is an admin of this topic."></span>
+                <popover :name="`popover-${content.id}-${content.invitedUsers[i].id}`">
+                  <div>
+                    <div class="board-member-menu">
+                      <div class="mini-profile">
+                        <div class="mini-profile-member member-large">
+                          <span class="member-initials" title="tsadkan yitbarek (tsadkanyitbarek1)">
+                            <user-avatar class="avatar-profile" :size="30" :file-name="content.invitedUsers[i].profilePicture"/>
+                          </span>
+                        </div>
+                        <div class="mini-profile-info">
+                          <h3 class="mini-profile-info-title">
+                            <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.invitedUsers[i].id)" href="#">{{content.invitedUsers[i].fullName}}</a>
+                          </h3>
+                          <p class="quiet u-bottom">{{content.invitedUsers[i].email}}</p>
+                          <p class="quiet u-bottom">{{content.invitedUsers[i].phoneNumber}}</p>
+                          <p v-if="content.invitedUsers[i].isActive" class="u-bottom">
+                            <a class="quiet js-edit-profile" href="#">Edit profile info</a>
+                          </p>
+                        </div>
+                      </div>
+                      <ul class="pop-over-list">
+                        <li><a class="js-remove-member" href="#" @click.stop="openProfile(content.invitedUsers[i].id)" >View Member’s Activity</a></li>
+                        <li v-if="content.invitedUsers[i].isActive"><a class="js-remove-member">Leave Topic</a></li>
+                        <li v-if="!content.invitedUsers[i].isActive"><a class="js-remove-member">Remove from Topic…</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  </popover>
+
+
+              </div>
+              <div
+                class="more-member member js-member"
+                v-if="content.invitedUsers.length > 5"
+                v-popover="{ name: `popover-${content.id}-more` }"
+                >
+                <span class="member-initials" title="see all">{{ content.invitedUsers.length }}</span>
+                  <popover :name="`popover-${content.id}-more`">
+                    <div
+                      v-for="(user, i) in content.invitedUsers"
+                      v-popover="{ name: `popover-${content.id}-${content.invitedUsers[i].id}` }"
+                      :key="i"
+                      class="member js-member">
+                      <span class="member-initials" :title="user.fullName">{{ user.fullName | formatName }}</span>
+                      <span v-if="user.isAdmin" class="member-type admin" title="This member is an admin of this topic."></span>
+                    </div>
+                  </popover>
+            </div>
+
+            </div>
+          </div>
           <div class="agenda-status level">
             <div class="level-item">
               <b-icon icon="thumb-up post-upvote" type="is-primary" size="is-small"></b-icon>&nbsp;
@@ -70,12 +141,16 @@
 <script>
 import SubTopicItem from './SubTopicItem.vue';
 import NewTopic from './NewTopic.vue';
+import Invitation from './Invitation.vue';
 import { AgendaAPI } from '@/api';
 import ConfirmationDialog from '../shared/components/ConfirmationDialog.vue';
+import UserAvatar from './UserAvatar.vue';
+import { AuthService } from '@/services';
 
 export default {
   components: {
-    SubTopicItem
+    SubTopicItem,
+    UserAvatar
   },
   name: 'AgendaItem',
   props: {
@@ -115,6 +190,26 @@ export default {
           }
         },
         component: NewTopic,
+        hasModalCard: true
+      });
+    },
+    openInvitation() {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        props: { mainTopicId: this.content.id },
+        events: {
+          close: async (data) => {
+            // if (data) {
+            //   if (this.content.subTopics.rows.length > 4) {
+            //     await this.getSubTopics();
+            //   } else {
+            //     await this.getSubTopics({ mainTopicId: this.content.id }, 4);
+            //   }
+            // }
+          }
+        },
+        component: Invitation,
         hasModalCard: true
       });
     },
@@ -158,6 +253,9 @@ export default {
     async filterByAll() {
       await this.getSubTopics();
     },
+    isOwner(userId) {
+      return AuthService.getProfile().id === userId;
+    }
   }
 };
 </script>
@@ -267,5 +365,129 @@ export default {
 }
 .categories {
   margin-right: 10px !important;
+}
+
+.member {
+  height: 28px;
+  width: 28px;
+  margin: 0 0 0 -2px;
+  z-index: 1;
+  background-color: #dfe3e6 !important;
+  border-radius: 25em;
+  color: #17394d;
+  cursor: pointer;
+  display: block;
+  float: left;
+  overflow: visible;
+  position: relative;
+}
+.member-initials {
+  height: 28px;
+  line-height: 28px;
+  width: 28px;
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  color: #17394d;
+  cursor: pointer;
+}
+.admin {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAYFBMVEX////o6O8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADo6O/o6O/o6O96en7o6O+Li4/o6O+7u8HMzNLT09no6O/f3+bo6O/j4+ro6O/d3eqBgcW6utxfX7dqarxISK4yMqVTjb2aAAAAGHRSTlMAEBMYKzU6REhNUGBweoCFoLLI0+Dp8PU7BNTwAAAAh0lEQVR4XpWN2xKCMAxEA6JyEQWtsC0X//8vTdjMdMY3z9PmNOmKUdwDlHArxGknOFNLM5hY1nUxObhBTB8lRbrOVnad1e622ElA5MCHiCDAxhOeb4CqxI9ZkkwZuRFUuTGr3Ej124j/Gl99/wSRcQYwj43yeB9RGnIpy7NHqWoNdSXK6XrELyGLGov1L1adAAAAAElFTkSuQmCC);
+  background-size: 100%;
+  bottom: 0;
+  height: 9px;
+  position: absolute;
+  right: 1px;
+  width: 9px;
+  z-index: 3;
+}
+.more-member {
+  background: #62447e4d;
+}
+.vue-popover {
+  top: 30px !important;
+  left: 0px !important;
+  width: 285px !important;
+}
+.mini-profile {
+  margin: 8px 0;
+  min-height: 56px;
+  position: relative;
+}
+.mini-profile-member {
+  float: left;
+  margin: 2px;
+}
+.mini-profile-info {
+  margin: 0 0 0 40px;
+  word-wrap: break-word;
+}
+.mini-profile-info-title {
+
+    margin: 0 40px 0 0;
+
+}
+.mini-profile-info-title-link {
+
+    text-decoration: none;
+  color: #593c79;
+}
+.quiet, .quiet a {
+
+    color: #6b808c;
+
+}
+.u-bottom {
+
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 14px;
+}
+ol, ul {
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+.pop-over-list li > a {
+
+    cursor: pointer;
+    display: block;
+    font-weight: 700;
+    padding: 6px 12px;
+    position: relative;
+    text-decoration: none;
+    font-size: 14px
+
+}
+.pop-over-list li > a.disabled {
+
+    color: #6b808c;
+    cursor: default;
+
+}
+.pop-over-list li > a.disabled:hover {
+
+    background: none;
+
+}
+
+.pop-over-list li > a:hover {
+
+      background-color: #593c79;
+    color: #fff;
+
+}
+.pop-over-list li > a {
+
+      color: #593c79;
+
 }
 </style>

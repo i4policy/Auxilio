@@ -8,6 +8,7 @@ import '@/plugins/vee-validate';
 import '@/plugins/ckeditor';
 import '@/plugins/vue-escape';
 import '@/plugins/vue-tel-input';
+import '@/plugins/vue-popover';
 
 // Internal
 import '@/shared';

@@ -2,7 +2,7 @@
   <div class="image" v-bind:style="[{width: size + 'px'},{height: size + 'px'}]">
     <img
       :src="imgUrl"
-      class="is-rounded"
+      :class="{ 'is-rounded': isRounded }"
       v-img-fallback="'/user-placeholder.png'"
     >
     <span class="you" v-if="showMe">You</span>
@@ -30,6 +30,10 @@ export default {
     showMe: {
       type: Boolean,
       default: false
+    },
+    isRounded: {
+      type: Boolean,
+      default: true
     }
   },
   data() {

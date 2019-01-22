@@ -11,6 +11,7 @@ import AgendaDetail from '@/components/AgendaDetail.vue';
 import NotFoundPage from '@/components/404.vue';
 import NewAgenda from '@/components/NewAgenda.vue';
 import EditAgenda from '@/components/EditAgenda.vue';
+import TopicInvitation from '@/components/TopicInvitation.vue';
 import { AuthService } from '@/services';
 
 Vue.use(Router);
@@ -47,6 +48,11 @@ const router = new Router({
           path: 'detail/:id',
           name: 'agenda-detail',
           component: AgendaDetail
+        },
+        {
+          path: 'topic-invited/:invitationHash',
+          name: 'topic-invited',
+          component: TopicInvitation
         },
         {
           path: 'profile',
@@ -86,6 +92,8 @@ router.beforeEach((to, from, next) => {
     next();
   } else if (!authenticated && to.name !== 'login') {
     next({ name: 'login' });
+  } else if (authenticated && to.name === 'topic-invited') {
+    next();
   } else if (authenticated && to.name === 'login') {
     next({ name: 'agendas' });
   } else {

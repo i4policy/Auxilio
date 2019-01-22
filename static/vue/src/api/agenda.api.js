@@ -43,7 +43,13 @@ const AgendaAPI = {
   },
   removeMainTopic(id) {
     return Request.delete(`${API_ROOT}${MAIN_TOPIC_PATH}/${id}`);
-  }
+  },
+  invite(data) {
+    return Request.post(`${API_ROOT}${MAIN_TOPIC_PATH}/invite`, data);
+  },
+  confirmInvitation(data) {
+    return Request.post(`${API_ROOT}${MAIN_TOPIC_PATH}/confirm-invitation`, data);
+  },
 };
 
 export default AgendaAPI;
