@@ -19,7 +19,7 @@
           <div class="delete-container has-text-right" @click.stop="openInvitation(content.id)">
             <b-tooltip class="delete-tooltip" label="Invite users" position="is-bottom">
               <b-icon
-                icon="user-plus" class="delete-agenda" type="is-secondary" position="is-bottom"
+                icon="plus" class="delete-agenda" type="is-secondary" position="is-bottom"
                 size="is-small"
               ></b-icon>
             </b-tooltip>

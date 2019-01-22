@@ -182,7 +182,4 @@ export default {
 .numberofreplies {
   margin-left: 5px !important;
 }
-.icon {
-  display: none !important;
-}
 </style>
