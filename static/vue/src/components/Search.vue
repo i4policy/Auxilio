@@ -30,7 +30,7 @@
                 >
                 <div class="avatar-content">
                   <div v-if="item.createdBy" class="header-text bold">
-                    {{item.createdBy.fullName}}
+                    {{`${item.createdBy.givenName} ${item.createdBy.familyName}`}}
                   </div>
                 </div>
               </div>

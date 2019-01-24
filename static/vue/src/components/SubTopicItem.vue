@@ -14,7 +14,7 @@
                 class="subtopic-tag"
             >{{ content.category.name }}</b-tag>
             <span style="float:right">
-              <span class="post-creater" >{{content.createdBy.fullName }}</span>
+              <span class="post-creater" >{{`${content.createdBy.givenName} ${content.createdBy.familyName}`}}</span>
             </span>
         </p>
         <span class="subtopic-title" style="font-weight:bold;padding:5px">{{ content.title }}</span>
@@ -38,13 +38,13 @@
             <b-icon icon="thumb-down" :type="getAgendaVoteStateClass('down')" size="is-small"></b-icon>&nbsp;
           </span>
         </div>
-        <div class="level-item">
+        <div class="level-item comments">
           <b-tooltip label="number of comments" position="is-top">
             <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
             <span class="site-card-footer-item">{{content.numberOfFeedbacks}}</span>
           </b-tooltip>        
         </div>
-        <div class="level-item">
+        <div class="level-item comments">
           <b-tooltip label="number of replies" position="is-top">
             <b-icon icon="reply numberofcomments" type="is-success" size="is-small"></b-icon>
             <span class="site-card-footer-item">{{content.numberOfReplies}}</span>
@@ -181,5 +181,8 @@ export default {
 }
 .numberofreplies {
   margin-left: 5px !important;
+}
+.comments .icon{
+  height: 1.5rem !important;
 }
 </style>

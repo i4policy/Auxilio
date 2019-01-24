@@ -5,7 +5,7 @@
       <div class="site-card-header agenda-item-header is-marginless">
         <div>
             <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">
-            {{content.createdBy.fullName}}
+            {{`${content.createdBy.title} ${content.createdBy.givenName} ${content.createdBy.familyName}`}}
           </span>
          <div class="delete-container has-text-right" @click.stop="deleteTopic(content.id)">
             <b-tooltip class="delete-tooltip" label="Delete Topic" position="is-bottom">
@@ -32,7 +32,7 @@
                 v-popover="{ name: `popover-${content.id}-${content.invitedUsers[i].id}` }"
                 :key="i"
                 class="member js-member">
-                <span class="member-initials" :title="user.fullName">{{ user.fullName | formatName }}</span>
+                <span class="member-initials" :title="`${user.givenName} ${user.familyName}`">{{ `${user.givenName} ${user.familyName}`| formatName }}</span>
                 <span v-if="user.isAdmin" class="member-type admin" title="This member is an admin of this topic."></span>
                 <popover :name="`popover-${content.id}-${content.invitedUsers[i].id}`">
                   <div>
@@ -45,9 +45,8 @@
                         </div>
                         <div class="mini-profile-info">
                           <h3 class="mini-profile-info-title">
-                            <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.invitedUsers[i].id)" href="#">{{content.invitedUsers[i].fullName}}</a>
+                            <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.invitedUsers[i].id)" href="#">{{`${content.invitedUsers[i].title} ${content.invitedUsers[i].givenName} ${content.invitedUsers[i].familyName}`}}</a>
                           </h3>
-                          <p class="quiet u-bottom">{{content.invitedUsers[i].title}}</p>
                           <p class="quiet u-bottom">{{content.invitedUsers[i].email}}</p>
                           <p class="quiet u-bottom">{{content.invitedUsers[i].phoneNumber}}</p>
                           <p v-if="content.invitedUsers[i].isActive" class="u-bottom">
@@ -70,18 +69,38 @@
               </div>
               <div
                 class="more-member member js-member"
-                v-if="content.invitedUsers.length > 5"
+                v-if="content.invitedUsers.length > 1"
                 v-popover="{ name: `popover-${content.id}-more` }"
                 >
                 <span class="member-initials" title="see all">{{ content.invitedUsers.length }}</span>
                   <popover :name="`popover-${content.id}-more`">
-                    <div
-                      v-for="(user, i) in content.invitedUsers"
-                      v-popover="{ name: `popover-${content.id}-${content.invitedUsers[i].id}` }"
-                      :key="i"
-                      class="member js-member">
-                      <span class="member-initials" :title="user.fullName">{{ user.fullName | formatName }}</span>
-                      <span v-if="user.isAdmin" class="member-type admin" title="This member is an admin of this topic."></span>
+                    <div class="popover-container">
+                      <div class="popover-header">
+                        <span class="popover-title">Topic Members</span>
+                      </div>
+                      <h6 class="members">MEMBERS</h6>
+                      <div class="users-avatar">
+                        <div
+                          v-if="user.isConfirmed"
+                          v-for="(user, i) in content.invitedUsers"
+                          v-popover="{ name: `popover-${content.id}-${content.invitedUsers[i].id}` }"
+                          :key="i"
+                          class="member js-member">
+                          <span  class="member-initials" :title="`${user.givenName} ${user.familyName}`">{{ `${user.givenName} ${user.familyName}` | formatName }}</span>
+                          <span v-if="user.isAdmin" class="member-type admin" title="This member is an admin of this topic."></span>
+                        </div>
+                      </div>
+
+                      <h6 class="invited">INVITED</h6>
+
+                      <div
+                        v-if="!user.isConfirmed"
+                        v-for="(user, i) in content.invitedUsers"
+                        v-popover="{ name: `popover-${content.id}-${content.invitedUsers[i].id}` }"
+                        :key="i"
+                        class="member js-member">
+                        <span class="member-initials" :title="`${user.givenName} ${user.familyName}`">{{ `${user.givenName} ${user.familyName}` | formatName }}</span>
+                      </div>
                     </div>
                   </popover>
             </div>
@@ -443,19 +462,14 @@ export default {
   word-wrap: break-word;
 }
 .mini-profile-info-title {
-
-    margin: 0 40px 0 0;
-
+  margin: 0 40px 0 0;
 }
 .mini-profile-info-title-link {
-
-    text-decoration: none;
+  text-decoration: none;
   color: #593c79;
 }
 .quiet, .quiet a {
-
     color: #6b808c;
-
 }
 .u-bottom {
 
@@ -472,15 +486,12 @@ export default {
   text-decoration: underline;
 }
 ol, ul {
-
     list-style: none;
     margin: 0;
     padding: 0;
-
 }
 
 .pop-over-list li > a {
-
     cursor: pointer;
     display: block;
     font-weight: 700;
@@ -488,29 +499,60 @@ ol, ul {
     position: relative;
     text-decoration: none;
     font-size: 14px
-
 }
 .pop-over-list li > a.disabled {
-
     color: #6b808c;
     cursor: default;
-
 }
 .pop-over-list li > a.disabled:hover {
-
     background: none;
-
 }
 
 .pop-over-list li > a:hover {
-
-      background-color: #593c79;
+    background-color: #ed0083;
     color: #fff;
-
 }
 .pop-over-list li > a {
+      color: #ed0083;
+}
+.users-avatar {
+  width: 100%;
+  float: left;
+  padding: 0px 0px 10px 0px;
+}
+.popover-container {
+  padding: 10px;
+}
 
-      color: #593c79;
+.popover-container .members {
+  font-size: 14px;
+  padding-bottom: 10px !important;
+}
 
+.popover-container .invited {
+  font-size: 14px;
+  padding: 10px 0px 0px 0px!important;
+  margin-bottom: 10px;
+}
+.popover-title {
+  box-sizing: border-box;
+  color: #6b808c;
+  display: block;
+  line-height: 40px;
+  border-bottom: 1px solid rgba(9,45,66,.13);
+  margin: 0 12px;
+  overflow: hidden;
+  padding: 0 32px;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 1;
+}
+.popover-header {
+  height: 40px;
+  position: relative;
+  margin-bottom: 8px;
+  text-align: center;
+  background: transparent;
 }
 </style>

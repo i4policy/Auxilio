@@ -5,14 +5,14 @@
         <div class="card-content">
           <div class="columns">
             <div class="column">
-              
+
               <p class="subtitle">
                 <tag
                   v-if="agenda.category"
                   :b-color="agenda.category.color"
                   class="category"
                 >{{agenda.category.name}}</tag>
-                <span class="post-creater" @click.stop="openProfile(agenda.createdBy.id)">{{agenda.createdBy.fullName}}</span>
+                <span class="post-creater" @click.stop="openProfile(agenda.createdBy.id)">{{`${agenda.createdBy.givenName} ${agenda.createdBy.familyName}`}}</span>
                 <vue-next-level-scroll :target="`#${scrollTarget}`" ref="scrollRef"></vue-next-level-scroll>
               </p>
               <p class="title">{{agenda.title}}</p>

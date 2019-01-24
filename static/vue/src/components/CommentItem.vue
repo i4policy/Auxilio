@@ -11,7 +11,7 @@
     <div class="media-content" :id="`target-${comment.id}`">
       <div class="content" v-if="!editMode">
         <p>
-          <strong class="comment-creater" v-if="comment.createdBy"  @click.stop="openProfile(comment.createdBy.id)">{{comment.createdBy.fullName}}</strong>
+          <strong class="comment-creater" v-if="comment.createdBy"  @click.stop="openProfile(comment.createdBy.id)">{{`${comment.createdBy.givenName} ${comment.createdBy.familyName}`}}</strong>
           <br>
           {{comment.body}}
           <br>

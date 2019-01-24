@@ -1616,10 +1616,10 @@ browserslist@^4.0.0, browserslist@^4.3.4:
     electron-to-chromium "^1.3.92"
     node-releases "^1.1.1"
 
-buefy@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.7.1.tgz#84ad090c4300b1e808db5e35d3e48fad76027d8c"
-  integrity sha512-Pq7T5ASuSjpBMFPQfnkDLCKtQxz8ciftTwYkzix7DMWvZHjtcZh1dF34ve8StjXqknEKYxFruCyioE3LdPmqqQ==
+buefy@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.7.2.tgz#966b540b75d10dd0aba4d4921f0670430d6e5518"
+  integrity sha512-5nj7mJeJE81Ai86Zx1YwADugTJcH3w+iY6WDKiMqDohxXWDSE1Mxzfvn5SJqYb4ofc45lU8yTSTYpOMaZCpR/A==
   dependencies:
     bulma "0.7.2"
 
@@ -5103,6 +5103,11 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+material-design-icons-iconfont@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/material-design-icons-iconfont/-/material-design-icons-iconfont-4.0.4.tgz#8f1eb68bd59a42944209907bfd1eb997405bf162"
+  integrity sha512-jz4P9uLPrbEbzhEsEKuN+5N1TgBFdc4Dslzx/wc22D7FKT/Aelgs/HP8mB3LGI893NND5Rw6xpvZoiXtukB5zw==
+
 md5.js@^1.3.4:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/md5.js/-/md5.js-1.3.5.tgz#b5d07b8e3216e3e27cd728d72f70d1e6a342005f"
@@ -8176,10 +8181,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-cli-plugin-buefy@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/vue-cli-plugin-buefy/-/vue-cli-plugin-buefy-0.3.3.tgz#497942f854d1a578d8f8021f57323865b4c53d38"
-  integrity sha512-ZYwNuMcT9a1MvD0/YwJOLoM+mWd8+sLIw9eJgrDLZ8dcwW51nOxPPkJRZIul7FUibjsZX0JGJ+1f8MSGUdbxaA==
+vue-cli-plugin-buefy@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/vue-cli-plugin-buefy/-/vue-cli-plugin-buefy-0.3.4.tgz#6ea9abda920e0c3aa5f44df623214475e5909c37"
+  integrity sha512-58GRZ5mk6SSQKray7P8i2mbWduvHNUaULRgfQjx1ZNL+K1V+tFbLRF6CBJ08KOoVGv8UM47kcm7499qDdirR7g==
 
 vue-clickaway@^2.2.2:
   version "2.2.2"

@@ -36,7 +36,7 @@
                 <user-avatar :bucket="bucket" :size="30" :file-name="userProfile.profilePicture"/>
               </div>
               <span class="has-text-white is-size-7 user-name" @click="navigateToMyProfile">
-                {{userProfile.fullName}}
+                {{ `${userProfile.givenName} ${userProfile.familyName}` }}
                 &nbsp;&nbsp;&nbsp;&nbsp;
               </span>
               <a class="button is-primary" href="#" @click="logout">

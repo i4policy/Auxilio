@@ -94,6 +94,7 @@ export default {
     async filterByCategory(categoryId) {
       if (categoryId) {
         await this.getAgendas({ categoryId });
+        this.agendaList = this.agendaList.filter(agenda => agenda.subTopics.rows.length > 0);
       }
     },
     async filterByAll() {

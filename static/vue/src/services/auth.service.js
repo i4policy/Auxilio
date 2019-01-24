@@ -21,7 +21,10 @@ const AuthService = {
             JSON.stringify({
               title: res.title,
               id: res.id,
-              fullName: res.fullName,
+              givenName: res.givenName,
+              familyName: res.familyName,
+              organization: res.organization,
+              position: res.position,
               email: res.email,
               phoneNumber: res.phoneNumber,
               role: res.role,

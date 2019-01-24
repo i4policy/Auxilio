@@ -10,7 +10,7 @@
         </div>
         <div class='column is-4-tablet is-10-mobile name'>
           <p>
-            <span class='title is-bold'>{{ profile.fullName }}</span>
+            <span class='title is-bold'>{{ profile.title }} {{ `${profile.givenName} ${profile.familyName}` }}</span>
             <br>
             <router-link v-if="!this.userAccountId || isOwner" tag="a" :to="{name:'update-profile'}">
               <a class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0'>
@@ -20,7 +20,9 @@
             <br>
           </p>
           <p class='tagline'>
-            {{ profile.title }}
+            {{ profile.organization }}            
+            <br>
+            {{ profile.position }}            
             <br>
             {{ profile.email }}
             <br>
@@ -43,7 +45,7 @@
     </div>
     <div class='profile-options is-fullwidth'>
 
-      <b-tabs size="is-large" position="is-centered" class="block">
+      <b-tabs size="is-medium" position="is-centered" class="block">
           <b-tab-item label="My Topics" icon="document">
             <span v-if="!posts.rows.length > 0" class="has-text-centered not-found">
               No Topic found.
@@ -248,7 +250,7 @@ export default {
 }
 
 .stat-val {
-  font-size: 3em;
+  font-size: 2em;
   padding-top: 20px;
   font-weight: bold;
 }
@@ -292,11 +294,10 @@ export default {
   color: #6b808c !important;
 }
 .not-found {
-  margin-left: 40% !important;
-  font-size: 30px !important;
+  font-size: 20px !important;
   font-weight : 400 !important;
 }
-.list-link {
-  margin-left: 40% !important;
+.tab-item {
+  text-align: center !important;
 }
 </style>

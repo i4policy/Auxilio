@@ -19,7 +19,7 @@
                 class="feedback-creater"
                 v-if="feedback.createdBy"
                 @click.stop="openProfile(feedback.createdBy.id)"
-              >{{feedback.createdBy.title}} {{feedback.createdBy.fullName}}</strong>
+              >{{feedback.createdBy.title}} {{`${feedback.createdBy.givenName} ${feedback.createdBy.familyName}`}}</strong>
               <br>
               {{feedback.body}}
               <br>
@@ -43,6 +43,14 @@
                   class="has-text-danger pointer"
                   @click="deleteFeedback"
                 >DELETE</small>
+                <small
+                  v-if="$acl.hasPermission(feedback)"
+                  class="has-text-link pointer show-reply"
+                  @click="scrollToCommentInput(feedback.id)"
+                  ><b-icon icon="reply" type="is-info" size="is-small"></b-icon>
+                    reply
+                    <vue-next-level-scroll :target="`#comment-input-${feedback.id}`" :ref="`commentInputRef-${feedback.id}`"></vue-next-level-scroll>
+                  </small>
               </small>
             </p>
           </div>
@@ -101,11 +109,12 @@
         :key="i"
         :comment="comment"
       />
-      <comment-input @success="handleNewComment($event)" :feedback-id="feedback.id"/>
+      <comment-input :id="`comment-input-${feedback.id}`" @success="handleNewComment($event)" :feedback-id="feedback.id"/>
     </div>
   </article>
 </template>
 <script>
+import VueNextLevelScroll from 'vue-next-level-scroll';
 import CommentItem from './CommentItem.vue';
 import CommentInput from './CommentInput.vue';
 import FeedbackEdit from './FeedbackEdit.vue';
@@ -120,7 +129,8 @@ export default {
     CommentItem,
     CommentInput,
     FeedbackEdit,
-    UserAvatar
+    UserAvatar,
+    VueNextLevelScroll
   },
   props: {
     feedback: {
@@ -223,7 +233,11 @@ export default {
     },
     openProfile(id) {
       this.$router.push({ name: 'profile', query: { userAccountId: id } });
-    }
+    },
+    scrollToCommentInput(id) {
+      const elem = this.$refs[`commentInputRef-${id}`];
+      elem.click();
+    },
   }
 };
 </script>

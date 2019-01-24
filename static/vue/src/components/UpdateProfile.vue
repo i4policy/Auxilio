@@ -24,14 +24,53 @@
                     ></b-input>
                   </b-field>
                   <b-field
-                    :type="{'is-danger': errors.has('name')}"
-                    :message="errors.first('name')"
+                    :type="{'is-danger': errors.has('givenName')}"
+                    :message="errors.first('givenName')"
                   >
                     <b-input
-                      type="name"
-                      v-model="item.fullName"
-                      placeholder="Name"
-                      name="name"
+                      type="text"
+                      v-model="item.givenName"
+                      placeholder="Given Name"
+                      name="givenName"
+                      v-validate="'required'"
+                      data-vv-validate-on="none"
+                    ></b-input>
+                  </b-field>
+                  <b-field
+                    :type="{'is-danger': errors.has('familyName')}"
+                    :message="errors.first('familyName')"
+                  >
+                    <b-input
+                      type="text"
+                      v-model="item.familyName"
+                      placeholder="Family Name"
+                      name="familyName"
+                      v-validate="'required'"
+                      data-vv-validate-on="none"
+                    ></b-input>
+                  </b-field>
+                  <b-field
+                    :type="{'is-danger': errors.has('organization')}"
+                    :message="errors.first('organization')"
+                  >
+                    <b-input
+                      type="text"
+                      v-model="item.organization"
+                      placeholder="Organization"
+                      name="organization"
+                      v-validate="'required'"
+                      data-vv-validate-on="none"
+                    ></b-input>
+                  </b-field>
+                  <b-field
+                    :type="{'is-danger': errors.has('position')}"
+                    :message="errors.first('position')"
+                  >
+                    <b-input
+                      type="text"
+                      v-model="item.position"
+                      placeholder="Position"
+                      name="position"
                       v-validate="'required'"
                       data-vv-validate-on="none"
                     ></b-input>
@@ -144,4 +183,5 @@ export default {
 .login-button {
   margin-bottom: 30px;
 }
+input::placeholder { color: #666 !important; font-size: 1em; font-style: italic; }
 </style>
