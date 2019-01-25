@@ -30,7 +30,6 @@
                 </template>
             </b-taginput>
         </b-field>
-        <pre style="max-height: 400px"><b>Tags:</b>{{ users }}</pre>
         <b-field label="Invitation Message">
             <ckeditor :editor="editor" v-model="item.invitationMessage" :config="editorConfig"></ckeditor>
         </b-field>
