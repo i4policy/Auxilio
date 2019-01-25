@@ -63,6 +63,9 @@ const UserAccountAPI = {
   },
   updatMyProfile(data) {
     return Request.patch(`${API_ROOT}${PATH}/update-my-account`, data);
+  },
+  search(data) {
+    return Request.post(`${API_ROOT}${PATH}/search`, data);
   }
 };
 

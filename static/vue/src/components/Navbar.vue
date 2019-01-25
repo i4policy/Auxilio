@@ -12,10 +12,9 @@
       <div class="navbar-menu">
         <div class="columns" style="width:100%">
           <div class="column is-one-fifths"></div>
-          <div class="column is-three-fifths">
+          <div class="column is-two-fifths">
             <div class="columns">
-              <div class="column"></div>
-              <div class="column is-four-fifths">
+              <div class="column is-full">
                 <Search/>
               </div>
             </div>
