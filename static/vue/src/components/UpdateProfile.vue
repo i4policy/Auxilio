@@ -14,14 +14,14 @@
                     :type="{'is-danger': errors.has('title')}"
                     :message="errors.first('title')"
                   >
-                    <b-input
-                      type="title"
-                      v-model="item.title"
-                      placeholder="Title"
-                      name="title"
-                      v-validate="'required'"
-                      data-vv-validate-on="none"
-                    ></b-input>
+                  <b-select v-model="item.title" v-validate="'required'" placeholder="Select title">
+                      <option value="Mr.">
+                           Mr.
+                      </option>
+                      <option value="Mrs.">
+                           Mrs.
+                      </option>
+                  </b-select>
                   </b-field>
                   <b-field
                     :type="{'is-danger': errors.has('givenName')}"
