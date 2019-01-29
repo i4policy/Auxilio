@@ -66,6 +66,9 @@ const UserAccountAPI = {
   },
   search(data) {
     return Request.post(`${API_ROOT}${PATH}/search`, data);
+  },
+  feedback(data) {
+    return Request.post(`${API_ROOT}${PATH}/feedback`, data);
   }
 };
 

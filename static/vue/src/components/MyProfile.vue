@@ -2,8 +2,11 @@
   <div class='columns'>
   <div class='container profile'>
     <div class='section profile-heading'>
+      <a class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0' @click="openFeedbackReport()">
+          Feedback Report
+        </a>
       <div class='columns is-mobile is-multiline'>
-        <div class='column is-1'>
+        <div class='column is-2'>
           <span class='header-icon user-profile-image'>
             <user-avatar class="avatar-profile" :bucket="bucket" :size="80" :file-name="profile.profilePicture" :isRounded="false"/>
           </span>
@@ -105,6 +108,7 @@
 import UserAvatar from './UserAvatar.vue';
 import { UserAccountAPI } from '@/api';
 import { AuthService } from '@/services';
+import FeedbackReport from './FeedbackReport.vue';
 
 export default {
   name: 'MyProfile',
@@ -173,7 +177,20 @@ export default {
     async viewMoreReplies() {
       this.replies = await UserAccountAPI.getMyReplies(this.replies.count, 0, this.userAccountId);
       this.viewLessReplies = true;
-    }
+    },
+    openFeedbackReport() {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        props: {},
+        events: {
+          close: async () => {
+          }
+        },
+        component: FeedbackReport,
+        hasModalCard: true
+      });
+    },
   },
   computed: {
     isOwner() {
@@ -299,5 +316,8 @@ export default {
 }
 .tab-item {
   text-align: center !important;
+}
+.profile-heading > a{
+  float: right;
 }
 </style>

@@ -37,7 +37,7 @@
         <footer class="modal-card-foot has-background-info" style="justify-content: center;">
           <div class="is-pulled-right">
             <button class="button" type="button" @click="cancel">Close</button>
-            <button class="button is-primary">Save</button>
+            <button class="button is-primary">Invite</button>
           </div>
         </footer>
       </div>
