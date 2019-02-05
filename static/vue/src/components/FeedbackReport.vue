@@ -9,68 +9,29 @@
         <p class="modal-card-title has-text-white">Feedback Report</p>
         </header>
          <section class="modal-card-body">
-             <div class="columns">
-                 <div class="column is-5">
-                     <label for=""> Choose Type</label>
-                 </div>
-                 <div class="column is-7">
-                     <label for=""> Choose Urgency Level</label>
-                 </div>
-             </div>
-             <div class="columns">
-                 <div class="column is-5">
-                     <b-field>
-                        <b-radio-button v-model="item.feedbackType"
-                            native-value="FEEDBACK"
-                            type="is-success">
-                            <b-icon icon="comment"></b-icon>
-                            <span>Feedback</span>
-                        </b-radio-button>
-
-                        <b-radio-button v-model="item.feedbackType"
-                            native-value="ISSUE"
-                            type="is-danger">
-                            <b-icon icon="bell"></b-icon>
-                            <span>Issue</span>
-                        </b-radio-button>
-                    </b-field>
-                 </div>
-                 <div class="column is-7">
-                     <b-field>
-                        <b-radio-button v-model="item.urgencyLevel"
-                            native-value="HIGH"
-                            type="is-danger"
-                            :disabled="item.feedbackType !== 'ISSUE'"
-                            >
-                            <b-icon icon="comment"></b-icon>
-                            <span>High</span>
-                        </b-radio-button>
-
-                        <b-radio-button v-model="item.urgencyLevel"
-                            :native-value="MEDIUM"
-                            type="is-warning"
-                            :disabled="item.feedbackType !== 'ISSUE'"
-                            >
-                            <b-icon icon="check"></b-icon>
-                            <span>Medium</span>
-                        </b-radio-button>
-
-                        <b-radio-button v-model="item.urgencyLevel"
-                            native-value="LOW"
-                            type="is-info"
-                            :disabled="item.feedbackType !== 'ISSUE'"
-                            >
-                            <b-icon icon="check"></b-icon>
-                            <span>Low</span>
-                        </b-radio-button>
-                    </b-field>
-                 </div>
-             </div>
-        <b-field label="Description" :type="{'is-danger': errors.has('users')}"
-            :message="errors.first('users')">
-            <b-input maxlength="200" type="textarea" v-model="item.description" v-validate="'required'"></b-input>
-        </b-field>
-      </section>
+          <div class="columns">
+            <div class="column is-full">
+                <label for=""> Choose Urgency Level</label>
+            </div>
+          </div>
+          <b-field
+          :type="{'is-danger': errors.has('subject')}"
+          :message="errors.first('subject')"
+          >
+          <b-input
+              type="text"
+              v-model="item.subject"
+              placeholder="Subject"
+              name="subject"
+              v-validate="'required'"
+              data-vv-validate-on="none"
+          ></b-input>
+          </b-field>
+          <b-field label="Description" :type="{'is-danger': errors.has('users')}"
+              :message="errors.first('users')">
+              <b-input maxlength="200" type="textarea" v-model="item.description" v-validate="'required'"></b-input>
+          </b-field>
+        </section>
         <footer class="modal-card-foot has-background-info" style="justify-content: center;">
           <div class="is-pulled-right">
             <button class="button" type="button" @click="cancel">Close</button>
@@ -130,5 +91,8 @@ export default {
 .modal-card {
   width: 740px;
   min-height: 550px;
+}
+.modal-card label {
+  font-weight: 600;
 }
 </style>

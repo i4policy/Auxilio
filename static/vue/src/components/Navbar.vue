@@ -46,7 +46,9 @@
         </div>
       </div>
     </div>
+    <a class="button is-danger is-rounded issue" title="repport an issue" @click="openIssueReport()"> <b-icon icon="bell"></b-icon></a>
   </nav>
+
 </template>
 <script>
 import { mapMutations } from 'vuex';
@@ -54,6 +56,7 @@ import { AuthService } from '@/services';
 import { API_ROOT } from '@/api';
 import UserAvatar from './UserAvatar.vue';
 import Search from './Search.vue';
+import IssueReport from './IssueReport.vue';
 
 export default {
   name: 'Navbar',
@@ -75,11 +78,24 @@ export default {
       AuthService.logout();
     },
     openNewTopic() {
-      this.$router.push({ name: 'create-agenda'});
+      this.$router.push({ name: 'create-agenda' });
     },
     navigateToMyProfile() {
       this.$router.push({ name: 'profile' });
-    }
+    },
+    openIssueReport() {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        props: {},
+        events: {
+          close: async () => {
+          }
+        },
+        component: IssueReport,
+        hasModalCard: true
+      });
+    },
   },
   computed: {
     imgUrl() {
@@ -128,5 +144,10 @@ export default {
 .user-name,
 .user-pic {
   cursor: pointer;
+}
+.issue {
+  position: fixed;
+  right:30px;
+  bottom: 10px;
 }
 </style>
