@@ -34,7 +34,8 @@
                   ></b-input>
                 </b-field>
                 <button class="button login-button is-block is-primary is-medium is-fullwidth">Login</button>
-                <a href="#" class="forgot-password"  @click.prevent="forgotPassword()">Forgot password?</a>
+                Do not have account?<a href="#" class="forgot-password"  @click.prevent="signUp()"> Sign up</a><br>
+                <a href="#" class="forgot-password has-text-right"  @click.prevent="forgotPassword()">Forgot password?</a>
               </form>
             </div>
           </div>
@@ -58,17 +59,20 @@ export default {
       const valid = await this.$validator.validateAll();
       if (valid) {
         const result = await AuthService.login(this.item.email, this.item.password);
-        if (result) this.$router.push({ name: 'agendas' });
-      } else {
-        this.$toast.open({
-          message: 'Form is not valid! Please check the fields.',
-          type: 'is-danger',
-          position: 'is-top'
-        });
+        if (result instanceof Error) {
+          this.$toast.open({
+            message: result.message,
+            type: 'is-danger',
+            position: 'is-top'
+          });
+        } else if (result) this.$router.push({ name: 'agendas' });
       }
     },
     forgotPassword() {
       this.$router.push({ name: 'forgot-password' });
+    },
+    signUp() {
+      this.$router.push({ name: 'register' });
     }
   }
 };

@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import AuthContent from '@/components/AuthContent.vue';
 import Login from '@/components/Login.vue';
 import ForgotPassword from '@/components/ForgotPassword.vue';
+import SignUp from '@/components/Signup.vue';
 import PasswordReset from '@/components/PasswordReset.vue';
 import MyProfile from '@/components/MyProfile.vue';
 import UpdateProfile from '@/components/UpdateProfile.vue';
@@ -67,6 +68,11 @@ const router = new Router({
       ]
     },
     {
+      path: '/register',
+      name: 'register',
+      component: SignUp
+    },
+    {
       path: '/forgot-password',
       name: 'forgot-password',
       component: ForgotPassword
@@ -89,6 +95,8 @@ router.beforeEach((to, from, next) => {
   if (!authenticated && to.name === 'reset-password') {
     next();
   } else if (!authenticated && to.name === 'forgot-password') {
+    next();
+  } else if (!authenticated && to.name === 'register') {
     next();
   } else if (!authenticated && to.name !== 'login') {
     next({ name: 'login' });

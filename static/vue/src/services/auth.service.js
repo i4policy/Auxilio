@@ -6,8 +6,6 @@ export const PROFILE_KEY = 'profile';
 
 const AuthService = {
   login(email, password) {
-    console.log(email);
-    console.log(password);
     const err = new Error();
     err.message = 'Invalid login parameters';
     err.statusCode = 400;
@@ -15,6 +13,8 @@ const AuthService = {
     return UserAccountAPI.login(email, password)
       .then((res) => {
         if (res && res.token) {
+          console.log(res.status);
+          if (res.status === 'INACTIVE') { return Promise.resolve(new Error('Your account is not activated yet.')); }
           localStorage.setItem(ACCESS_TOKEN_KEY, res.token);
           localStorage.setItem(
             PROFILE_KEY,
@@ -28,7 +28,7 @@ const AuthService = {
               email: res.email,
               phoneNumber: res.phoneNumber,
               role: res.role,
-              profilePicture: res.profilePicture
+              profilePicture: res.profilePicture,
             })
           );
           return Promise.resolve(true);
