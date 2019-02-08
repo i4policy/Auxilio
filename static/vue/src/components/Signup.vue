@@ -105,7 +105,8 @@
                       v-model="item.password"
                       placeholder="Password"
                       name="password"
-                      data-vv-validate-on="none"
+                      v-validate="'required'"
+                      ref="password"
                     ></b-input>
                   </b-field>
 
@@ -118,7 +119,8 @@
                       v-model="item.confirmPassword"
                       placeholder="Confirm Password"
                       name="confirmPassword"
-                      v-validate="''"
+                      v-validate="'required|confirmed:password'"
+                      data-vv-as="password"
                     ></b-input>
                   </b-field>
 

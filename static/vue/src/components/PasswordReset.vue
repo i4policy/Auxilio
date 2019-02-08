@@ -18,9 +18,22 @@
                     placeholder="New Password"
                     name="newPassword"
                     v-validate="'required'"
-                    data-vv-validate-on="none"
+                    ref="password"
                   ></b-input>
                 </b-field>
+                <b-field
+                    :type="{'is-danger': errors.has('confirmPassword')}"
+                    :message="errors.first('confirmPassword')"
+                  >
+                    <b-input
+                      type="password"
+                      v-model="item.confirmPassword"
+                      placeholder="Confirm Password"
+                      name="confirmPassword"
+                      v-validate="'required|confirmed:password'"
+                      data-vv-as="password"
+                    ></b-input>
+                  </b-field>
                 <button
                   class="button change-password-button is-block is-primary is-medium is-fullwidth"
                 >Change</button>

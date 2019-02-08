@@ -55,6 +55,11 @@ const AuthService = {
   updateToken(token) {
     localStorage.setItem(ACCESS_TOKEN_KEY, token);
   },
+  updateProfilePicture(profilePicture) {
+    const currentProfile = JSON.parse(localStorage.getItem(PROFILE_KEY));
+    currentProfile.profilePicture = profilePicture;
+    localStorage.setItem(PROFILE_KEY, JSON.stringify(currentProfile));
+  },
   getAccessToken: () => localStorage.getItem(ACCESS_TOKEN_KEY),
 
   getProfile: () => JSON.parse(localStorage.getItem(PROFILE_KEY)),
