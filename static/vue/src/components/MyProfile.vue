@@ -3,7 +3,7 @@
   <div class='container profile'>
     <div class='section profile-heading'>
       <a class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0' @click="openFeedbackReport()">
-          Feedback Report
+          Feedback
         </a>
       <div class='columns is-mobile is-multiline'>
         <div class='column is-2'>
@@ -23,9 +23,9 @@
             <br>
           </p>
           <p class='tagline'>
-            {{ profile.organization }}            
+            {{ profile.organization }}
             <br>
-            {{ profile.position }}            
+            {{ profile.position }}
             <br>
             {{ profile.email }}
             <br>
@@ -33,15 +33,15 @@
           </p>
         </div>
         <div class='column is-2-tablet is-4-mobile has-text-centered'>
-          <p class='stat-val'>{{ posts.count }}</p>
+          <p class='stat-val'>{{ myStatus.posts.count }}</p>
           <p class='stat-key'>topics</p>
         </div>
         <div class='column is-2-tablet is-4-mobile has-text-centered'>
-          <p class='stat-val'>{{ feedbacks.count }}</p>
+          <p class='stat-val'>{{ myStatus.feedbacks.count }}</p>
           <p class='stat-key'>comments</p>
         </div>
         <div class='column is-2-tablet is-4-mobile has-text-centered'>
-          <p class='stat-val'>{{ replies.count }}</p>
+          <p class='stat-val'>{{ myStatus.replies.count }}</p>
           <p class='stat-key'>replies</p>
         </div>
       </div>
@@ -49,11 +49,11 @@
     <div class='profile-options is-fullwidth'>
 
       <b-tabs size="is-medium" position="is-centered" class="block">
-          <b-tab-item label="My Topics" icon="document">
-            <span v-if="!posts.rows.length > 0" class="has-text-centered not-found">
-              No Topic found.
+          <b-tab-item label="My Topics" icon="book">
+            <span v-if="!myStatus.posts.rows.length > 0" class="has-text-centered not-found">
+              No Topic found.{{myStatus.posts}}
             </span>
-            <div class="card-links list-link" v-for="(post, i) in posts.rows" :key="post.id" @click="$router.push({name: 'agenda-detail',params: { id: post.id }});">
+            <div class="card-links list-link" v-for="(post, i) in myStatus.posts.rows" :key="post.id" @click="$router.push({name: 'agenda-detail',params: { id: post.id }});">
               <!-- <i class="category-pill-small">3</i> -->
               <span class="post-title">
                 {{i+1}}. {{ post.title | limitTo(30, '...')}}
@@ -62,14 +62,14 @@
                 {{ post.createdAt | formatDate }}
               </span>
             </div>
-            <div v-if="!viewLessPosts && (posts.count > 5)" class="card-links" @click="viewMorePosts()"><span> View more &rarr;</span></div>
+            <div v-if="!viewLessPosts && (myStatus.posts.count > 5)" class="card-links" @click="viewMorePosts()"><span> View more &rarr;</span></div>
             <div v-if="viewLessPosts" class="card-links" @click="getMyPosts()"><span> View less &rarr;</span></div>
           </b-tab-item>
           <b-tab-item label="My Comments" icon="comment">
-            <span v-if="!feedbacks.rows.length > 0" class="has-text-centered not-found">
+            <span v-if="!myStatus.feedbacks.rows.length > 0" class="has-text-centered not-found">
               No comment found.
             </span>
-                    <div class="card-links list-link" v-for="(feedback,i) in feedbacks.rows" :key="feedback.id" @click="$router.push({name: 'agenda-detail',params: { id: feedback.postId }, query: {scrollTarget: `target-${feedback.id}`}});">
+                    <div class="card-links list-link" v-for="(feedback,i) in myStatus.feedbacks.rows" :key="feedback.id" @click="$router.push({name: 'agenda-detail',params: { id: feedback.postId }, query: {scrollTarget: `target-${feedback.id}`}});">
                     <!-- <i class="category-pill-small">3</i> -->
                     <span class="post-title">
                       {{i+1}}. {{ feedback.body | limitTo(30, '...')}}
@@ -78,14 +78,14 @@
                       {{ feedback.createdAt | formatDate }}
                     </span>
                   </div>
-                  <div v-if="!viewLessFeedbacks && feedbacks.count > 5" class="card-links" @click="viewMoreFeedbacks()"><span> View more &rarr;</span></div>
+                  <div v-if="!viewLessFeedbacks && myStatus.feedbacks.count > 5" class="card-links" @click="viewMoreFeedbacks()"><span> View more &rarr;</span></div>
                   <div v-if="viewLessFeedbacks" class="card-links" @click="getMyFeedbacks()"><span> View less &rarr;</span></div>
           </b-tab-item>
           <b-tab-item label="My Replies" icon="reply">
-            <span v-if="!replies.rows.length > 0" class="has-text-centered not-found">
+            <span v-if="!myStatus.replies.rows.length > 0" class="has-text-centered not-found">
               No reply found.
             </span>
-               <div class="card-links list-link" v-for="(reply, i) in replies.rows" :key="reply.id" @click="$router.push({name: 'agenda-detail',params: { id: reply.postId }, query: {scrollTarget: `target-${reply.id}`}});">
+               <div class="card-links list-link" v-for="(reply, i) in myStatus.replies.rows" :key="reply.id" @click="$router.push({name: 'agenda-detail',params: { id: reply.postId }, query: {scrollTarget: `target-${reply.id}`}});">
                     <!-- <i class="category-pill-small">3</i> -->
                     <span class="post-title">
                       {{i+1}}. {{ reply.body | limitTo(30, '...')}}
@@ -94,8 +94,30 @@
                       {{ reply.createdAt | formatDate }}
                     </span>
                   </div>
-                  <div v-if="!viewLessReplies && replies.count > 5" class="card-links" @click="viewMoreReplies()"><span> View more &rarr;</span></div>
+                  <div v-if="!viewLessReplies && myStatus.replies.count > 5" class="card-links" @click="viewMoreReplies()"><span> View more &rarr;</span></div>
                   <div v-if="viewLessReplies" class="card-links" @click="getMyReplies()"><span> View less &rarr;</span></div>
+          </b-tab-item>
+          <b-tab-item label="My Feedbacks" icon="note">
+            <span v-if="!myStatus.systemFeedbacks.rows.length > 0" class="has-text-centered not-found">
+              No feedback found.
+            </span>
+            <div class="card-links list-link" v-for="(feedback, i) in myStatus.systemFeedbacks.rows" :key="feedback.id">
+                  <!-- <i class="category-pill-small">3</i> -->
+                  <span class="post-title">
+                    {{i+1}}. {{ feedback.subject | limitTo(30, '...')}}
+                  </span><br>
+                  <span class="post-date">
+                    {{ feedback.description }}
+                  </span>
+                  <div class="delete-container has-text-right" @click.stop="deleteFeedback(feedback.id, i)">
+                    <b-tooltip class="delete-tooltip" label="Delete Topic" position="is-bottom">
+                      <b-icon
+                        icon="close" class="delete-agenda" type="is-secondary" position="is-bottom"
+                        size="is-small"
+                      ></b-icon>
+                    </b-tooltip>
+                  </div>
+            </div>
           </b-tab-item>
       </b-tabs>
     </div>
@@ -109,6 +131,7 @@ import UserAvatar from './UserAvatar.vue';
 import { UserAccountAPI } from '@/api';
 import { AuthService } from '@/services';
 import FeedbackReport from './FeedbackReport.vue';
+import ConfirmationDialog from '../shared/components/ConfirmationDialog.vue';
 
 export default {
   name: 'MyProfile',
@@ -118,17 +141,23 @@ export default {
   data() {
     return {
       profile: {},
-      posts: {
-        rows: [],
-        count: 0,
-      },
-      feedbacks: {
-        rows: [],
-        count: 0,
-      },
-      replies: {
-        rows: [],
-        count: 0,
+      myStatus: {
+        posts: {
+          rows: [],
+          count: 0,
+        },
+        feedbacks: {
+          rows: [],
+          count: 0,
+        },
+        replies: {
+          rows: [],
+          count: 0,
+        },
+        systemFeedbacks: {
+          rows: [],
+          count: 0,
+        }
       },
       userAccountId: null,
       bucket: 'users',
@@ -142,40 +171,41 @@ export default {
       this.userAccountId = this.$route.query.userAccountId;
     }
     this.getProfile();
-    setTimeout(() => {
-      this.getMyFeedbacks();
-    }, 500);
-    setTimeout(() => {
-      this.getMyReplies();
-    }, 500);
-    this.getMyPosts();
+    this.getMyStatus();
   },
   methods: {
     async getProfile() {
       this.profile = await UserAccountAPI.getProfile(this.userAccountId);
     },
+    async getMyStatus() {
+      this.myStatus = await UserAccountAPI.getMyStatus(this.userAccountId, 5, 0);
+    },
     async getMyPosts() {
-      this.posts = await UserAccountAPI.getMyPosts(5, 0, this.userAccountId);
+      this.myStatus.posts = await UserAccountAPI.getMyPosts(5, 0, this.userAccountId);
       this.viewLessPosts = false;
     },
     async getMyFeedbacks() {
-      this.feedbacks = await UserAccountAPI.getMyFeedbacks(5, 0, this.userAccountId);
+      this.myStatus.feedbacks = await UserAccountAPI.getMyFeedbacks(5, 0, this.userAccountId);
       this.viewLessFeedbacks = false;
     },
     async getMyReplies() {
-      this.replies = await UserAccountAPI.getMyReplies(5, 0, this.userAccountId);
+      this.myStatus.replies = await UserAccountAPI.getMyReplies(5, 0, this.userAccountId);
       this.viewLessReplies = false;
     },
+
+    async getMySystemFeedbacks() {
+      this.myStatus.systemFeedbacks = await UserAccountAPI.getMySystemFeedbacks(this.myStatus.systemFeedbacks.count, 0, this.userAccountId);
+    },
     async viewMorePosts() {
-      this.posts = await UserAccountAPI.getMyPosts(this.posts.count, 0, this.userAccountId);
+      this.myStatus.posts = await UserAccountAPI.getMyPosts(this.myStatus.posts.count, 0, this.userAccountId);
       this.viewLessPosts = true;
     },
     async viewMoreFeedbacks() {
-      this.feedbacks = await UserAccountAPI.getMyFeedbacks(this.feedbacks.count, 0, this.userAccountId);
+      this.myStatus.feedbacks = await UserAccountAPI.getMyFeedbacks(this.myStatus.count, 0, this.userAccountId);
       this.viewLessFeedbacks = true;
     },
     async viewMoreReplies() {
-      this.replies = await UserAccountAPI.getMyReplies(this.replies.count, 0, this.userAccountId);
+      this.myStatus.replies = await UserAccountAPI.getMyReplies(this.myStatus.replies.count, 0, this.userAccountId);
       this.viewLessReplies = true;
     },
     openFeedbackReport() {
@@ -188,6 +218,28 @@ export default {
           }
         },
         component: FeedbackReport,
+        hasModalCard: true
+      });
+    },
+    deleteFeedback(id, index) {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        events: {
+          close: async (data) => {
+            if (data) {
+              await UserAccountAPI.deleteSystemFeedback(id);
+              this.myStatus.systemFeedbacks.rows.splice(index, 1);
+              this.$toast.open({
+                message: 'Feedback Removed.',
+                type: 'is-success',
+                position: 'is-top',
+                duration: 1000
+              });
+            }
+          }
+        },
+        component: ConfirmationDialog,
         hasModalCard: true
       });
     },

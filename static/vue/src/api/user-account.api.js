@@ -2,6 +2,7 @@ import { API_ROOT } from '.';
 import Request from './request';
 
 const PATH = '/UserAccounts';
+const FEEDBACK_PATH = '/UserFeedbacks';
 
 const UserAccountAPI = {
   get(id) {
@@ -57,9 +58,17 @@ const UserAccountAPI = {
     const data = userAccountId ? { userAccountId, limit, skip } : { limit, skip };
     return Request.post(`${API_ROOT}${PATH}/my-replies`, data);
   },
+  getMySystemFeedbacks(limit, skip, userAccountId = null) {
+    const data = userAccountId ? { userAccountId, limit, skip } : { limit, skip };
+    return Request.post(`${API_ROOT}${PATH}/my-system-feedbacks`, data);
+  },
   getProfile(userAccountId = null) {
     const data = userAccountId ? { userAccountId } : {};
     return Request.post(`${API_ROOT}${PATH}/get-user-profile`, data);
+  },
+  getMyStatus(userAccountId = null) {
+    const data = userAccountId ? { userAccountId } : {};
+    return Request.post(`${API_ROOT}${PATH}/my-status`, data);
   },
   updatMyProfile(data) {
     return Request.patch(`${API_ROOT}${PATH}/update-my-account`, data);
@@ -69,6 +78,9 @@ const UserAccountAPI = {
   },
   feedback(data) {
     return Request.post(`${API_ROOT}${PATH}/feedback`, data);
+  },
+  deleteSystemFeedback(id) {
+    return Request.delete(`${API_ROOT}${FEEDBACK_PATH}/${id}`);
   }
 };
 

@@ -43,6 +43,11 @@
                     </b-field>
                  </div>
              </div>
+        <div class="columns">
+            <div class="column is-full">
+                <label for=""> Subject </label>
+            </div>
+        </div>
         <b-field
         :type="{'is-danger': errors.has('subject')}"
         :message="errors.first('subject')"
@@ -72,7 +77,6 @@
   </div>
 </template>
 <script>
-import { AgendaAPI } from '@/api';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UserAccountAPI } from '@/api';
 
