@@ -24,14 +24,16 @@
               </div>
             </div>
 
-            <div class="column is-narrow" style="align-items:center; display: flex;">
+            <div class="column is-narrow vote" style="align-items:center; display: flex;">
               <div class="is-block">
                 <div class="is-block has-text-centered">
-                  <p @click.stop="backToAgendas()" style="float:right">
-                    <b-icon
-                    icon="close" class="back" type="is-secondary" position="is-bottom"
-                    size="is-medium"
-                    ></b-icon>
+                  <p @click.stop="backToAgendas()" style="float:right;margin-bottom:100px">
+                    <b-tooltip label="back">
+                      <b-icon
+                      icon="minus" class="back" type="is-secondary" position="is-bottom"
+                      size="is-medium"
+                      ></b-icon>
+                    </b-tooltip>
                   </p>
                 </div>
                 <div class="is-block has-text-centered" @click="vote(1)">
@@ -298,5 +300,8 @@ export default {
 .back {
   margin-left: 0px !important;
   cursor: pointer;
+}
+i {
+  font-size: 16px !important;
 }
 </style>
