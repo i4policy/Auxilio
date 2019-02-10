@@ -51,7 +51,7 @@
       <b-tabs size="is-medium" position="is-centered" class="block">
           <b-tab-item label="My Topics" icon="book">
             <span v-if="!myStatus.posts.rows.length > 0" class="has-text-centered not-found">
-              No Topic found.{{myStatus.posts}}
+              No Topic found
             </span>
             <div class="card-links list-link" v-for="(post, i) in myStatus.posts.rows" :key="post.id" @click="$router.push({name: 'agenda-detail',params: { id: post.id }});">
               <!-- <i class="category-pill-small">3</i> -->
@@ -214,7 +214,8 @@ export default {
         parent: this,
         props: {},
         events: {
-          close: async () => {
+          close: async (data) => {
+            this.myStatus.systemFeedbacks.rows.push(data);
           }
         },
         component: FeedbackReport,

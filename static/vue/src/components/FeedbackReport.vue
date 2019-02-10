@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     cancel() {
-      this.$emit('close');
+      this.$emit('close', false);
     },
     async save() {
       const valid = await this.$validator.validateAll();
@@ -81,11 +81,11 @@ export default {
           type: 'is-success',
           position: 'is-top'
         });
-        this.$emit('close', true);
+        this.$emit('close', this.item);
       }
     }
   }
-}
+};
 </script>
 <style scoped>
 .modal-card {
