@@ -13,8 +13,7 @@ const AuthService = {
     return UserAccountAPI.login(email, password)
       .then((res) => {
         if (res && res.token) {
-          console.log(res.status);
-          if (res.status === 'INACTIVE') { return Promise.resolve(new Error('Your account is not activated yet.')); }
+          // if (res.status === 'INACTIVE') { return Promise.resolve(new Error('Your account is not activated yet.')); }
           localStorage.setItem(ACCESS_TOKEN_KEY, res.token);
           localStorage.setItem(
             PROFILE_KEY,
