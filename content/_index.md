@@ -1,4 +1,4 @@
 ---
     title: "Auxilio"
-    subtitle: "Shaping Our Future Together"
+    subtitle: "Let's Shape Our Future Together"
 ---
