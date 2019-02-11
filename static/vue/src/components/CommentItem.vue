@@ -29,7 +29,6 @@
             @click="deleteComment"
           >DELETE</small>
           <small
-            v-if="$acl.hasPermission(comment)"
             class="has-text-link pointer show-reply"
             @click="showReplyBox = !showReplyBox"
           ><b-icon icon="reply" type="is-info" size="is-small"></b-icon>reply</small>

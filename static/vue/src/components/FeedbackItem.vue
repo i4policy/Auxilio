@@ -44,7 +44,6 @@
                   @click="deleteFeedback"
                 >DELETE</small>
                 <small
-                  v-if="$acl.hasPermission(feedback)"
                   class="has-text-link pointer show-reply"
                   @click="scrollToCommentInput(feedback.id)"
                   ><b-icon icon="reply" type="is-info" size="is-small"></b-icon>
