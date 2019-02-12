@@ -59,6 +59,7 @@ export default {
       item: {
         feedbackType: 'FEEDBACK',
         urgencyLevel: 'MEDIUM',
+        createdAt: new Date()
       },
       editor: ClassicEditor,
       editorConfig: {

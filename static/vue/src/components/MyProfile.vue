@@ -54,13 +54,28 @@
               No Topic found
             </span>
             <div class="card-links list-link" v-for="(post, i) in myStatus.posts.rows" :key="post.id" @click="$router.push({name: 'agenda-detail',params: { id: post.id }});">
-              <!-- <i class="category-pill-small">3</i> -->
-              <span class="post-title">
-                {{i+1}}. {{ post.title | limitTo(30, '...')}}
-              </span><br>
-              <span class="post-date">
-                {{ post.createdAt | formatDate }}
-              </span>
+              <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title">
+                      {{ post.title | limitTo(30, '...')}}
+                  </p>
+
+                  <div class="card-header-icon delete-container has-text-right" @click.stop="deleteFeedback(feedback.id, i)">
+                    <b-tag
+                        type="is-black"
+                        v-bind:style="[{background: post.category.color }]"
+                        class="subtopic-tag"
+                    >{{ post.category.name }}</b-tag>
+                  </div>
+                </header>
+                <div class="card-content">
+                  <div class="content">
+                    <span v-html="post.description"></span>
+                    <br>
+                      <time datetime="2016-1-1">{{ post.createdAt | formatDate }}</time>
+                    </div>
+                </div>
+              </div>
             </div>
             <div v-if="!viewLessPosts && (myStatus.posts.count > 5)" class="card-links" @click="viewMorePosts()"><span> View more &rarr;</span></div>
             <div v-if="viewLessPosts" class="card-links" @click="getMyPosts()"><span> View less &rarr;</span></div>
@@ -69,14 +84,16 @@
             <span v-if="!myStatus.feedbacks.rows.length > 0" class="has-text-centered not-found">
               No comment found.
             </span>
-                    <div class="card-links list-link" v-for="(feedback,i) in myStatus.feedbacks.rows" :key="feedback.id" @click="$router.push({name: 'agenda-detail',params: { id: feedback.postId }, query: {scrollTarget: `target-${feedback.id}`}});">
-                    <!-- <i class="category-pill-small">3</i> -->
-                    <span class="post-title">
-                      {{i+1}}. {{ feedback.body | limitTo(30, '...')}}
-                    </span><br>
-                    <span class="post-date">
-                      {{ feedback.createdAt | formatDate }}
-                    </span>
+                    <div class="card-links list-link" v-for="(feedback) in myStatus.feedbacks.rows" :key="feedback.id" @click="$router.push({name: 'agenda-detail',params: { id: feedback.postId }, query: {scrollTarget: `target-${feedback.id}`}});">
+                    <div class="card">
+                      <div class="card-content">
+                        <div class="content">
+                          {{ feedback.body | limitTo(30, '...')}}
+                          <br>
+                            <time datetime="2016-1-1">{{ feedback.createdAt | formatDate }}</time>
+                          </div>
+                      </div>
+                    </div>
                   </div>
                   <div v-if="!viewLessFeedbacks && myStatus.feedbacks.count > 5" class="card-links" @click="viewMoreFeedbacks()"><span> View more &rarr;</span></div>
                   <div v-if="viewLessFeedbacks" class="card-links" @click="getMyFeedbacks()"><span> View less &rarr;</span></div>
@@ -85,14 +102,16 @@
             <span v-if="!myStatus.replies.rows.length > 0" class="has-text-centered not-found">
               No reply found.
             </span>
-               <div class="card-links list-link" v-for="(reply, i) in myStatus.replies.rows" :key="reply.id" @click="$router.push({name: 'agenda-detail',params: { id: reply.postId }, query: {scrollTarget: `target-${reply.id}`}});">
-                    <!-- <i class="category-pill-small">3</i> -->
-                    <span class="post-title">
-                      {{i+1}}. {{ reply.body | limitTo(30, '...')}}
-                    </span><br>
-                    <span class="post-date">
-                      {{ reply.createdAt | formatDate }}
-                    </span>
+               <div class="card-links list-link" v-for="(reply) in myStatus.replies.rows" :key="reply.id" @click="$router.push({name: 'agenda-detail',params: { id: reply.postId }, query: {scrollTarget: `target-${reply.id}`}});">
+                    <div class="card">
+                      <div class="card-content">
+                        <div class="content">
+                          {{ reply.body | limitTo(30, '...')}}
+                          <br>
+                            <time datetime="2016-1-1">{{ reply.createdAt | formatDate }}</time>
+                          </div>
+                      </div>
+                    </div>
                   </div>
                   <div v-if="!viewLessReplies && myStatus.replies.count > 5" class="card-links" @click="viewMoreReplies()"><span> View more &rarr;</span></div>
                   <div v-if="viewLessReplies" class="card-links" @click="getMyReplies()"><span> View less &rarr;</span></div>
@@ -101,21 +120,30 @@
             <span v-if="!myStatus.systemFeedbacks.rows.length > 0" class="has-text-centered not-found">
               No feedback found.
             </span>
+
             <div class="card-links list-link" v-for="(feedback, i) in myStatus.systemFeedbacks.rows" :key="feedback.id">
-                  <!-- <i class="category-pill-small">3</i> -->
-                  <span class="post-title">
-                    {{i+1}}. {{ feedback.subject | limitTo(30, '...')}}
-                  </span><br>
-                  <span class="post-date">
-                    {{ feedback.description }}
-                  </span>
-                  <div class="delete-container has-text-right" @click.stop="deleteFeedback(feedback.id, i)">
-                    <b-tooltip class="delete-tooltip" label="Delete Topic" position="is-bottom">
-                      <b-icon
-                        icon="close" class="delete-agenda" type="is-secondary" position="is-bottom"
-                        size="is-small"
-                      ></b-icon>
-                    </b-tooltip>
+                  <div class="card">
+                    <header class="card-header">
+                      <p class="card-header-title">
+                         {{ feedback.subject | limitTo(30, '...')}}
+                      </p>
+
+                      <div class="card-header-icon delete-container has-text-right" @click.stop="deleteFeedback(feedback.id, i)">
+                        <b-tooltip class="delete-tooltip" label="Delete Feedback" position="is-bottom">
+                          <b-icon
+                            icon="close" class="delete-agenda" type="is-secondary" position="is-bottom"
+                            size="is-small"
+                          ></b-icon>
+                        </b-tooltip>
+                      </div>
+                    </header>
+                    <div class="card-content">
+                      <div class="content">
+                        {{ feedback.description }}
+                        <br>
+                          <time datetime="2016-1-1">{{ feedback.createdAt | formatDate }}</time>
+                        </div>
+                    </div>
                   </div>
             </div>
           </b-tab-item>
@@ -368,9 +396,16 @@ export default {
   font-weight : 400 !important;
 }
 .tab-item {
-  text-align: center !important;
+  text-align: left !important;
 }
 .profile-heading > a{
   float: right;
+}
+time {
+  font-size: 14px;
+  color: #959595 !important;
+}
+.card {
+  cursor: pointer;
 }
 </style>
