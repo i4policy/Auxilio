@@ -11,7 +11,7 @@
          <section class="modal-card-body">
           <div class="columns">
             <div class="column is-full">
-                <label for=""> Choose Urgency Level</label>
+                <label for=""> Subject </label>
             </div>
           </div>
           <b-field
