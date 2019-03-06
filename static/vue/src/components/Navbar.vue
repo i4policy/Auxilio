@@ -3,7 +3,8 @@
     <div class="container is-fluid">
       <div class="navbar-brand">
         <router-link tag="a" :to="{name:'agendas'}">
-          <div class="navbar-item">
+          <div class="navbar-item" style="height: 64px">
+            <img src="@/assets/logo.png" style="max-height: 64px">
             <img src="@/assets/logo.svg" class="site-logo">
           </div>
         </router-link>

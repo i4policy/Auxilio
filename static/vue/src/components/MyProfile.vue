@@ -2,8 +2,8 @@
   <div class='columns'>
   <div class='container profile'>
     <div class='section profile-heading'>
-      <a class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0' @click="openFeedbackReport()">
-          Feedback
+      <a v-if="isOwner || !userAccountId" class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0' @click="openFeedbackReport()">
+          System Feedback
         </a>
       <div class='columns is-mobile is-multiline'>
         <div class='column is-2'>
