@@ -15,7 +15,9 @@
               ></b-icon>
             </b-tooltip>
           </div>
-          <h3 class="card-title agenda-title">{{content.title | limitTo(80, '...')}}</h3>
+          <h3 class="card-title agenda-title">{{content.title | limitTo(descriptionLimit, '...')}}</h3>
+          <h3 v-html="this.$options.filters.limitTo(content.description, descriptionLimit, '...')" class="card-title agenda-description"></h3>
+          <a class="card-title more-description" v-if="content.description && content.description.length > descriptionLimit"> Read More </a>
           <div class="delete-container has-text-right" @click.stop="openInvitation(content.id)">
             <b-tooltip class="delete-tooltip" label="Invite users" position="is-bottom">
               <b-icon
@@ -27,29 +29,29 @@
           <div class="columns">
             <div class="column is-12">
               <div
-                v-for="(user, i) in content.invitedUsers"
+                v-for="(user, i) in content.participatedUsers"
                 v-if="i <= 5"
-                v-popover="{ name: `popover-${content.id}-${content.invitedUsers[i].id}` }"
+                v-popover="{ name: `popover-${content.id}-${content.participatedUsers[i].id}` }"
                 :key="i"
                 class="member js-member">
                 <span class="member-initials" :title="`${user.givenName} ${user.familyName}`">{{ `${user.givenName} ${user.familyName}`| formatName }}</span>
-                <span v-if="user.isAdmin" class="member-type admin" title="This member is an admin of this topic."></span>
-                <popover :name="`popover-${content.id}-${content.invitedUsers[i].id}`">
+                <!-- <span v-if="user.isAdmin" class="member-type admin" title="This member is an admin of this topic."></span> -->
+                <popover :name="`popover-${content.id}-${content.participatedUsers[i].id}`">
                   <div>
                     <div class="board-member-menu">
                       <div class="mini-profile">
                         <div class="mini-profile-member member-large">
                           <span class="member-initials" title="tsadkan yitbarek (tsadkanyitbarek1)">
-                            <user-avatar class="avatar-profile" :size="30" :file-name="content.invitedUsers[i].profilePicture"/>
+                            <user-avatar class="avatar-profile" :size="30" :file-name="content.participatedUsers[i].profilePicture"/>
                           </span>
                         </div>
                         <div class="mini-profile-info">
                           <h3 class="mini-profile-info-title">
-                            <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.invitedUsers[i].id)" href="#">{{`${content.invitedUsers[i].title} ${content.invitedUsers[i].givenName} ${content.invitedUsers[i].familyName}`}}</a>
+                            <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.participatedUsers[i].id)" href="#">{{`${content.participatedUsers[i].title} ${content.participatedUsers[i].givenName} ${content.participatedUsers[i].familyName}`}}</a>
                           </h3>
-                          <p class="quiet u-bottom">{{content.invitedUsers[i].email}}</p>
-                          <p class="quiet u-bottom">{{content.invitedUsers[i].phoneNumber}}</p>
-                          <p v-if="content.invitedUsers[i].isActive" class="u-bottom">
+                          <p class="quiet u-bottom">{{content.participatedUsers[i].email}}</p>
+                          <p class="quiet u-bottom">{{content.participatedUsers[i].phoneNumber}}</p>
+                          <p v-if="content.participatedUsers[i].isActive" class="u-bottom">
                           <router-link :to="{name:'update-profile'}">
                             <a class="quiet js-edit-profile" href="#">Edit profile info</a>
                           </router-link>
@@ -57,9 +59,9 @@
                         </div>
                       </div>
                       <ul class="pop-over-list">
-                        <li><a class="js-remove-member" href="#" @click.stop="openProfile(content.invitedUsers[i].id)" >View Member’s Activity</a></li>
-                        <li v-if="content.invitedUsers[i].isActive" @click="leaveTopic(content.id, content.invitedUsers[i].id, i, content.invitedUsers[i].isActive)"><a class="js-remove-member">Leave Topic</a></li>
-                        <li v-if="!content.invitedUsers[i].isActive" @click="leaveTopic(content.id, content.invitedUsers[i].id, i, content.invitedUsers[i].isActive)"><a class="js-remove-member">Remove from Topic…</a></li>
+                        <li><a class="js-remove-member" href="#" @click.stop="openProfile(content.participatedUsers[i].id)" >View Member’s Activity</a></li>
+                        <!-- <li v-if="content.participatedUsers[i].isActive" @click="leaveTopic(content.id, content.participatedUsers[i].id, i, content.participatedUsers[i].isActive)"><a class="js-remove-member">Leave Topic</a></li> -->
+                        <!-- <li v-if="!content.participatedUsers[i].isActive" @click="leaveTopic(content.id, content.participatedUsers[i].id, i, content.participatedUsers[i].isActive)"><a class="js-remove-member">Remove from Topic…</a></li> -->
                       </ul>
                     </div>
                   </div>
@@ -69,34 +71,31 @@
               </div>
               <div
                 class="more-member member js-member"
-                v-if="content.invitedUsers.length > 1"
+                v-if="content.participatedUsers.length > 1"
                 v-popover="{ name: `popover-${content.id}-more` }"
                 >
-                <span class="member-initials" title="see all">{{ content.invitedUsers.length }}</span>
+                <span class="member-initials" title="see all">{{ content.participatedUsers.length }}</span>
                   <popover :name="`popover-${content.id}-more`">
                     <div class="popover-container">
                       <div class="popover-header">
                         <span class="popover-title">Topic Members</span>
                       </div>
-                      <h6 class="members">MEMBERS</h6>
+                      <!-- <h6 class="members">MEMBERS</h6>
                       <div class="users-avatar">
                         <div
                           v-if="user.isConfirmed"
-                          v-for="(user, i) in content.invitedUsers"
-                          v-popover="{ name: `popover-${content.id}-${content.invitedUsers[i].id}` }"
+                          v-for="(user, i) in content.participatedUsers"
+                          v-popover="{ name: `popover-${content.id}-${content.participatedUsers[i].id}` }"
                           :key="i"
                           class="member js-member">
                           <span  class="member-initials" :title="`${user.givenName} ${user.familyName}`">{{ `${user.givenName} ${user.familyName}` | formatName }}</span>
                           <span v-if="user.isAdmin" class="member-type admin" title="This member is an admin of this topic."></span>
                         </div>
-                      </div>
-
-                      <h6 class="invited">INVITED</h6>
+                      </div> -->
 
                       <div
-                        v-if="!user.isConfirmed"
-                        v-for="(user, i) in content.invitedUsers"
-                        v-popover="{ name: `popover-${content.id}-${content.invitedUsers[i].id}` }"
+                        v-for="(user, i) in content.participatedUsers"
+                        v-popover="{ name: `popover-${content.id}-${content.participatedUsers[i].id}` }"
                         :key="i"
                         class="member js-member">
                         <span class="member-initials" :title="`${user.givenName} ${user.familyName}`">{{ `${user.givenName} ${user.familyName}` | formatName }}</span>
@@ -182,7 +181,8 @@ export default {
   },
   data() {
     return {
-      isLoading: false
+      isLoading: false,
+      descriptionLimit: 80
     };
   },
   computed: {
@@ -221,13 +221,13 @@ export default {
         props: { mainTopicId: this.content.id },
         events: {
           close: async (data) => {
-            // if (data) {
-            //   if (this.content.subTopics.rows.length > 4) {
-            //     await this.getSubTopics();
-            //   } else {
-            //     await this.getSubTopics({ mainTopicId: this.content.id }, 4);
-            //   }
-            // }
+            if (data) {
+              if (this.content.subTopics.rows.length > 4) {
+                await this.getSubTopics();
+              } else {
+                await this.getSubTopics({ mainTopicId: this.content.id }, 4);
+              }
+            }
           }
         },
         component: Invitation,
@@ -279,7 +279,7 @@ export default {
     },
     async leaveTopic(mainTopicId, userId, userIndex, isActive) {
       await AgendaAPI.leaveTopic({ mainTopicId, userId });
-      this.content.invitedUsers.splice(userIndex, 1);
+      this.content.participatedUsers.splice(userIndex, 1);
       if (isActive) {
         this.$emit('onLeave');
       }
@@ -367,6 +367,12 @@ export default {
 .agenda-item {
   min-height: 150px;
   width: 270px;
+}
+.agenda-title {
+  font-size: 16px;
+}
+.agenda-description {
+  color: #666;
 }
 .delete-agenda:hover {
   color: #ed0083;

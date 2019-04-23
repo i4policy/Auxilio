@@ -10,7 +10,7 @@
         </header>
          <section class="modal-card-body">
             <div class="columns">
-              <div class="column is-4">
+              <div class="column is-6">
                 <b-field
                   label="Title"
                   :type="{'is-danger': errors.has('title')}"
@@ -25,7 +25,7 @@
                   ></b-input>
                 </b-field>
               </div>
-              <div class="column is-4">
+              <!-- <div class="column is-4">
                 <b-field
                   label="Due Date"
                   :type="{'is-danger': errors.has('due date')}"
@@ -39,8 +39,8 @@
                     icon="calendar-today"
                   ></b-datepicker>
                 </b-field>
-              </div>
-              <div class="column is-4">
+              </div> -->
+              <div class="column is-6">
             <b-field
               label="Category"
               :type="{'is-danger': errors.has('category')}"

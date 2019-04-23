@@ -5,38 +5,37 @@
         <div class="card-content">
           <div class="columns">
             <div class="column">
-
-              <p class="subtitle">
-                <tag
-                  v-if="agenda.category"
-                  :b-color="agenda.category.color"
-                  class="category"
-                >{{agenda.category.name}}</tag>
-                <span class="post-creater" @click.stop="openProfile(agenda.createdBy.id)">{{`${agenda.createdBy.givenName} ${agenda.createdBy.familyName}`}}</span>
-                <vue-next-level-scroll :target="`#${scrollTarget}`" ref="scrollRef"></vue-next-level-scroll>
+              <p @click.stop="backToAgendas()">
+                <b-tooltip label="back" >
+                  <b-icon
+                  icon="arrow-left" class="back" type="is-secondary" position="is-bottom"
+                  size="is-medium"
+                  ></b-icon>
+                </b-tooltip>
               </p>
               <p class="title">{{agenda.title}}</p>
+
+              <p class="subtitle">
+                <span class="post-creater" @click.stop="openProfile(agenda.createdBy.id)">{{`${agenda.createdBy.givenName} ${agenda.createdBy.familyName}`}}</span>,
+                <span class="post-creater"><small>{{agenda.startDate | formatDate}}</small></span>
+                <vue-next-level-scroll :target="`#${scrollTarget}`" ref="scrollRef"></vue-next-level-scroll>
+              </p>
               <div v-html="agenda.description" class="has-text-grey"></div>
-              <div class="has-text-centered">
-                <small>{{agenda.startDate | formatDate}}</small>
-                -
-                <small>{{agenda.endDate | formatDate}}</small>
-              </div>
             </div>
 
             <div class="column is-narrow vote" style="align-items:center; display: flex;">
               <div class="is-block">
                 <div class="is-block has-text-centered">
-                  <p @click.stop="backToAgendas()" style="float:right;margin-bottom:100px">
-                    <b-tooltip label="back">
-                      <b-icon
-                      icon="minus" class="back" type="is-secondary" position="is-bottom"
-                      size="is-medium"
-                      ></b-icon>
-                    </b-tooltip>
+                  <p  style="float:left;margin-bottom:100px">
+                    <tag
+                      v-if="agenda.category"
+                      :b-color="agenda.category.color"
+                      class="category"
+                    >{{agenda.category.name}}</tag>
+
                   </p>
                 </div>
-                <div class="is-block has-text-centered" @click="vote(1)">
+                <!-- <div class="is-block has-text-centered" @click="vote(1)">
                   <b-tooltip label="Up Vote">
                     <b-icon
                       icon="thumb-up"
@@ -58,26 +57,26 @@
                       custom-class="pointer"
                     ></b-icon>
                   </b-tooltip>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
           <div class="break"></div>
 
-          <div class="columns">
-            <div class="column">
+          <!-- <div class="columns"> -->
+            <!-- <div class="column">
               <progress
                 class="progress is-primary"
                 :value="agenda.progress"
                 max="100"
               >{{agenda.progress}}%</progress>
-            </div>
-            <div
+            </div> -->
+            <!-- <div
               class="column is-narrow"
-            >{{agenda.remainingDays}} days remaing({{agenda.progress || 0}}%)</div>
-          </div>
+            >{{agenda.remainingDays}} days remaing({{agenda.progress || 0}}%)</div> -->
+          <!-- </div> -->
           <nav class="level is-mobile">
-            <div class="level-item has-text-centered">
+            <div @click="vote(1)" class="level-item has-text-centered">
               <div>
                 <p class="heading">
                   <b-icon icon="thumb-up" type="is-grey-lighter" size="is-small"></b-icon>Up Vote
@@ -85,7 +84,7 @@
                 <p class="title has-text-primary">{{agenda.upVote || 0}}</p>
               </div>
             </div>
-            <div class="level-item has-text-centered">
+            <div @click="vote(-1)" class="level-item has-text-centered">
               <div>
                 <p class="heading">
                   <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"/>Down Vote

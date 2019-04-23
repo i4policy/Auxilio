@@ -4,7 +4,6 @@
       <div class="navbar-brand">
         <router-link tag="a" :to="{name:'agendas'}">
           <div class="navbar-item" style="height: 64px">
-            <img src="@/assets/logo.png" style="max-height: 64px">
             <img src="@/assets/logo.svg" class="site-logo">
           </div>
         </router-link>
@@ -47,7 +46,7 @@
         </div>
       </div>
     </div>
-    <a class="button is-danger is-rounded issue" title="repport an issue" @click="openIssueReport()"> <b-icon icon="bell"></b-icon></a>
+    <a class="primary powered-by" href="https://gitlab.com/ahadootec-projects/auxilio-front" target="_blank"> powered by Auxiliox</a>
   </nav>
 
 </template>
@@ -115,11 +114,6 @@ export default {
   box-shadow: 0 6px 9px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
 }
 
-.site-logo {
-  width: 80px;
-  height: 56px;
-}
-
 .search-input {
   background-color: #fff;
   border-color: #edf1f2;
@@ -146,9 +140,14 @@ export default {
 .user-pic {
   cursor: pointer;
 }
+.powered-by {
+  position: fixed;
+  right: 30px;
+  bottom: 10px;
+}
 .issue {
   position: fixed;
   right:30px;
-  bottom: 10px;
+  bottom: 50px;
 }
 </style>
