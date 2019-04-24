@@ -87,7 +87,7 @@
             <div @click="vote(1)" class="level-item has-text-centered">
               <div>
                 <p class="heading">
-                  <b-icon icon="thumb-up" type="is-grey-lighter" size="is-small"></b-icon>Up Vote
+                  <b-icon icon="thumb-up" :type="getAgendaVoteStateClass('up')" size="is-small"></b-icon>Up Vote
                 </p>
                 <p class="title has-text-primary">{{agenda.upVote || 0}}</p>
               </div>
@@ -95,7 +95,7 @@
             <div @click="vote(-1)" class="level-item has-text-centered">
               <div>
                 <p class="heading">
-                  <b-icon icon="thumb-down" type="is-grey-lighter" size="is-small"/>Down Vote
+                  <b-icon icon="thumb-down" :type="getAgendaVoteStateClass('down')" size="is-small"/>Down Vote
                 </p>
                 <p class="title">{{agenda.downVote || 0}}</p>
               </div>
