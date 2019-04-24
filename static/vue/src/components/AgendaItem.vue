@@ -4,9 +4,9 @@
 
       <div class="site-card-header agenda-item-header is-marginless">
         <div>
-            <span class="post-creater" @click.stop="openProfile(content.createdBy.id)">
-            {{`${content.createdBy.title} ${content.createdBy.givenName} ${content.createdBy.familyName}`}}
-          </span>
+            <span v-if="content.createdBy" class="post-creater" @click.stop="openProfile(content.createdBy.id)">
+            {{`${content.createdBy.givenName} ${content.createdBy.familyName}`}}
+            </span>
          <div class="delete-container has-text-right" @click.stop="deleteTopic(content.id)">
             <b-tooltip class="delete-tooltip" label="Delete Topic" position="is-bottom">
               <b-icon
@@ -17,15 +17,16 @@
           </div>
           <h3 class="card-title agenda-title">{{content.title | limitTo(descriptionLimit, '...')}}</h3>
           <h3 v-html="this.$options.filters.limitTo(content.description, descriptionLimit, '...')" class="card-title agenda-description"></h3>
-          <a class="card-title more-description" v-if="content.description && content.description.length > descriptionLimit"> Read More </a>
-          <div class="delete-container has-text-right" @click.stop="openInvitation(content.id)">
+          <a class="card-title more-description" v-if="content.description && content.description.length > descriptionLimit" @click="moreDescription(content.description)">Read More </a>
+          <a class="card-title more-description" v-if="content.description && content.description.length === descriptionLimit" @click="lessDescription()">Read Less </a>
+          <!-- <div class="delete-container has-text-right" @click.stop="openInvitation(content.id)">
             <b-tooltip class="delete-tooltip" label="Invite users" position="is-bottom">
               <b-icon
                 icon="plus" class="delete-agenda" type="is-secondary" position="is-bottom"
                 size="is-small"
               ></b-icon>
             </b-tooltip>
-          </div>
+          </div> -->
           <div class="columns">
             <div class="column is-12">
               <div
@@ -47,7 +48,7 @@
                         </div>
                         <div class="mini-profile-info">
                           <h3 class="mini-profile-info-title">
-                            <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.participatedUsers[i].id)" href="#">{{`${content.participatedUsers[i].title} ${content.participatedUsers[i].givenName} ${content.participatedUsers[i].familyName}`}}</a>
+                            <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.participatedUsers[i].id)" href="#">${content.participatedUsers[i].givenName} ${content.participatedUsers[i].familyName}`}}</a>
                           </h3>
                           <p class="quiet u-bottom">{{content.participatedUsers[i].email}}</p>
                           <p class="quiet u-bottom">{{content.participatedUsers[i].phoneNumber}}</p>
@@ -114,6 +115,10 @@
               >{{(content.upVote - content.downVote) | formatVote}}</span>
               &nbsp;
               <b-icon icon="thumb-down post-downvote" type="is-grey-lighter" size="is-small"></b-icon>
+            </div>
+            <div class="level-item">
+              <b-icon icon="book numberofcomments" type="is-success" size="is-small"></b-icon>
+              <span class="site-card-footer-item">{{content.numberOfSubTopics}}</span>
             </div>
             <div class="level-item">
               <b-icon icon="message numberofcomments" type="is-success" size="is-small"></b-icon>
@@ -289,6 +294,12 @@ export default {
         position: 'is-top',
         duration: 1000
       });
+    },
+    moreDescription(description) {
+      this.descriptionLimit = description.length;
+    },
+    lessDescription() {
+      this.descriptionLimit = 80;
     }
   }
 };

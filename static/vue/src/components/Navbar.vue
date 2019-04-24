@@ -20,7 +20,7 @@
             </div>
           </div>
 
-          <div class="column is-narrow" v-if="$acl.isAdmin">
+          <div class="column is-narrow" v-if="$acl.isModerator">
             <div class="navbar-item">
               <a class="button is-primary" @click="openNewTopic()">
                 <b-icon icon="plus" type="is-white" size="is-small"></b-icon>
@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-    <a class="primary powered-by" href="https://gitlab.com/ahadootec-projects/auxilio-front" target="_blank"> powered by Auxiliox</a>
+    <a class="primary powered-by" href="https://gitlab.com/ahadootec-projects/auxilio-front" target="_blank"> powered by Auxilio</a>
   </nav>
 
 </template>

@@ -13,7 +13,7 @@
                 />
               </div>
               <form @submit.prevent="update" novalidate class="column">
-                <b-field
+                <!-- <b-field
                   :type="{'is-danger': errors.has('title')}"
                   :message="errors.first('title')"
                 >
@@ -21,7 +21,7 @@
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs.">Mrs.</option>
                   </b-select>
-                </b-field>
+                </b-field> -->
                 <b-field
                   :type="{'is-danger': errors.has('givenName')}"
                   :message="errors.first('givenName')"
@@ -61,7 +61,7 @@
                     data-vv-validate-on="none"
                   ></b-input>
                 </b-field>
-                <b-field
+                <!-- <b-field
                   :type="{'is-danger': errors.has('position')}"
                   :message="errors.first('position')"
                 >
@@ -73,7 +73,13 @@
                     v-validate="'required'"
                     data-vv-validate-on="none"
                   ></b-input>
-                </b-field>
+                </b-field> -->
+                 <b-field
+                    :type="{'is-danger': errors.has('country')}"
+                    :message="errors.first('country')"
+                  >
+                    <country-select v-model="item.country" :country="country" topCountry="US" />
+                  </b-field>
                 <b-field
                   :type="{'is-danger': errors.has('phoneNumber')}"
                   :message="errors.first('phoneNumber')"
@@ -143,7 +149,8 @@ export default {
   name: 'UpdateProfile',
   data() {
     return {
-      item: {}
+      item: {},
+      country: ''
     };
   },
   methods: {

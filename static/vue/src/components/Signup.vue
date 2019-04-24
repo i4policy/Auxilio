@@ -8,7 +8,7 @@
             <p class="subtitle has-text-white">Create new account</p>
             <div class="box signup-box">
               <form @submit.prevent="signUp" novalidate>
-                <b-field
+                <!-- <b-field
                     :type="{'is-danger': errors.has('title')}"
                     :message="errors.first('title')"
                   >
@@ -20,7 +20,7 @@
                            Mrs.
                       </option>
                   </b-select>
-                  </b-field>
+                  </b-field> -->
                   <b-field
                     :type="{'is-danger': errors.has('givenName')}"
                     :message="errors.first('givenName')"
@@ -60,7 +60,7 @@
                       data-vv-validate-on="none"
                     ></b-input>
                   </b-field>
-                  <b-field
+                  <!-- <b-field
                     :type="{'is-danger': errors.has('position')}"
                     :message="errors.first('position')"
                   >
@@ -72,6 +72,12 @@
                       v-validate="'required'"
                       data-vv-validate-on="none"
                     ></b-input>
+                  </b-field> -->
+                  <b-field
+                    :type="{'is-danger': errors.has('country')}"
+                    :message="errors.first('country')"
+                  >
+                    <country-select v-model="item.country" :country="country" topCountry="US" />
                   </b-field>
                   <b-field
                     :type="{'is-danger': errors.has('phoneNumber')}"
@@ -141,7 +147,8 @@ export default {
   name: 'SignUp',
   data() {
     return {
-      item: {}
+      item: {},
+      country: ''
     };
   },
   methods: {
@@ -168,6 +175,9 @@ export default {
     login() {
       this.$router.push({ name: 'login' });
     },
+    onPhoneInput({ number, isValid, country }) {
+      console.log(number, isValid, country);
+    }
   }
 };
 </script>

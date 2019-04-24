@@ -6,18 +6,27 @@
           <div class="columns">
             <div class="column">
               <p @click.stop="backToAgendas()">
-                <b-tooltip label="back" >
+                <b-tooltip label="back">
                   <b-icon
-                  icon="arrow-left" class="back" type="is-secondary" position="is-bottom"
-                  size="is-medium"
+                    icon="arrow-left"
+                    class="back"
+                    type="is-secondary"
+                    position="is-bottom"
+                    size="is-medium"
                   ></b-icon>
                 </b-tooltip>
               </p>
               <p class="title">{{agenda.title}}</p>
 
               <p class="subtitle">
-                <span class="post-creater" @click.stop="openProfile(agenda.createdBy.id)">{{`${agenda.createdBy.givenName} ${agenda.createdBy.familyName}`}}</span>,
-                <span class="post-creater"><small>{{agenda.startDate | formatDate}}</small></span>
+                <span
+                  v-if="agenda.createdBy"
+                  class="post-creater"
+                  @click.stop="openProfile(agenda.createdBy.id)"
+                >{{`${agenda.createdBy.givenName} ${agenda.createdBy.familyName}`}}</span>,
+                <span class="post-creater">
+                  <small>{{agenda.startDate | formatDate}}</small>
+                </span>
                 <vue-next-level-scroll :target="`#${scrollTarget}`" ref="scrollRef"></vue-next-level-scroll>
               </p>
               <div v-html="agenda.description" class="has-text-grey"></div>
@@ -26,13 +35,12 @@
             <div class="column is-narrow vote" style="align-items:center; display: flex;">
               <div class="is-block">
                 <div class="is-block has-text-centered">
-                  <p  style="float:left;margin-bottom:100px">
+                  <p style="float:left;margin-bottom:100px">
                     <tag
                       v-if="agenda.category"
                       :b-color="agenda.category.color"
                       class="category"
                     >{{agenda.category.name}}</tag>
-
                   </p>
                 </div>
                 <!-- <div class="is-block has-text-centered" @click="vote(1)">
@@ -57,23 +65,23 @@
                       custom-class="pointer"
                     ></b-icon>
                   </b-tooltip>
-                </div> -->
+                </div>-->
               </div>
             </div>
           </div>
           <div class="break"></div>
 
           <!-- <div class="columns"> -->
-            <!-- <div class="column">
+          <!-- <div class="column">
               <progress
                 class="progress is-primary"
                 :value="agenda.progress"
                 max="100"
               >{{agenda.progress}}%</progress>
-            </div> -->
-            <!-- <div
+          </div>-->
+          <!-- <div
               class="column is-narrow"
-            >{{agenda.remainingDays}} days remaing({{agenda.progress || 0}}%)</div> -->
+          >{{agenda.remainingDays}} days remaing({{agenda.progress || 0}}%)</div>-->
           <!-- </div> -->
           <nav class="level is-mobile">
             <div @click="vote(1)" class="level-item has-text-centered">
@@ -102,16 +110,11 @@
             </div>
             <div class="level-item has-text-centered">
               &nbsp;&nbsp;
-              <small
-                v-if="$acl.hasPermission(agenda)"
-                class="has-text-link pointer"
-                @click="editAgenda"
-              >EDIT</small>
+              <small class="has-text-link pointer" @click="editAgenda">EDIT</small>
               &nbsp;&nbsp;
               <small
-                v-if="$acl.hasPermission(agenda)"
                 class="has-text-danger pointer"
-                @click="deleteAgenda"
+                @click="deleteAgenda(agenda)"
               >DELETE</small>
             </div>
           </nav>
@@ -144,6 +147,7 @@ import FeedbackItem from './FeedbackItem.vue';
 import FeedbackInput from './FeedbackInput.vue';
 import FilePreview from '@/components/FilePreview.vue';
 import VueNextLevelScroll from 'vue-next-level-scroll';
+import DeleteRequest from './DeleteRequest.vue';
 
 export default {
   name: 'AgendaDetail',
@@ -151,7 +155,8 @@ export default {
     FilePreview,
     FeedbackItem,
     FeedbackInput,
-    VueNextLevelScroll
+    VueNextLevelScroll,
+    DeleteRequest
   },
   data() {
     return {
@@ -235,31 +240,55 @@ export default {
       }
     },
     editAgenda() {
-      this.$router.push({
-        name: 'update-agenda',
-        params: {
-          agendaId: this.agendaId
-        }
-      });
+      if (!this.$acl.hasModeratorPermission()) {
+        this.$toast.open({
+          message: 'Can not edit if not a Moderator.',
+          type: 'is-danger',
+          position: 'is-top'
+        });
+      } else {
+        this.$router.push({
+          name: 'update-agenda',
+          params: {
+            agendaId: this.agendaId
+          }
+        });
+      }
     },
     async deleteAgenda() {
-      this.$dialog.confirm({
-        title: 'Deleting agenda',
-        message:
-          'Are you sure you want to <b>delete</b> the agenda? This action cannot be undone.',
-        confirmText: 'Delete Agenda',
-        type: 'is-danger',
-        hasIcon: true,
-        onConfirm: async () => {
-          await AgendaAPI.remove(this.agenda.id);
-          this.$toast.open({
-            message: 'Agenda deleted successfully.',
-            type: 'is-success',
-            position: 'is-top'
-          });
-          this.$router.push({ name: 'agendas' });
-        }
-      });
+      if (this.$acl.hasModeratorPermission()) {
+        this.$dialog.confirm({
+          title: 'Deleting agenda',
+          message:
+            'Are you sure you want to <b>delete</b> the agenda? This action cannot be undone.',
+          confirmText: 'Delete Agenda',
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: async () => {
+            await AgendaAPI.remove(this.agenda.id);
+            this.$toast.open({
+              message: 'Agenda deleted successfully.',
+              type: 'is-success',
+              position: 'is-top'
+            });
+            this.$router.push({ name: 'agendas' });
+          }
+        });
+      } else {
+        this.$modal.open({
+          scroll: 'keep',
+          parent: this,
+          props: {
+            agendaId: this.agenda.id
+          },
+          events: {
+            close: async () => {
+            }
+          },
+          component: DeleteRequest,
+          hasModalCard: true
+        });
+      }
     },
     scrolltoTarget() {
       const elem = this.$refs.scrollRef;

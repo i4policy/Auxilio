@@ -13,7 +13,7 @@
         </div>
         <div class='column is-4-tablet is-10-mobile name'>
           <p>
-            <span class='title is-bold'>{{ profile.title }} {{ `${profile.givenName} ${profile.familyName}` }}</span>
+            <span class='title is-bold'>{{ `${profile.givenName} ${profile.familyName}` }}</span>
             <br>
             <router-link v-if="!this.userAccountId || isOwner" tag="a" :to="{name:'update-profile'}">
               <a class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0'>
@@ -23,9 +23,9 @@
             <br>
           </p>
           <p class='tagline'>
-            {{ profile.organization }}
+            <span v-if="profile.country">{{ profile.country }}</span>
             <br>
-            {{ profile.position }}
+            {{ profile.organization }}
             <br>
             {{ profile.email }}
             <br>

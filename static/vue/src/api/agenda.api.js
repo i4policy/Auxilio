@@ -38,8 +38,8 @@ const AgendaAPI = {
   update(data) {
     return Request.patch(`${API_ROOT}${PATH}/update-my-post`, data);
   },
-  remove(postId) {
-    return Request.delete(`${API_ROOT}${PATH}/delete-my-post`, { data: { postId } });
+  remove(postId, reasonToDelete) {
+    return Request.delete(`${API_ROOT}${PATH}/delete-my-post`, { data: { postId, reasonToDelete } });
   },
   removeMainTopic(id) {
     return Request.delete(`${API_ROOT}${MAIN_TOPIC_PATH}/${id}`);

@@ -13,7 +13,7 @@
                 v-bind:style="[{background: content.category.color }]"
                 class="subtopic-tag"
             >{{ content.category.name }}</b-tag>
-            <span style="float:right">
+            <span style="float:right" v-if="content.createdBy">
               <span class="post-creater" >{{`${content.createdBy.givenName} ${content.createdBy.familyName}`}}</span>
             </span>
         </p>
