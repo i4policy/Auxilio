@@ -78,7 +78,7 @@
                     :type="{'is-danger': errors.has('country')}"
                     :message="errors.first('country')"
                   >
-                    <country-select v-model="item.country" :country="country" topCountry="US" />
+                    <country-select v-model="item.country" :country="country" topCountry="US" class="country-select"/>
                   </b-field>
                 <b-field
                   :type="{'is-danger': errors.has('phoneNumber')}"
@@ -197,5 +197,12 @@ input::placeholder {
   color: #666 !important;
   font-size: 1em;
   font-style: italic;
+}
+.country-select {
+  width: 100%;
+  height: 50px;
+  background: white;
+  border-radius: 5px;
+  outline: none;
 }
 </style>
