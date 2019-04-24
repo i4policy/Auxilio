@@ -572,4 +572,7 @@ ol, ul {
   text-align: center;
   background: transparent;
 }
+.more-description:hover {
+  text-decoration: underline;
+}
 </style>
