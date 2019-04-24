@@ -17,8 +17,8 @@
           </div>
           <h3 class="card-title agenda-title">{{content.title | limitTo(descriptionLimit, '...')}}</h3>
           <h3 v-html="this.$options.filters.limitTo(content.description, descriptionLimit, '...')" class="card-title agenda-description"></h3>
-          <a class="card-title more-description" v-if="content.description && content.description.length > descriptionLimit" @click="moreDescription(content.description)">Read More </a>
-          <a class="card-title more-description" v-if="content.description && content.description.length === descriptionLimit" @click="lessDescription()">Read Less </a>
+          <a class="card-title more-description card-links" v-if="content.description && content.description.length > descriptionLimit" @click="moreDescription(content.description)">Read More </a>
+          <a class="card-title more-description card-links" v-if="content.description && content.description.length === descriptionLimit" @click="lessDescription()">Read Less </a>
           <!-- <div class="delete-container has-text-right" @click.stop="openInvitation(content.id)">
             <b-tooltip class="delete-tooltip" label="Invite users" position="is-bottom">
               <b-icon
