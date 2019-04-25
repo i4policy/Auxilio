@@ -4,7 +4,7 @@
       <div class="navbar-brand">
         <router-link tag="a" :to="{name:'agendas'}">
           <div class="navbar-item" style="height: 64px">
-            <img src="@/assets/logo.svg" class="site-logo">
+            <img src="@/assets/logo.png" class="site-logo">
           </div>
         </router-link>
       </div>

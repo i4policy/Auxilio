@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="container has-text-centered">
           <div class="column is-4 is-offset-4">
-            <img src="@/assets/logo.svg" style="height:60px">
+            <img src="@/assets/logo.png" style="height:60px">
             <p class="subtitle has-text-white">Create new account</p>
             <div class="box signup-box">
               <form @submit.prevent="signUp" novalidate>

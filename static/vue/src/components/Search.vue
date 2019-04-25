@@ -25,7 +25,7 @@
             <div class="search-card-header columns no-margin-left no-margin-right">
               <div class="column no-padding is-8">
                 <img
-                  src="http://localhost:3001/api/Containers/users/download/avatar_anonymous.png"
+                  :src="API_ROOT + '/Containers/users/download/avatar_anonymous.png'"
                   class="avatar"
                 >
                 <div class="avatar-content">
@@ -52,6 +52,8 @@
 import { mixin as clickaway } from 'vue-clickaway';
 import { SearchAPI } from '@/api';
 
+const API_ROOT = process.env.VUE_APP_API_ROOT || window.location.origin;
+
 const debounce = require('lodash.debounce');
 
 export default {
@@ -63,7 +65,8 @@ export default {
       loading: false,
       result: [],
       showDropDown: false,
-      windowHeight: window.innerHeight
+      windowHeight: window.innerHeight,
+      API_ROOT
     };
   },
   computed: {
