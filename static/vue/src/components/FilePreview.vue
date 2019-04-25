@@ -4,10 +4,10 @@
       <div class="site-card pointer file-preview-card">
         <div class="card-body">
           <h3 class="card-title-small">{{fileData.meta.title}}</h3>
-          <div class="header-text">{{fileData.meta.year | formatDate }}</div>
+          <div class="header-text"> Year of Report : {{fileData.meta.year }}</div>
           <h3 class="card-title-small">Summary</h3>
           <div v-html="fileData.meta.summary" class="header-text"></div>
-          <h3 class="card-title-small">Bibliography</h3>
+          <h3 class="card-title-small">Citation</h3>
           <div v-html="fileData.meta.bibliography" class="header-text"></div>
           <article class="media no-border">
             <div class="media-left no-margin-right">

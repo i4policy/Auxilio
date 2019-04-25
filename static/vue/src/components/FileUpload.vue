@@ -23,6 +23,18 @@
             ></b-input>
           </b-field>
           <b-field
+            label="Year of Report"
+            :type="{'is-danger': errors.has('year')}"
+            :message="errors.first('year')"
+          >
+            <b-input
+              type="number"
+              v-model="meta.year"
+              placeholder="Year of Report*"
+              name="year"
+            ></b-input>
+          </b-field>
+          <!-- <b-field
             label="Year Of Report"
             :type="{'is-danger': errors.has('year')}"
             :message="errors.first('year')"
@@ -34,7 +46,7 @@
               name="year"
               icon="calendar-today"
             ></b-datepicker>
-          </b-field>
+          </b-field> -->
 
           <b-field class="file">
             <b-upload v-model="file">
@@ -50,7 +62,7 @@
             <ckeditor :editor="editor" v-model="meta.summary" :config="editorConfig"></ckeditor>
           </b-field>
 
-          <b-field label="Bibiliography">
+          <b-field label="Citation">
             <ckeditor :editor="editor" v-model="meta.bibliography" :config="editorConfig"></ckeditor>
           </b-field>
         </section>

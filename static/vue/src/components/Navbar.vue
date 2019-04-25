@@ -33,7 +33,11 @@
             <div class="navbar-item">
               <div class="mb-3 user-pic" size="40px" @click="navigateToMyProfile">
                 <span v-if="$acl.hasModeratorPermission()">
-                  <b-tag type="is-secondary" class="categories" style="background: #75ec6d">Moderator</b-tag>
+                  <b-tag
+                    type="is-secondary"
+                    class="categories"
+                    style="background: #75ec6d"
+                  >Moderator</b-tag>
                 </span>
               </div>
               <div class="mb-3 user-pic" size="40px" @click="navigateToMyProfile">
@@ -54,6 +58,7 @@
     <a
       class="primary powered-by"
       href="https://gitlab.com/ahadootec-projects/auxilio-front"
+      style="color: white"
       target="_blank"
     >powered by Auxilio</a>
   </nav>
