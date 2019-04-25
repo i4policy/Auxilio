@@ -6,14 +6,22 @@
           class="modal-card-head has-background-info has-text-centered"
           style="justify-content: center;"
         >
-        <p class="modal-card-title has-text-white">Issue Report</p>
+          <p class="modal-card-title has-text-white">Delete Request</p>
         </header>
-         <section class="modal-card-body">
-        <b-field label="Reason to delete" :type="{'is-danger': errors.has('reasonToDelete')}"
-            :message="errors.first('reasonToDelete')">
-            <b-input maxlength="200" type="textarea" v-model="item.reasonToDelete" v-validate="'required'"></b-input>
-        </b-field>
-      </section>
+        <section class="modal-card-body">
+          <b-field
+            label="Why do you think this post should be deleted?"
+            :type="{'is-danger': errors.has('reasonToDelete')}"
+            :message="errors.first('reasonToDelete')"
+          >
+            <b-input
+              maxlength="200"
+              type="textarea"
+              v-model="item.reasonToDelete"
+              v-validate="'required'"
+            ></b-input>
+          </b-field>
+        </section>
         <footer class="modal-card-foot has-background-info" style="justify-content: center;">
           <div class="is-pulled-right">
             <button class="button" type="button" @click="cancel">Close</button>
@@ -34,7 +42,7 @@ export default {
     agendaId: {
       type: String,
       default: () => ''
-    },
+    }
   },
   data() {
     return {
@@ -45,8 +53,7 @@ export default {
       }
     };
   },
-  created() {
-  },
+  created() {},
   methods: {
     cancel() {
       this.$emit('close');

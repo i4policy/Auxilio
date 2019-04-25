@@ -2,14 +2,22 @@
   <div class="columns">
     <div class="container profile">
       <div class="section profile-heading">
+         <div class="columns is-mobile is-multiline" style="float: right">
+            <a
+          v-if="isOwner || !userAccountId"
+          class="button is-primary is-outlined"
+          href="#"
+          @click="openFeedbackReport()"
+        >System Feedback</a>
         <a
           v-if="isOwner || !userAccountId"
           class="button is-primary is-outlined"
           href="#"
-          id="edit-preferences"
-          style="margin: 5px 0"
-          @click="openFeedbackReport()"
-        >System Feedback</a>
+          style="margin-left: 5px "
+          @click="openIssueReport()"
+        >Issue Report</a>
+        </div>
+
         <div class="columns is-mobile is-multiline">
           <div class="column is-2">
             <span class="header-icon user-profile-image">
@@ -34,7 +42,7 @@
                 <a
                   class="button is-primary is-outlined"
                   href="#"
-                  id="edit-preferences"
+                  id=""
                   style="margin: 5px 0"
                 >Edit Profile</a>
               </router-link>
@@ -270,6 +278,8 @@ import UserAvatar from './UserAvatar.vue';
 import { UserAccountAPI } from '@/api';
 import { AuthService } from '@/services';
 import FeedbackReport from './FeedbackReport.vue';
+import IssueReport from './IssueReport.vue';
+
 import ConfirmationDialog from '../shared/components/ConfirmationDialog.vue';
 
 export default {
@@ -407,6 +417,18 @@ export default {
           }
         },
         component: FeedbackReport,
+        hasModalCard: true
+      });
+    },
+    openIssueReport() {
+      this.$modal.open({
+        scroll: 'keep',
+        parent: this,
+        props: {},
+        events: {
+          close: async () => {}
+        },
+        component: IssueReport,
         hasModalCard: true
       });
     },

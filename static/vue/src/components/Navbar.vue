@@ -64,7 +64,6 @@ import { AuthService } from '@/services';
 import { API_ROOT } from '@/api';
 import UserAvatar from './UserAvatar.vue';
 import Search from './Search.vue';
-import IssueReport from './IssueReport.vue';
 
 export default {
   name: 'Navbar',
@@ -90,18 +89,6 @@ export default {
     },
     navigateToMyProfile() {
       this.$router.push({ name: 'profile' });
-    },
-    openIssueReport() {
-      this.$modal.open({
-        scroll: 'keep',
-        parent: this,
-        props: {},
-        events: {
-          close: async () => {}
-        },
-        component: IssueReport,
-        hasModalCard: true
-      });
     }
   },
   computed: {

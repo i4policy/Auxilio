@@ -80,7 +80,7 @@
                   >
                     <country-select v-model="item.country" :country="country" topCountry="US" class="country-select"/>
                   </b-field>
-                <b-field
+                <!-- <b-field
                   :type="{'is-danger': errors.has('phoneNumber')}"
                   :message="errors.first('phoneNumber')"
                 >
@@ -89,7 +89,7 @@
                     @onInput="onPhoneInput"
                     :preferredCountries="['et', 'us', 'gb', 'ua']"
                   ></vue-tel-input>
-                </b-field>
+                </b-field> -->
                 <b-field
                   :type="{'is-danger': errors.has('email')}"
                   :message="errors.first('email')"
