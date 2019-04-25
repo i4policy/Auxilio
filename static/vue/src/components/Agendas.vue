@@ -15,16 +15,17 @@
           class="categories"
           v-for="(category, i) in categoryList"
           :key="i"
-          closable
+          :closable="$acl.hasModeratorPermission()"
           v-bind:style="[{background: category.color }]"
           @close="deleteCategory(category.id)"
           @click.native="filterByCategory(category.id)"
         >{{category.name}}</b-tag>
-         <!-- <tag
+         <tag
+         v-if="$acl.hasModeratorPermission()"
           @click.native="openCategoryModal()"
         class="add-category"
         ><b-tooltip label="New Category" position="is-bottom">+</b-tooltip>
-        </tag> -->
+        </tag>
       </div>
     </div>
     <div v-if="!isLoading && agendaList.length == 0" class="columns is-centered no-found">
@@ -189,5 +190,8 @@ export default {
   opacity: 0.7;
   height: 5px;
   width: 20px;
+}
+.tag {
+  color: #fff; 
 }
 </style>

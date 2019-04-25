@@ -2247,6 +2247,11 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
+country-region-data@^1.4.4:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/country-region-data/-/country-region-data-1.4.5.tgz#a4c6638c4fab3200a43d915a6e86c03c209cd85f"
+  integrity sha512-2x5o8u7xE5Eec2+3s0fPQye+p/eDiqB2cgubmgmUVddq9rpPIKQjzebuGtlDchr6FKq0VNS02C5C3jP8AB4RKw==
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"
@@ -8192,6 +8197,14 @@ vue-clickaway@^2.2.2:
   integrity sha512-25SpjXKetL06GLYoLoC8pqAV6Cur9cQ//2g35GRFBV4FgoljbZZjTINR8g2NuVXXDMLSUXaKx5dutgO4PaDE7A==
   dependencies:
     loose-envify "^1.2.0"
+
+vue-country-region-select@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/vue-country-region-select/-/vue-country-region-select-2.0.4.tgz#ca51798a6ff23d60d8845da97bdb8c3f3d3acb0a"
+  integrity sha512-gqQLJXNFvoIwfhjyKlezOZ+XXl/FKtJFJzJfiT5ojiokqPwa8zudgFn8BMMC+HBvYT8k+LoQmKvltImSVOQO2g==
+  dependencies:
+    country-region-data "^1.4.4"
+    vue "^2.5.17"
 
 vue-eslint-parser@^2.0.3:
   version "2.0.3"

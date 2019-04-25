@@ -48,7 +48,7 @@
                         </div>
                         <div class="mini-profile-info">
                           <h3 class="mini-profile-info-title">
-                            <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.participatedUsers[i].id)" href="#">${content.participatedUsers[i].givenName} ${content.participatedUsers[i].familyName}`}}</a>
+                            <a class="mini-profile-info-title-link js-profile" @click.stop="openProfile(content.participatedUsers[i].id)" href="#">{{ `${content.participatedUsers[i].givenName} ${content.participatedUsers[i].familyName}`}}</a>
                           </h3>
                           <p class="quiet u-bottom">{{content.participatedUsers[i].email}}</p>
                           <p class="quiet u-bottom">{{content.participatedUsers[i].phoneNumber}}</p>

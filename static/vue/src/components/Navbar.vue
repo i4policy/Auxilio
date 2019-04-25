@@ -32,6 +32,11 @@
           <div class="column is-narrow">
             <div class="navbar-item">
               <div class="mb-3 user-pic" size="40px" @click="navigateToMyProfile">
+                <span v-if="$acl.hasModeratorPermission()">
+                  <b-tag type="is-secondary" class="categories" style="background: #75ec6d">Moderator</b-tag>
+                </span>
+              </div>
+              <div class="mb-3 user-pic" size="40px" @click="navigateToMyProfile">
                 <user-avatar :bucket="bucket" :size="30" :file-name="userProfile.profilePicture"/>
               </div>
               <span class="has-text-white is-size-7 user-name" @click="navigateToMyProfile">
@@ -46,9 +51,12 @@
         </div>
       </div>
     </div>
-    <a class="primary powered-by" href="https://gitlab.com/ahadootec-projects/auxilio-front" target="_blank"> powered by Auxilio</a>
+    <a
+      class="primary powered-by"
+      href="https://gitlab.com/ahadootec-projects/auxilio-front"
+      target="_blank"
+    >powered by Auxilio</a>
   </nav>
-
 </template>
 <script>
 import { mapMutations } from 'vuex';
@@ -89,13 +97,12 @@ export default {
         parent: this,
         props: {},
         events: {
-          close: async () => {
-          }
+          close: async () => {}
         },
         component: IssueReport,
         hasModalCard: true
       });
-    },
+    }
   },
   computed: {
     imgUrl() {
@@ -147,7 +154,7 @@ export default {
 }
 .issue {
   position: fixed;
-  right:30px;
+  right: 30px;
   bottom: 50px;
 }
 </style>

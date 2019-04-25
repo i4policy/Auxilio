@@ -50,6 +50,10 @@ const UserAccountAPI = {
     const data = userAccountId ? { userAccountId, limit, skip } : { limit, skip };
     return Request.post(`${API_ROOT}${PATH}/my-posts`, data);
   },
+  getMyAgendas(limit, skip, userAccountId = null) {
+    const data = userAccountId ? { userAccountId, limit, skip } : { limit, skip };
+    return Request.post(`${API_ROOT}${PATH}/my-agendas`, data);
+  },
   getMyFeedbacks(limit, skip, userAccountId = null) {
     const data = userAccountId ? { userAccountId, limit, skip } : { limit, skip };
     return Request.post(`${API_ROOT}${PATH}/my-feedbacks`, data);

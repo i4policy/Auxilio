@@ -10,12 +10,11 @@ const acl = {
     return AuthService.getProfile().role === 'Moderator';
   },
   hasModeratorPermission() {
-    const isAdmin = (AuthService.getProfile().role === 'Admin') || (AuthService.getProfile().role === 'Moderator');
-    // return isAdmin || object.isOwner;
+    const isAdmin = AuthService.getProfile().role === 'Admin' || AuthService.getProfile().role === 'Moderator';
     return isAdmin;
   },
   hasPermission(object) {
-    const isAdmin = (AuthService.getProfile().role === 'Admin') || (AuthService.getProfile().role === 'Moderator');
+    const isAdmin = AuthService.getProfile().role === 'Admin' || AuthService.getProfile().role === 'Moderator';
     return isAdmin || object.isOwner;
   }
 };
