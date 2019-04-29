@@ -9,7 +9,7 @@
 
 Auxilio is an agenda setting tool that enables distributed groups to collaboratively develop agendas. 
 <br><br>
-The tool provides a series of agenda cards on which topics of discussion can be defined by participants. Under each defined topic, comments and supporting documents can be exchanged amongst participating individuals. The tool also features a voting module which participants can use to vote a topic or comment up or down, which are aggregated in real-time to highlight the most important conversations based on user perception. The platform frontend is built using Veu.JS and the backend uses node.js under the loopback API generator frame work for back end. To keep records this tool uses mongo db.
+The tool provides a series of agenda cards on which topics of discussion can be defined by participants. Under each defined topic, comments and supporting documents can be exchanged amongst participating individuals. The tool also features a voting module. Participants can use vote a topic or comment up or down, and these votes are aggregated in real-time to highlight the most important conversations based on user perception. The platform frontend is built using Veu.JS and the backend uses node.js under the loopback API generator frame work for back end. To keep records this tool uses mongo db.
 
 ![Screen Shot 2019-04-29 at 1 11 35 AM](https://user-images.githubusercontent.com/43605024/56871272-c8fa0300-6a1b-11e9-9539-0580a4ea5f89.png)
 Source: Most images are examples from a live deployment of the current version of the tool as of 29/4/2019 for i4Policy's community to inclusively and collaboratively develop the agenda for revising v1.2 of the Africa Innovation Policy Manifesto: https://auxilio.i4policy.org/
